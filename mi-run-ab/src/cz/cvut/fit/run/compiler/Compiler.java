@@ -7,30 +7,56 @@ import java.util.Map;
 
 import antlr.collections.AST;
 
-public class Compile {
+public class Compiler implements Constants {
 
 	private int PC = 0;
 	private int BC_VariableCount = 0; // pocet promennych v bytecode
 	private Map<String, Integer> variableMap;
 	private ByteCode byteCode;
 
-	public Compile() {
+	public Compiler() {
 		PC = BC_VariableCount = 0;
 		variableMap = new HashMap<String, Integer>();
 		byteCode = new ByteCode();
 	}
 
-	// expects AST root
-	public ByteCode ast(AST node) {
+	public ByteCode compile(AST root) {
 		byteCode.clear();
+		AST temp = root;
+		traverse(temp, 0);
+		while (temp.getNextSibling() != null) {
+			temp = temp.getNextSibling();
+			traverse(temp, 0);
+		}
+		return this.byteCode;
+	}
 
+	private void traverse(AST node, int depth) {
+		PC++;
+		printNode(node, depth);
+		compileInternal(node);
+		if (node.getFirstChild() == null) {
+			return;
+		}
+		for (AST ast : getAstChildren(node)) {
+			traverse(ast, depth + 1);
+		}
+	}
+
+	private void printNode(AST node, int depth) {
+		for (int i = 0; i < depth; i++) {
+			System.out.print(" ");
+		}
+		System.out.println(node.getText());
+	}
+
+	// expects AST root
+	private void compileInternal(AST node) {
 		String tokenName = node.getText();
 		if (tokenName.equals("METHOD_DEF")) {
 			BC_VariableCount = 0; // resetujeme pocitadlo promennych, vstupujeme do lokalni promenne
 			functionHeader(node);
 		}
-
-		return byteCode;
 	}
 
 	private List<AST> getAstChildren(AST node) {
@@ -42,11 +68,11 @@ public class Compile {
 		}
 
 		AST dummy = node.getFirstChild();
-		list.add(dummy);
 
 		if (dummy == null) {
 			return list;
 		}
+		list.add(dummy);
 
 		while (dummy.getNextSibling() != null) {
 			dummy = dummy.getNextSibling();
@@ -154,7 +180,7 @@ public class Compile {
 		// (tj. PC + 2)
 		// skok na L1
 		byteCode.changeOperand(PC_L1, 0, (PC_jumpToL1 + 1) + "");
-		byteCode.getInstruction(PC_L1).setOpcode(byteCode.getInstruction(PC_L1).getInvertedForInstruction());
+		byteCode.get(PC_L1).setOpcode(byteCode.get(PC_L1).getInvertedForInstruction());
 
 		// skok na L1
 		// byteCode.add(new Instruction(Instruction.InsSet.JUMP,
@@ -167,17 +193,17 @@ public class Compile {
 		if (token_EXPRESSION == null)
 			return;
 		String tokenName = token_EXPRESSION.getText();
-		if (tokenName.equals(Constants.IF)) {
+		if (tokenName.equals(IF)) {
 			if_condition(token_EXPRESSION);
-		} else if (tokenName.equals(Constants.FOR)) {
+		} else if (tokenName.equals(FOR)) {
 			for_cycle(token_EXPRESSION);
-		} else if (tokenName.equals(Constants.ASSIGN)) {
+		} else if (tokenName.equals(ASSIGN)) {
 			assignment_expression(token_EXPRESSION);
-		} else if (tokenName.equals(Constants.VARIABLE_DEF)) {
+		} else if (tokenName.equals(VARIABLE_DEF)) {
 			variable_definition(token_EXPRESSION);
-		} else if (tokenName.equals(Constants.RETURN)) {
+		} else if (tokenName.equals(RETURN)) {
 			return_statement(token_EXPRESSION);
-		} else if (tokenName.equals(Constants.EXPR) || tokenName.equals(Constants.LEFT_CR_BR)) {
+		} else if (tokenName.equals(EXPR) || tokenName.equals(LEFT_CR_BR)) {
 			expression(token_EXPRESSION.getFirstChild());
 		} else if (isLogical(tokenName)) {
 			logic_expression(token_EXPRESSION);
@@ -200,16 +226,16 @@ public class Compile {
 		expression(node_token_LEFT);
 		expression(node_token_RIGHT);
 
-		if (node.getText().equals(Constants.LOGIC_GT)) { // >
+		if (node.getText().equals(LOGIC_GT)) { // >
 			// if-less-than--then-jump-to
 			byteCode.add(new Instruction(Instruction.InsSet.IF_LTE_JUMP, ""));
-		} else if (node.getText().equals(Constants.LOGIC_LT)) { // <
+		} else if (node.getText().equals(LOGIC_LT)) { // <
 			// if-greater-than--then-jump-to
 			byteCode.add(new Instruction(Instruction.InsSet.IF_GTE_JUMP, ""));
-		} else if (node.getText().equals(Constants.LOGIC_EQ)) { // ==
+		} else if (node.getText().equals(LOGIC_EQ)) { // ==
 			// if-not-equal--then-jump-to
 			byteCode.add(new Instruction(Instruction.InsSet.IF_NEQ_JUMP, ""));
-		} else if (node.getText().equals(Constants.LOGIC_NEQ)) { // !=
+		} else if (node.getText().equals(LOGIC_NEQ)) { // !=
 			// if-equal--then-jump-to
 			byteCode.add(new Instruction(Instruction.InsSet.IF_EQ_JUMP, ""));
 		}
@@ -232,18 +258,18 @@ public class Compile {
 			expression(node_token_RIGHT);
 		}
 
-		if (node.getText().equals(Constants.PLUS)) { // +
+		if (node.getText().equals(PLUS)) { // +
 			byteCode.add(new Instruction(Instruction.InsSet.PLUS));
-		} else if (node.getText().equals(Constants.MINUS)) { // -
+		} else if (node.getText().equals(MINUS)) { // -
 			byteCode.add(new Instruction(Instruction.InsSet.MINUS));
-		} else if (node.getText().equals(Constants.MULTI)) { // *
+		} else if (node.getText().equals(MULTI)) { // *
 			byteCode.add(new Instruction(Instruction.InsSet.MULTIPLY));
 		}
 	}
 
 	private void assignment_expression(AST node) {
-		if (node.getFirstChild().getText().equals(Constants.LEFT_SQ_BR)) { // array
-																			// assign
+		if (node.getFirstChild().getText().equals(LEFT_SQ_BR)) { // array
+																	// assign
 			AST node_token_VARIABLE = node.getFirstChild().getFirstChild();
 			AST node_token_INDEX = node_token_VARIABLE.getNextSibling().getFirstChild();
 			AST node_token_VALUE = node.getFirstChild().getNextSibling();
@@ -256,7 +282,7 @@ public class Compile {
 	}
 
 	private void function_call(AST node) {
-		// TODO : blablabla Constants.LEFT_PARENT
+		// TODO : blablabla LEFT_PARENT
 
 	}
 
@@ -309,7 +335,7 @@ public class Compile {
 		AST node_token_TYPEVAL;
 		AST dummy = node.getFirstChild(); // MODIFIERS
 		AST node_token_TYPE = dummy.getNextSibling();
-		if (node_token_TYPE.getFirstChild().getText().equals(Constants.LEFT_SQ_BR)) {
+		if (node_token_TYPE.getFirstChild().getText().equals(LEFT_SQ_BR)) {
 			AST node_token_ARRTYPE = node_token_TYPE.getFirstChild();
 			node_token_TYPEVAL = node_token_ARRTYPE.getFirstChild();
 			isArray = true;
@@ -327,8 +353,8 @@ public class Compile {
 		if (!isArray) {
 			AST node_token_VARVAL = node_token_ASSIGN.getFirstChild().getFirstChild();
 			String varVal = "";
-			if (node_token_VARVAL.getText().equals(Constants.MINUS))
-				varVal = Constants.MINUS + node_token_VARVAL.getFirstChild().getText();
+			if (node_token_VARVAL.getText().equals(MINUS))
+				varVal = MINUS + node_token_VARVAL.getFirstChild().getText();
 			else
 				varVal = node_token_VARVAL.getText();
 			if (isNumeric(varVal)) {
@@ -349,5 +375,23 @@ public class Compile {
 					.getFirstChild();
 		}
 
+	}
+
+	private static boolean isArithmetic(String tokenName) {
+		if (tokenName.equals(MINUS) || tokenName.equals(MULTI) || tokenName.equals(PLUS)) {
+			return true;
+		}
+		return false;
+	}
+
+	private static boolean isLogical(String tokenName) {
+		if (tokenName.equals(LOGIC_EQ) || tokenName.equals(LOGIC_NEQ) || tokenName.equals(LOGIC_GT) || tokenName.equals(LOGIC_LT)) {
+			return true;
+		}
+		return false;
+	}
+
+	private static boolean isNumeric(String str) {
+		return str.matches("-?\\d+(\\.\\d+)?"); // match a number with optional '-' and decimal.
 	}
 }

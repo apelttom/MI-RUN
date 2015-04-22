@@ -9,6 +9,9 @@ import antlr.CommonAST;
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
 import antlr.collections.AST;
+import cz.cvut.fit.run.compiler.ByteCode;
+import cz.cvut.fit.run.compiler.Compiler;
+import cz.cvut.fit.run.compiler.Instruction;
 import cz.cvut.fit.run.parser.JavaLexer;
 import cz.cvut.fit.run.parser.JavaRecognizer;
 
@@ -32,9 +35,17 @@ public class Main {
 
 			// get AST tree and print it in LISP notation
 			CommonAST myTree = (CommonAST) parser.getAST();
-			printRoot(myTree);
+//			System.out.println(myTree.toStringList());
+//			printRoot(myTree);
 
 			// generate bytecode
+			Compiler compiler = new Compiler();
+			ByteCode byteCode = compiler.compile(myTree);
+			
+			// print it
+			for (Instruction ins : byteCode) {
+				System.out.println(ins.toString());
+			}
 
 		} catch (FileNotFoundException | RecognitionException | TokenStreamException e) {
 			e.printStackTrace();
