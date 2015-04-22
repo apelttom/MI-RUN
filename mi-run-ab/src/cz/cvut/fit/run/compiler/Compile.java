@@ -19,17 +19,17 @@ public class Compile {
 		variableMap = new HashMap<String, Integer>();
 		byteCode = new ByteCode();
 	}
-	
+
 	// expects AST root
 	public ByteCode ast(AST node) {
 		byteCode.clear();
-		
+
 		String tokenName = node.getText();
 		if (tokenName.equals("METHOD_DEF")) {
 			BC_VariableCount = 0; // resetujeme pocitadlo promennych, vstupujeme do lokalni promenne
 			functionHeader(node);
 		}
-		
+
 		return byteCode;
 	}
 
@@ -251,8 +251,7 @@ public class Compile {
 			AST node_token_VARIABLE = node.getFirstChild();
 			AST node_token_VALUE = node_token_VARIABLE.getNextSibling();
 			expression(node_token_VALUE);
-			byteCode.add(new Instruction(Instruction.InsSet.STORE_VAR, variableMap.get(node_token_VARIABLE.getText()) + "",
-					"int"));
+			byteCode.add(new Instruction(Instruction.InsSet.STORE_VAR, variableMap.get(node_token_VARIABLE.getText()) + "", "int"));
 		}
 	}
 

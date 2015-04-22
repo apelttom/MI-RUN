@@ -8,9 +8,11 @@ public class ByteCode {
 	public void add(String instruction) {
 		instructions.add(instruction);
 	}
+
 	public void clear() {
 		instructions.clear();
 	}
+
 	public int size() {
 		return instructions.size();
 	}
