@@ -3,35 +3,21 @@ package cz.cvut.fit.run.compiler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Instruction {
+public class Instruction implements IInstruction {
 
-	public enum InsSet {
-		IF_EQ_JUMP, IF_GT_JUMP, IF_GTE_JUMP, IF_LT_JUMP, IF_LTE_JUMP, IF_NEQ_JUMP, JUMP, LOAD_VAR, MINUS, MULTIPLY, NOP, PLUS, PUSH_NUMBER, STORE_VAR
-	};
-
-	private int label;
-	private InsSet opcode;
-
+	private InsSet insCode;
 	private List<String> operands;
 
-	public Instruction(InsSet opcode) {
-		this(opcode, null, null, -1);
+	public Instruction(InsSet insCode) {
+		this(insCode, null, null);
 	}
 
-	public Instruction(InsSet opcode, String operand1) {
-		this(opcode, operand1, null, -1);
+	public Instruction(InsSet insCode, String operand1) {
+		this(insCode, operand1, null);
 	}
 
-	public Instruction(InsSet opcode, String operand1, int label) {
-		this(opcode, operand1, null, label);
-	}
-
-	public Instruction(InsSet opcode, String operand1, String operand2) {
-		this(opcode, operand1, operand2, -1);
-	}
-
-	public Instruction(InsSet opcode, String operand1, String operand2, int label) {
-		this.opcode = opcode;
+	public Instruction(InsSet insCode, String operand1, String operand2) {
+		this.insCode = insCode;
 
 		operands = new ArrayList<String>();
 		if (operand1 != null) {
@@ -40,12 +26,10 @@ public class Instruction {
 		if (operand2 != null) {
 			operands.add(operand2);
 		}
-
-		this.label = label;
 	}
 
 	public InsSet getInvertedForInstruction() {
-		switch (this.opcode) {
+		switch (this.insCode) {
 		case IF_GT_JUMP:
 		case IF_GTE_JUMP:
 			return InsSet.IF_LT_JUMP;
@@ -59,7 +43,7 @@ public class Instruction {
 	}
 
 	public InsSet getInvertedIfInstruction() {
-		switch (this.opcode) {
+		switch (this.insCode) {
 		case IF_GT_JUMP:
 			return InsSet.IF_LTE_JUMP;
 		case IF_LT_JUMP:
@@ -71,30 +55,36 @@ public class Instruction {
 		return null;
 	}
 
-	public int getLabel() {
-		return label;
-	}
-
+	@Override
 	public List<String> getOperands() {
 		return operands;
 	}
 
-	public String operandsToString() {
+	private String operandsToString() {
 		String out = "";
 		for (String op : operands) {
 			out = out.concat(op + " ");
 		}
-
-		return (out);
+		return out;
 	}
 
-	public void setOpcode(InsSet opcode) {
-		this.opcode = opcode;
+	public void setInsCode(InsSet insCode) {
+		this.insCode = insCode;
 	}
 
 	@Override
 	public String toString() {
-		String s = opcode + "" + (operandsToString().length() > 0 ? " " + operandsToString() : "") + "" + (label != -1 ? " " + label : "");
+		String s = insCode + "" + (operands.size() > 0 ? " " + operandsToString() : "");
 		return s;
+	}
+	
+	@Override
+	public int getSize() {
+		return operands.size();
+	}
+
+	@Override
+	public InsSet getInstructionCode() {
+		return insCode;
 	}
 }

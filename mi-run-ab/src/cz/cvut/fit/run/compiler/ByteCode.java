@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ByteCode implements Iterable<Instruction> {
-	private List<Instruction> instructions;
+public class ByteCode implements Iterable<IInstruction> {
+	private List<IInstruction> instructions;
 
 	public ByteCode() {
-		this.instructions = new ArrayList<Instruction>();
+		this.instructions = new ArrayList<IInstruction>();
 	}
 
-	public boolean add(Instruction arg0) {
+	public boolean add(IInstruction arg0) {
 		return instructions.add(arg0);
 	}
 
@@ -19,7 +19,7 @@ public class ByteCode implements Iterable<Instruction> {
 		instructions.clear();
 	}
 
-	public Instruction get(int index) {
+	public IInstruction get(int index) {
 		return instructions.get(index);
 	}
 
@@ -27,11 +27,11 @@ public class ByteCode implements Iterable<Instruction> {
 		return instructions.isEmpty();
 	}
 
-	public Iterator<Instruction> iterator() {
+	public Iterator<IInstruction> iterator() {
 		return instructions.iterator();
 	}
 
-	public Instruction remove(int arg0) {
+	public IInstruction remove(int arg0) {
 		return instructions.remove(arg0);
 	}
 
@@ -39,7 +39,7 @@ public class ByteCode implements Iterable<Instruction> {
 		return instructions.size();
 	}
 
-	public List<Instruction> subList(int arg0, int arg1) {
+	public List<IInstruction> subList(int arg0, int arg1) {
 		return instructions.subList(arg0, arg1);
 	}
 
@@ -47,7 +47,7 @@ public class ByteCode implements Iterable<Instruction> {
 		return instructions.toArray();
 	}
 
-	public void changeOperand(int indexOfInstruction, int indexOfOperand, String operand) {
-		this.instructions.get(indexOfInstruction).getOperands().add(indexOfOperand, operand);
+	public void changeOperand(int indexOfIInstruction, int indexOfOperand, String operand) {
+		this.instructions.get(indexOfIInstruction).getOperands().add(indexOfOperand, operand);
 	}
 }
