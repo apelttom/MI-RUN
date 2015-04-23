@@ -44,13 +44,15 @@ public class Main {
 			ByteCode byteCode = compiler.compile(myTree);
 			
 			// print bytecode
+			int pc = 0;
 			for (Instruction ins : byteCode) {
-				System.out.println(ins.toString());
+				pc++;
+				System.out.println(String.valueOf(pc)+padding(pc/10, byteCode.size()/10)+ins.toString());
 			}
 			
 			// interpret bytecode somehow
 			Interpreter interpreter = new Interpreter(byteCode);
-			interpreter.execute();
+//			interpreter.execute();
 
 		} catch (FileNotFoundException | RecognitionException | TokenStreamException e) {
 			e.printStackTrace();
@@ -70,6 +72,19 @@ public class Main {
 	 * static void printCommonAST(CommonAST t) throws IOException{ File file = new File("path/Filename.xml"); Writer w = new
 	 * FileWriter(file); t.xmlSerialize(w); w.flush(); }
 	 */
+
+	/**
+	 * @param pc number of digits of actual program counter
+	 * @param max number of digits of instructions
+	 * @return bytecode padding
+	 */
+	private static String padding(int pc, int max) {
+		String ret = ": ";
+		for (int i = 0; i < max-pc; i++) {
+			ret = ret.concat(" ");
+		}
+		return ret;
+	}
 
 	/**
 	 * Prints the AST into console. Recursion method.
