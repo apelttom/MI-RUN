@@ -3,7 +3,11 @@ package cz.cvut.fit.run.compiler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Instruction implements IInstruction {
+public class Instruction {
+
+	public enum InsSet {
+		PUSH_NUMBER, STORE_VAR, LOAD_VAR, PLUS, MINUS, MULTIPLY, IF_GT_JUMP, IF_LT_JUMP, IF_EQ_JUMP, IF_NEQ_JUMP, IF_GTE_JUMP, IF_LTE_JUMP, JUMP, NOP
+	};
 
 	private InsSet insCode;
 	private List<String> operands;
@@ -55,7 +59,6 @@ public class Instruction implements IInstruction {
 		return null;
 	}
 
-	@Override
 	public List<String> getOperands() {
 		return operands;
 	}
@@ -77,13 +80,11 @@ public class Instruction implements IInstruction {
 		String s = insCode + "" + (operands.size() > 0 ? " " + operandsToString() : "");
 		return s;
 	}
-	
-	@Override
+
 	public int getSize() {
 		return operands.size();
 	}
 
-	@Override
 	public InsSet getInstructionCode() {
 		return insCode;
 	}

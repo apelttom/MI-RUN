@@ -1,8 +1,8 @@
 package cz.cvut.fit.run.vm;
 
 import cz.cvut.fit.run.compiler.ByteCode;
-import cz.cvut.fit.run.compiler.IInstruction;
-import cz.cvut.fit.run.compiler.IInstruction.InsSet;
+import cz.cvut.fit.run.compiler.Instruction;
+import cz.cvut.fit.run.compiler.Instruction.InsSet;
 
 public class Interpreter {
 	private ByteCode bytecode;
@@ -12,12 +12,12 @@ public class Interpreter {
 	}
 
 	public void execute() {
-		for (IInstruction ins : bytecode) {
+		for (Instruction ins : bytecode) {
 			handleInstruction(ins);
 		}
 	}
 
-	private void handleInstruction(IInstruction ins) {
+	private void handleInstruction(Instruction ins) {
 		InsSet instr = ins.getInstructionCode();
 		String instrParam;
 		String type;

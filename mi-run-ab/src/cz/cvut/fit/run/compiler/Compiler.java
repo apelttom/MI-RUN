@@ -16,10 +16,8 @@ public class Compiler implements Constants {
 	private boolean printNodes = false;
 
 	public Compiler(boolean printNodes) {
+		this();
 		this.printNodes = printNodes;
-		this.PC = BC_VariableCount = 0;
-		this.variableMap = new HashMap<String, Integer>();
-		this.byteCode = new ByteCode();
 	}
 	
 	public Compiler() {
@@ -77,16 +75,16 @@ public class Compiler implements Constants {
 			return list;
 		}
 
-		AST dummy = node.getFirstChild();
+		AST temp = node.getFirstChild();
 
-		if (dummy == null) {
+		if (temp == null) {
 			return list;
 		}
-		list.add(dummy);
+		list.add(temp);
 
-		while (dummy.getNextSibling() != null) {
-			dummy = dummy.getNextSibling();
-			list.add(dummy);
+		while (temp.getNextSibling() != null) {
+			temp = temp.getNextSibling();
+			list.add(temp);
 		}
 
 		return list;
@@ -123,10 +121,10 @@ public class Compiler implements Constants {
 			}
 
 			AST token_TYPE = tokens_SINGLE_PARAM.get(1);
-
+			// TODO
+			
 			i++;
 		} while (i < tokens_PARAMETERS.size());
-
 	}
 
 	private void fuctionBody(AST node) {
@@ -156,8 +154,7 @@ public class Compiler implements Constants {
 		List<AST> tokens = getAstChildren(node);
 
 		AST token_FOR_INIT = tokens.get(0); // for (xxx ; ... ; ...) { ... }
-		AST token_FOR_CONDITION = tokens.get(1); // for (... ; xxx ; ...) { ...
-													// }
+		AST token_FOR_CONDITION = tokens.get(1); // for (... ; xxx ; ...) { ... }
 		AST token_FOR_ITERATOR = tokens.get(2); // for (... ; ... ; xxx) { ... }
 		AST token_FOR_BODY = tokens.get(3); // for (... ; ... ; ...) { xxx }
 
@@ -165,7 +162,7 @@ public class Compiler implements Constants {
 		variable_definition(token_FOR_INIT.getFirstChild()); // VARIABLE_DEF
 
 		// Jump na L1 (nacteni promennych + podminka)
-		byteCode.add(new Instruction(IInstruction.InsSet.JUMP, ""));
+		byteCode.add(new Instruction(Instruction.InsSet.JUMP, ""));
 
 		int PC_jumpToL1 = byteCode.size() - 1;
 
@@ -220,11 +217,11 @@ public class Compiler implements Constants {
 		} else if (isArithmetic(tokenName)) {
 			arithmetic_expression(token_EXPRESSION);
 		} else if (isNumeric(tokenName)) {
-			byteCode.add(new Instruction(IInstruction.InsSet.PUSH_NUMBER, tokenName));
+			byteCode.add(new Instruction(Instruction.InsSet.PUSH_NUMBER, tokenName));
 		} else
 		// je to literal
 		{
-			byteCode.add(new Instruction(IInstruction.InsSet.LOAD_VAR, variableMap.get(tokenName) + ""));
+			byteCode.add(new Instruction(Instruction.InsSet.LOAD_VAR, variableMap.get(tokenName) + ""));
 		}
 	}
 
@@ -238,16 +235,16 @@ public class Compiler implements Constants {
 
 		if (node.getText().equals(LOGIC_GT)) { // >
 			// if-less-than--then-jump-to
-			byteCode.add(new Instruction(IInstruction.InsSet.IF_LTE_JUMP, ""));
+			byteCode.add(new Instruction(Instruction.InsSet.IF_LTE_JUMP, ""));
 		} else if (node.getText().equals(LOGIC_LT)) { // <
 			// if-greater-than--then-jump-to
-			byteCode.add(new Instruction(IInstruction.InsSet.IF_GTE_JUMP, ""));
+			byteCode.add(new Instruction(Instruction.InsSet.IF_GTE_JUMP, ""));
 		} else if (node.getText().equals(LOGIC_EQ)) { // ==
 			// if-not-equal--then-jump-to
-			byteCode.add(new Instruction(IInstruction.InsSet.IF_NEQ_JUMP, ""));
+			byteCode.add(new Instruction(Instruction.InsSet.IF_NEQ_JUMP, ""));
 		} else if (node.getText().equals(LOGIC_NEQ)) { // !=
 			// if-equal--then-jump-to
-			byteCode.add(new Instruction(IInstruction.InsSet.IF_EQ_JUMP, ""));
+			byteCode.add(new Instruction(Instruction.InsSet.IF_EQ_JUMP, ""));
 		}
 	}
 
@@ -257,23 +254,23 @@ public class Compiler implements Constants {
 
 		if (isNumeric(node_token_LEFT.getText())) {
 			// levy argument je konstanta, dame ji rovnou na stack
-			byteCode.add(new Instruction(IInstruction.InsSet.PUSH_NUMBER, node_token_LEFT.getText()));
+			byteCode.add(new Instruction(Instruction.InsSet.PUSH_NUMBER, node_token_LEFT.getText()));
 		} else {
 			// levy argument je promenna, vytahneme ji z variable map
 			expression(node_token_LEFT);
 		}
 		if (isNumeric(node_token_RIGHT.getText())) {
-			byteCode.add(new Instruction(IInstruction.InsSet.PUSH_NUMBER, node_token_RIGHT.getText()));
+			byteCode.add(new Instruction(Instruction.InsSet.PUSH_NUMBER, node_token_RIGHT.getText()));
 		} else {
 			expression(node_token_RIGHT);
 		}
 
 		if (node.getText().equals(PLUS)) { // +
-			byteCode.add(new Instruction(IInstruction.InsSet.PLUS));
+			byteCode.add(new Instruction(Instruction.InsSet.PLUS));
 		} else if (node.getText().equals(MINUS)) { // -
-			byteCode.add(new Instruction(IInstruction.InsSet.MINUS));
+			byteCode.add(new Instruction(Instruction.InsSet.MINUS));
 		} else if (node.getText().equals(MULTI)) { // *
-			byteCode.add(new Instruction(IInstruction.InsSet.MULTIPLY));
+			byteCode.add(new Instruction(Instruction.InsSet.MULTIPLY));
 		}
 	}
 
@@ -287,7 +284,7 @@ public class Compiler implements Constants {
 			AST node_token_VARIABLE = node.getFirstChild();
 			AST node_token_VALUE = node_token_VARIABLE.getNextSibling();
 			expression(node_token_VALUE);
-			byteCode.add(new Instruction(IInstruction.InsSet.STORE_VAR, variableMap.get(node_token_VARIABLE.getText()) + "", "int"));
+			byteCode.add(new Instruction(Instruction.InsSet.STORE_VAR, variableMap.get(node_token_VARIABLE.getText()) + "", "int"));
 		}
 	}
 
@@ -320,7 +317,7 @@ public class Compiler implements Constants {
 		// { ... } // if-part
 		expression(node_token_IFEXPR); // compile if branch expression
 
-		byteCode.add(new Instruction(IInstruction.InsSet.JUMP, "")); // L1
+		byteCode.add(new Instruction(Instruction.InsSet.JUMP, "")); // L1
 
 		int PC_jumpToL2 = byteCode.size() - 1; // position of JUMP to L2
 
@@ -328,7 +325,7 @@ public class Compiler implements Constants {
 		if (node_token_ELSEEXPR != null)
 			expression(node_token_ELSEEXPR);
 
-		byteCode.add(new Instruction(IInstruction.InsSet.NOP, "")); // L2
+		byteCode.add(new Instruction(Instruction.InsSet.NOP, "")); // L2
 
 		int PC_L2 = byteCode.size() - 1;
 
@@ -370,14 +367,14 @@ public class Compiler implements Constants {
 			if (isNumeric(varVal)) {
 				// v deklaraci prirazujeme cislo, muzeme ho hodit na stack a
 				// nahrat do promenne
-				byteCode.add(new Instruction(IInstruction.InsSet.PUSH_NUMBER, varVal));
+				byteCode.add(new Instruction(Instruction.InsSet.PUSH_NUMBER, varVal));
 			} else {
 				// Prirazujeme nejaky vyraz, musime ho nejdriv zpracovat a
 				// vysledek pak hodit do promenne
 				expression(node_token_ASSIGN.getFirstChild());
 
 			}
-			byteCode.add(new Instruction(IInstruction.InsSet.STORE_VAR, BC_VariableCount + "", "int"));
+			byteCode.add(new Instruction(Instruction.InsSet.STORE_VAR, BC_VariableCount + "", "int"));
 			variableMap.put(node_token_VARNAME.getText(), BC_VariableCount);
 			BC_VariableCount++;
 		} else {

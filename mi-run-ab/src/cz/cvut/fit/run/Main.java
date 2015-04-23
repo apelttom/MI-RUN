@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Iterator;
 
 import antlr.CommonAST;
 import antlr.RecognitionException;
@@ -12,7 +11,7 @@ import antlr.TokenStreamException;
 import antlr.collections.AST;
 import cz.cvut.fit.run.compiler.ByteCode;
 import cz.cvut.fit.run.compiler.Compiler;
-import cz.cvut.fit.run.compiler.IInstruction;
+import cz.cvut.fit.run.compiler.Instruction;
 import cz.cvut.fit.run.parser.JavaLexer;
 import cz.cvut.fit.run.parser.JavaRecognizer;
 import cz.cvut.fit.run.vm.Interpreter;
@@ -45,7 +44,7 @@ public class Main {
 			ByteCode byteCode = compiler.compile(myTree);
 			
 			// print bytecode
-			for (IInstruction ins : byteCode) {
+			for (Instruction ins : byteCode) {
 				System.out.println(ins.toString());
 			}
 			
