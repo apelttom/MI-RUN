@@ -47,7 +47,7 @@ public class Main {
 			int pc = 0;
 			for (Instruction ins : byteCode) {
 				pc++;
-				System.out.println(String.valueOf(pc)+padding(pc/10, byteCode.size()/10)+ins.toString());
+				System.out.println(pc+": "+ins.toString());
 			}
 			
 			// interpret bytecode somehow
