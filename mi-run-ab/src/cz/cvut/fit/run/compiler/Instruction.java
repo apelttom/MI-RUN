@@ -6,8 +6,30 @@ import java.util.List;
 public class Instruction {
 
 	public enum InsSet {
-		PUSH_NUMBER, STORE_VAR, LOAD_VAR, PLUS, MINUS, MULTIPLY, IF_GT_JUMP, IF_LT_JUMP, IF_EQ_JUMP, IF_NEQ_JUMP, IF_GTE_JUMP, IF_LTE_JUMP, JUMP, NOP
+		bipush, istore, iload, iadd, isub, imul, IF_GT_JUMP, IF_LT_JUMP, IF_EQ_JUMP, IF_NEQ_JUMP, IF_GTE_JUMP, IF_LTE_JUMP, JUMP, NOP
 	};
+	
+	/**
+	 * According to the java spec:
+	 * 
+	 * bipush n = pushes byte n on the stack (bipush 42 will push number 43 on
+	 *	the top of the stack
+	 *
+	 * istore index = store int into local variable (pops value from the top of 
+	 * 	the stack and stores it into local variable on the position of the index 
+	 * 	in local variable table of the current frame)
+	 * 
+	 * iload = the value of the local int variable at index is pushed onto stack
+	 * 
+	 * iadd = two top int values are popped from the stack, on the top of the
+	 * 	stack goes their addition (+)
+	 * 
+	 * isubb = first two top int values are popped out of the stack and their 
+	 * 	subtraction is pushed on the top of the stack
+	 * 
+	 *  imul = first two top int values are popped out of the stack and their 
+	 *  	multiplication is then pushed on the stack
+	 */
 
 	private InsSet insCode;
 	private List<String> operands;

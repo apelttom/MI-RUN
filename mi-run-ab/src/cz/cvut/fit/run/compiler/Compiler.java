@@ -217,11 +217,11 @@ public class Compiler implements Constants {
 		} else if (isArithmetic(tokenName)) {
 			arithmetic_expression(token_EXPRESSION);
 		} else if (isNumeric(tokenName)) {
-			byteCode.add(new Instruction(Instruction.InsSet.PUSH_NUMBER, tokenName));
+			byteCode.add(new Instruction(Instruction.InsSet.bipush, tokenName));
 		} else
 		// je to literal
 		{
-			byteCode.add(new Instruction(Instruction.InsSet.LOAD_VAR, variableMap.get(tokenName) + ""));
+			byteCode.add(new Instruction(Instruction.InsSet.iload, variableMap.get(tokenName) + ""));
 		}
 	}
 
@@ -254,23 +254,23 @@ public class Compiler implements Constants {
 
 		if (isNumeric(node_token_LEFT.getText())) {
 			// levy argument je konstanta, dame ji rovnou na stack
-			byteCode.add(new Instruction(Instruction.InsSet.PUSH_NUMBER, node_token_LEFT.getText()));
+			byteCode.add(new Instruction(Instruction.InsSet.bipush, node_token_LEFT.getText()));
 		} else {
 			// levy argument je promenna, vytahneme ji z variable map
 			expression(node_token_LEFT);
 		}
 		if (isNumeric(node_token_RIGHT.getText())) {
-			byteCode.add(new Instruction(Instruction.InsSet.PUSH_NUMBER, node_token_RIGHT.getText()));
+			byteCode.add(new Instruction(Instruction.InsSet.bipush, node_token_RIGHT.getText()));
 		} else {
 			expression(node_token_RIGHT);
 		}
 
 		if (node.getText().equals(PLUS)) { // +
-			byteCode.add(new Instruction(Instruction.InsSet.PLUS));
+			byteCode.add(new Instruction(Instruction.InsSet.iadd));
 		} else if (node.getText().equals(MINUS)) { // -
-			byteCode.add(new Instruction(Instruction.InsSet.MINUS));
+			byteCode.add(new Instruction(Instruction.InsSet.isub));
 		} else if (node.getText().equals(MULTI)) { // *
-			byteCode.add(new Instruction(Instruction.InsSet.MULTIPLY));
+			byteCode.add(new Instruction(Instruction.InsSet.imul));
 		}
 	}
 
@@ -284,7 +284,7 @@ public class Compiler implements Constants {
 			AST node_token_VARIABLE = node.getFirstChild();
 			AST node_token_VALUE = node_token_VARIABLE.getNextSibling();
 			expression(node_token_VALUE);
-			byteCode.add(new Instruction(Instruction.InsSet.STORE_VAR, variableMap.get(node_token_VARIABLE.getText()) + "", "int"));
+			byteCode.add(new Instruction(Instruction.InsSet.istore, variableMap.get(node_token_VARIABLE.getText()) + "", "int"));
 		}
 	}
 
@@ -367,14 +367,14 @@ public class Compiler implements Constants {
 			if (isNumeric(varVal)) {
 				// v deklaraci prirazujeme cislo, muzeme ho hodit na stack a
 				// nahrat do promenne
-				byteCode.add(new Instruction(Instruction.InsSet.PUSH_NUMBER, varVal));
+				byteCode.add(new Instruction(Instruction.InsSet.bipush, varVal));
 			} else {
 				// Prirazujeme nejaky vyraz, musime ho nejdriv zpracovat a
 				// vysledek pak hodit do promenne
 				expression(node_token_ASSIGN.getFirstChild());
 
 			}
-			byteCode.add(new Instruction(Instruction.InsSet.STORE_VAR, BC_VariableCount + "", "int"));
+			byteCode.add(new Instruction(Instruction.InsSet.istore, BC_VariableCount + "", "int"));
 			variableMap.put(node_token_VARNAME.getText(), BC_VariableCount);
 			BC_VariableCount++;
 		} else {

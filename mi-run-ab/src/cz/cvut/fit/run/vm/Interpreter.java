@@ -22,16 +22,15 @@ public class Interpreter {
 		String instrParam;
 		String type;
 
-		System.out.println("Interpreter.handleInstruction() instruction "+instr.name()+" size=" + ins.getSize() + ", parameters="
-				+ ins.getOperands());
+		System.out.println("Interpreter.handleInstruction() instruction "+instr.toString());
 		if (ins.getSize() == 0) { // Jen jedna hodnota, coz je nazev instrukce bajtkodu bez dalsich hodnot
-			if (instr.equals(InsSet.MULTIPLY) || instr.equals(InsSet.PLUS) || instr.equals(InsSet.MINUS)) {
+			if (instr.equals(InsSet.imul) || instr.equals(InsSet.iadd) || instr.equals(InsSet.isub)) {
 //				InterpreterContext.getInstance().pushToStack(new ValuePair(MethodLookup.performArithmetic(instr), "int"));
 			}
 		}
 
 		else if (ins.getSize() == 1) { // Dve hodnoty, nazev instrukce a parametr
-			if (instr.equals(InsSet.PUSH_NUMBER))
+			if (instr.equals(InsSet.bipush))
 //				InterpreterContext.getInstance().pushToStack(new ValuePair(instrParam, "int"));
 			if (isLogicalCondition(instr)) {
 //				handleLogicalCondition(instr, instrParam);
@@ -40,7 +39,7 @@ public class Interpreter {
 			}												// for iteration
 			else if (instr.equals(InsSet.NOP))
 				return;
-			else if (instr.equals(InsSet.LOAD_VAR)) {
+			else if (instr.equals(InsSet.iload)) {
 //				ValuePair varVal = InterpreterContext.getInstance().getFromVarPool(instrParam);
 //				InterpreterContext.getInstance().pushToStack(varVal);
 			}
@@ -49,7 +48,7 @@ public class Interpreter {
 		else if (ins.getSize() == 2) { // Nazev instrukce, parametr a typ parametru
 //			instrParam = lineParams[2];
 //			type = lineParams[3];
-			if (instr.equals("STORE_VAR")) {
+			if (instr.equals("istore")) {
 //				Object varVal = InterpreterContext.getInstance().popFromStack();
 //				if (varVal instanceof ValuePair)
 //					InterpreterContext.getInstance().insertIntoVarPool(instrParam, (ValuePair) varVal);
