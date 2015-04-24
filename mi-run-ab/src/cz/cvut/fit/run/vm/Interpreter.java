@@ -34,7 +34,7 @@ public class Interpreter {
 //				InterpreterContext.getInstance().pushToStack(new ValuePair(instrParam, "int"));
 			if (isLogicalCondition(instr)) {
 //				handleLogicalCondition(instr, instrParam);
-			} else if (instr.equals(InsSet.JUMP)) {
+			} else if (instr.equals(InsSet.go_to)) {
 //				currPC = Integer.parseInt(instrParam) - 1; 	// gotta decrement because the PC is automatically incremented in executeByteCode
 			}												// for iteration
 			else if (instr.equals(InsSet.NOP))
@@ -59,7 +59,7 @@ public class Interpreter {
 	}
 
 	private static boolean isLogicalCondition(InsSet instr) {
-		return (instr.equals(InsSet.IF_GT_JUMP) || instr.equals(InsSet.IF_EQ_JUMP) || instr.equals(InsSet.IF_LT_JUMP)
-				|| instr.equals(InsSet.IF_NEQ_JUMP) || instr.equals(InsSet.IF_GTE_JUMP) || instr.equals(InsSet.IF_LTE_JUMP));
+		return (instr.equals(InsSet.if_icmpgt) || instr.equals(InsSet.if_icmpeq) || instr.equals(InsSet.if_icmplt)
+				|| instr.equals(InsSet.if_icmpne) || instr.equals(InsSet.if_icmpge) || instr.equals(InsSet.if_icmple));
 	}
 }

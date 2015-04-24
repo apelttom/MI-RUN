@@ -163,7 +163,7 @@ public class Compiler implements Constants {
 		variable_definition(token_FOR_INIT.getFirstChild()); // VARIABLE_DEF
 
 		// Jump na L1 (nacteni promennych + podminka)
-		byteCode.add(new Instruction(InsSet.JUMP, ""));
+		byteCode.add(new Instruction(InsSet.go_to, ""));
 
 		int PC_jumpToL1 = byteCode.size() - 1;
 
@@ -236,16 +236,16 @@ public class Compiler implements Constants {
 
 		if (node.getText().equals(LOGIC_GT)) { // >
 			// if-less-than--then-jump-to
-			byteCode.add(new Instruction(InsSet.IF_LTE_JUMP, ""));
+			byteCode.add(new Instruction(InsSet.if_icmple, ""));
 		} else if (node.getText().equals(LOGIC_LT)) { // <
 			// if-greater-than--then-jump-to
-			byteCode.add(new Instruction(InsSet.IF_GTE_JUMP, ""));
+			byteCode.add(new Instruction(InsSet.if_icmpge, ""));
 		} else if (node.getText().equals(LOGIC_EQ)) { // ==
 			// if-not-equal--then-jump-to
-			byteCode.add(new Instruction(InsSet.IF_NEQ_JUMP, ""));
+			byteCode.add(new Instruction(InsSet.if_icmpne, ""));
 		} else if (node.getText().equals(LOGIC_NEQ)) { // !=
 			// if-equal--then-jump-to
-			byteCode.add(new Instruction(InsSet.IF_EQ_JUMP, ""));
+			byteCode.add(new Instruction(InsSet.if_icmpeq, ""));
 		}
 	}
 
@@ -313,12 +313,17 @@ public class Compiler implements Constants {
 		// if (...)
 		expression(node_token_CONDEXPR);
 
+		/**
+		 * TODO:
+		 * NOT WORKING FOR SIMPLE IF: puts goto on itself. Needs to be fixed
+		 */
+		
 		int PC_ifJump = byteCode.size() - 1; // position of IF JUMP instruction
 
 		// { ... } // if-part
 		expression(node_token_IFEXPR); // compile if branch expression
 
-		byteCode.add(new Instruction(InsSet.JUMP, "")); // L1
+		byteCode.add(new Instruction(InsSet.go_to, "")); // L1
 
 		int PC_jumpToL2 = byteCode.size() - 1; // position of JUMP to L2
 

@@ -6,29 +6,45 @@ import java.util.List;
 public class Instruction {
 
 	public enum InsSet {
-		bipush, istore, iload, iadd, isub, imul, IF_GT_JUMP, IF_LT_JUMP, IF_EQ_JUMP, IF_NEQ_JUMP, IF_GTE_JUMP, IF_LTE_JUMP, JUMP, NOP
+		bipush, istore, iload, iadd, isub, imul, if_icmpeq, if_icmpne, 
+		if_icmplt, if_icmpge, if_icmpgt, if_icmple, go_to, NOP
 	};
-	
+
 	/**
 	 * According to the java spec:
 	 * 
 	 * bipush n = pushes byte n on the stack (bipush 42 will push number 43 on
-	 *	the top of the stack
+	 * 		the top of the stack
 	 *
-	 * istore index = store int into local variable (pops value from the top of 
-	 * 	the stack and stores it into local variable on the position of the index 
-	 * 	in local variable table of the current frame)
+	 * istore index = store int into local variable (pops value from the top of
+	 * 		the stack [MUST BE INT] and stores it into local variable on the 
+	 * 		position of the index in local variable table of the current frame)
 	 * 
-	 * iload = the value of the local int variable at index is pushed onto stack
+	 * iload = the value of the local int variable at index is pushed on the 
+	 * 		stack
 	 * 
-	 * iadd = two top int values are popped from the stack, on the top of the
-	 * 	stack goes their addition (+)
+	 * iadd = two top values (MUST BE INT) are popped from the stack and on the 
+	 * 		top of the stack push their addition (+)
 	 * 
-	 * isubb = first two top int values are popped out of the stack and their 
-	 * 	subtraction is pushed on the top of the stack
+	 * isubb = first two top values (MUST BE INT) are popped out of the stack 
+	 * 		and their subtraction is pushed on the top of the stack
 	 * 
-	 *  imul = first two top int values are popped out of the stack and their 
-	 *  	multiplication is then pushed on the stack
+	 * imul = first two top values (MUST BE INT) are popped out of the stack 
+	 * 		and their multiplication is then pushed on the top of the stack
+	 * 
+	 * if_icmp<condition> branchindex = poppes two top values (MUST BE INT) 
+	 * 		from the stack and compared. Results:
+	 * 		if_icmpeq succeeds if and only if value1 = value2
+	 * 		if_icmpne succeeds if and only if value1 != value2
+	 * 		if_icmplt succeeds if and only if value1 < value2
+	 * 		if_icmpge succeeds if and only if value1 >= value2
+	 * 		if_icmpgt succeeds if and only if value1 > value2
+	 * 		if_icmple succeeds if and only if value1 =< value2
+	 * 		
+	 * 		If the comparison succeeds code continues on the instruction at 
+	 * 		branchindex. If not, code continues on the next instruction.
+	 * 
+	 * goto index = code proceeds on the instruction at index.
 	 */
 
 	private InsSet insCode;
@@ -56,12 +72,12 @@ public class Instruction {
 
 	public InsSet getInvertedForInstruction() {
 		switch (this.insCode) {
-		case IF_GT_JUMP:
-		case IF_GTE_JUMP:
-			return InsSet.IF_LT_JUMP;
-		case IF_LT_JUMP:
-		case IF_LTE_JUMP:
-			return InsSet.IF_GT_JUMP;
+		case if_icmpgt:
+		case if_icmpge:
+			return InsSet.if_icmplt;
+		case if_icmplt:
+		case if_icmple:
+			return InsSet.if_icmpgt;
 		default:
 			break;
 		}
@@ -70,10 +86,10 @@ public class Instruction {
 
 	public InsSet getInvertedIfInstruction() {
 		switch (this.insCode) {
-		case IF_GT_JUMP:
-			return InsSet.IF_LTE_JUMP;
-		case IF_LT_JUMP:
-			return InsSet.IF_GTE_JUMP;
+		case if_icmpgt:
+			return InsSet.if_icmple;
+		case if_icmplt:
+			return InsSet.if_icmpge;
 		default:
 			break;
 		}
@@ -99,7 +115,8 @@ public class Instruction {
 
 	@Override
 	public String toString() {
-		String s = insCode + "" + (operands.size() > 0 ? " " + operandsToString() : "");
+		String s = insCode + ""
+				+ (operands.size() > 0 ? " " + operandsToString() : "");
 		return s;
 	}
 
