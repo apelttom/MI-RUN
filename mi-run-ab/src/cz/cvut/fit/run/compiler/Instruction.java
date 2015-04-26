@@ -7,7 +7,7 @@ public class Instruction {
 
 	public enum InsSet {
 		bipush, istore, iload, iadd, isub, imul, if_icmpeq, if_icmpne, 
-		if_icmplt, if_icmpge, if_icmpgt, if_icmple, go_to, NOP
+		if_icmplt, if_icmpge, if_icmpgt, if_icmple, go_to, re_turn
 	};
 
 	/**
@@ -20,8 +20,8 @@ public class Instruction {
 	 * 		the stack [MUST BE INT] and stores it into local variable on the 
 	 * 		position of the index in local variable table of the current frame)
 	 * 
-	 * iload = the value of the local int variable at index is pushed on the 
-	 * 		stack
+	 * iload index = the value of the local int variable at index is pushed on
+	 * 	the stack
 	 * 
 	 * iadd = two top values (MUST BE INT) are popped from the stack and on the 
 	 * 		top of the stack push their addition (+)
@@ -44,7 +44,9 @@ public class Instruction {
 	 * 		If the comparison succeeds code continues on the instruction at 
 	 * 		branchindex. If not, code continues on the next instruction.
 	 * 
-	 * goto index = code proceeds on the instruction at index.
+	 * go_to index = code proceeds on the instruction at index.
+	 * 
+	 * re_turn = return void from method
 	 */
 
 	private InsSet insCode;

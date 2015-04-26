@@ -18,7 +18,7 @@ import cz.cvut.fit.run.vm.Interpreter;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// TODO add code path do argument
 
 		try {
@@ -36,25 +36,26 @@ public class Main {
 
 			// get AST tree and print it in LISP notation
 			CommonAST myTree = (CommonAST) parser.getAST();
-//			System.out.println(myTree.toStringList());
-//			printRoot(myTree);
+			// System.out.println(myTree.toStringList());
+//			 printRoot(myTree);
 
 			// generate bytecode, true = print nodes, false = you guess what :)
-			Compiler compiler = new Compiler(true);
+			Compiler compiler = new Compiler(false);
 			ByteCode byteCode = compiler.compile(myTree);
-			
-			// print bytecode
+
+//			 print bytecode
 			int pc = 0;
 			for (Instruction ins : byteCode) {
 				pc++;
-				System.out.println(pc+": "+ins.toString());
+				System.out.println(pc + ": " + ins.toString());
 			}
-			
+
 			// interpret bytecode somehow
 			Interpreter interpreter = new Interpreter(byteCode);
 //			interpreter.execute();
 
-		} catch (FileNotFoundException | RecognitionException | TokenStreamException e) {
+		} catch (FileNotFoundException | RecognitionException
+				| TokenStreamException e) {
 			e.printStackTrace();
 		}
 	}
@@ -65,22 +66,26 @@ public class Main {
 	 * @param t
 	 *            AST writen into the file
 	 * @throws IOException
-	 *             if the file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be
+	 *             if the file exists but is a directory rather than a regular
+	 *             file, does not exist but cannot be created, or cannot be
 	 *             opened for any other reason
 	 */
 	/*
-	 * static void printCommonAST(CommonAST t) throws IOException{ File file = new File("path/Filename.xml"); Writer w = new
-	 * FileWriter(file); t.xmlSerialize(w); w.flush(); }
+	 * static void printCommonAST(CommonAST t) throws IOException{ File file =
+	 * new File("path/Filename.xml"); Writer w = new FileWriter(file);
+	 * t.xmlSerialize(w); w.flush(); }
 	 */
 
 	/**
-	 * @param pc number of digits of actual program counter
-	 * @param max number of digits of instructions
+	 * @param pc
+	 *            number of digits of actual program counter
+	 * @param max
+	 *            number of digits of instructions
 	 * @return bytecode padding
 	 */
 	private static String padding(int pc, int max) {
 		String ret = ": ";
-		for (int i = 0; i < max-pc; i++) {
+		for (int i = 0; i < max - pc; i++) {
 			ret = ret.concat(" ");
 		}
 		return ret;
@@ -92,13 +97,28 @@ public class Main {
 	 * @param node
 	 *            root of the tree which should be printed
 	 */
-	static void printRoot(AST node) {
+	public static void printRoot(AST node) {
 		if (node == null) {
 			return;
 		}
-		System.out.println(node.toString());
+//		System.out.println(node.toString());
+		mini_print(node);
 		printRoot(node.getFirstChild());
 		printRoot(node.getNextSibling());
 	}
-
+	
+	private static void mini_print(AST node) {
+		System.out
+				.println("------------------------------");
+		String Basic = "    " + node.toString() + "\n";
+		if(node.getFirstChild() != null){
+			Basic += node.getFirstChild().toString() + "\t";
+			AST sibling = node.getFirstChild().getNextSibling();
+			while(sibling != null){
+				Basic += sibling.toString() + "\t";
+				sibling = sibling.getNextSibling();
+			}
+		}
+		System.out.println(Basic);
+	}
 }

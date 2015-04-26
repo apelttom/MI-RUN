@@ -3,11 +3,23 @@ package cz.cvut.fit.run;
 public class Code {
 
 	public static void main() {
-		int a = 1;
-		int b = 2;
+		int a = 50;
+		int b = 99;
 		int c = (a + b);
-		for (int d = 0; d < b; d = d + 1) {
-			b = b + 1;
+		if (b < a)
+		{
+			c = a;
+			int d = 77;
+		}
+		else
+		{
+			c = b;
+			a = 187;
+		}
+		
+		for(int i = 0; i < 10; i++)
+		{
+			b = 13;
 		}
 	}
 
