@@ -48,6 +48,6 @@ public class ByteCode implements Iterable<Instruction> {
 	}
 
 	public void changeOperand(int indexOfInstruction, int indexOfOperand, String operand) {
-		this.instructions.get(indexOfInstruction).getOperands().add(indexOfOperand, operand);
+		this.instructions.get(indexOfInstruction).getOperands().set(indexOfOperand, operand);
 	}
 }

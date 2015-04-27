@@ -340,11 +340,6 @@ public class Compiler implements Constants {
 		// if (...)
 		expression(node_token_COND_EXPR);
 
-		/**
-		 * TODO: NOT WORKING FOR SIMPLE IF: puts goto on itself. Needs to be
-		 * fixed
-		 */
-
 		int PC_ifJump = byteCode.size() - 1; // position of IF JUMP instruction
 
 		// { ... } // if-part
@@ -368,7 +363,7 @@ public class Compiler implements Constants {
 		byteCode.changeOperand(PC_ifJump, 0, (PC_jumpToL2 + 2) + "");
 
 		// 2) kam skocit z konce if-part
-		byteCode.changeOperand(PC_jumpToL2, 0, (PC_L2 + 2) + "");
+		byteCode.changeOperand(PC_jumpToL2, 0, (PC_L2 + 1) + "");
 	}
 
 	private void variable_definition(AST node) {

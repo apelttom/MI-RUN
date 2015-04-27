@@ -7,6 +7,7 @@ import cz.cvut.fit.run.compiler.Instruction;
 import cz.cvut.fit.run.compiler.Instruction.InsSet;
 
 public class Interpreter {
+
 	private ByteCode bytecode;
 
 	public Interpreter(ByteCode bytecode) {
@@ -14,30 +15,37 @@ public class Interpreter {
 	}
 
 	public void execute() throws Exception {
-		for (Instruction ins : bytecode) {
-			handleInstruction(ins);
+		for (int PC = 0; PC <= bytecode.size() - 1; PC++) {
+			try {
+				handleInstruction(bytecode.get(PC));
+			} catch (GotoException e) {
+				// System.out.println(e.toString());
+				
+				// PC have to be one lesser, cause it is automatically
+				// incremented in the for clause.
+				PC = e.getJumpToPC() - 1;
+			}
 		}
 	}
 
 	private void handleInstruction(Instruction inst) throws Exception {
 		InsSet instr = inst.getInstructionCode();
 		List<String> instrArgs = inst.getOperands();
-		String type;
 
 		Methods methods = new Methods();
 		InterpreterContext context = InterpreterContext.getInstance();
 
-		System.out.println("Interpreter.handleInstruction() instruction "
-				+ instr.toString());
+		// System.out.println("Interpreter.handleInstruction() instruction "
+		// + instr.toString() + " size " + inst.getSize());
 
 		/* Bytecode instruction without arguments */
 		if (inst.getSize() == 0) {
 			if (instr.equals(InsSet.iadd)) {
-				methods.addition();
+				methods.iaddition();
 			} else if (instr.equals(InsSet.isub)) {
-				methods.subtraction();
+				methods.isubtraction();
 			} else if (instr.equals(InsSet.imul)) {
-				methods.multiplication();
+				methods.imultiplication();
 			} else if (instr.equals(InsSet.re_turn)) {
 				return;
 			} else {
@@ -45,45 +53,26 @@ public class Interpreter {
 			}
 		}
 
-		/* Bytecode instruction with one parameter */
+		/* Bytecode instruction with one argument */
 		else if (inst.getSize() == 1) {
 			if (isLogicalCondition(instr)) {
-				// handleLogicalCondition(instr, instrParam);
+				handleLogicalCondition(instr,
+						Integer.parseInt(instrArgs.get(0)));
 			}
 			// for cycle
 			// else if (isForCycle) {}
 			else if (instr.equals(InsSet.bipush)) {
 				context.pushToStack(Integer.parseInt(instrArgs.get(0)));
-			} else if (instr.equals(InsSet.iload)) {
-				// ValuePair varVal =
-				// InterpreterContext.getInstance().getFromVarPool(instrParam);
-				// InterpreterContext.getInstance().pushToStack(varVal);
 			} else if (instr.equals(InsSet.istore)) {
-				// ValuePair varVal =
-				// InterpreterContext.getInstance().getFromVarPool(instrParam);
-				// InterpreterContext.getInstance().pushToStack(varVal);
+				methods.istoreVar(Integer.parseInt(instrArgs.get(0)));
+			} else if (instr.equals(InsSet.iload)) {
+				methods.iloadVar(Integer.parseInt(instrArgs.get(0)));
 			} else if (instr.equals(InsSet.go_to)) {
-				// currPC = Integer.parseInt(instrParam) - 1; // gotta
-				// decrement because the PC is automatically incremented in
-				// executeByteCode
+				throw new GotoException(Integer.parseInt(instrArgs.get(0)));
 			}
 		}
-
-//		else if (inst.getSize() == 2) { // Nazev instrukce, parametr a typ
-										// parametru
-			// instrParam = lineParams[2];
-			// type = lineParams[3];
-//			if (instr.equals("istore")) {
-				// Object varVal =
-				// InterpreterContext.getInstance().popFromStack();
-				// if (varVal instanceof ValuePair)
-				// InterpreterContext.getInstance().insertIntoVarPool(instrParam,
-				// (ValuePair) varVal);
-				// else
-				// InterpreterContext.getInstance().insertIntoVarPool(instrParam,
-				// new ValuePair(varVal, type));
-//			}
-//		}
+		
+		System.out.println(InterpreterContext.getInstance().toString());
 	}
 
 	private static boolean isLogicalCondition(InsSet instr) {
@@ -93,5 +82,10 @@ public class Interpreter {
 				|| instr.equals(InsSet.if_icmpne)
 				|| instr.equals(InsSet.if_icmpge) || instr
 					.equals(InsSet.if_icmple));
+	}
+	
+
+	private void handleLogicalCondition(InsSet instr, int jumpToPC) {
+		
 	}
 }

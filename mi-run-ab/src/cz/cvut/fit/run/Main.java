@@ -44,15 +44,13 @@ public class Main {
 			ByteCode byteCode = compiler.compile(myTree);
 
 //			 print bytecode
-			int pc = 0;
-			for (Instruction ins : byteCode) {
-				pc++;
-				System.out.println(pc + ": " + ins.toString());
-			}
+//			for (int PC = 0; PC <= byteCode.size() -1 ; PC++) {
+//				System.out.println(PC + ": " + byteCode.get(PC).toString());
+//			}
 
 			// interpret bytecode somehow
 			Interpreter interpreter = new Interpreter(byteCode);
-//			interpreter.execute();
+			interpreter.execute();
 
 		} catch (FileNotFoundException | RecognitionException
 				| TokenStreamException e) {
