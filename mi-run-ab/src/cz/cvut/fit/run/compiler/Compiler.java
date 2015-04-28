@@ -172,39 +172,24 @@ public class Compiler implements Constants {
 		// nejdrive zkompilujeme init (prirazeni do promenne)
 		variable_definition(token_FOR_INIT.getFirstChild()); // VARIABLE_DEF
 
-		// Jump na L1 (nacteni promennych + podminka)
-		byteCode.add(new Instruction(InsSet.go_to, ""));
-
+		// L1: if (...)
+		logic_expression(token_FOR_CONDITION.getFirstChild()); // EXPR
 		int PC_jumpToL1 = byteCode.size() - 1;
 
 		// L2: vykonani tela cyklu
-		expression(token_FOR_BODY); // "{"
+		expression(token_FOR_BODY); // "{
 
 		// zavolani iteratoru
 		expression(token_FOR_ITERATOR.getFirstChild().getFirstChild()); // EXPR
 
-		// L1: podminka, pokud je splnena, skocime na L2 (telo cyklu)
-		expression(token_FOR_CONDITION.getFirstChild()); // EXPR
-
+		// Jump na L1 (nacteni promennych + podminka)
+		byteCode.add(new Instruction(InsSet.go_to, ""));
 		int PC_L1 = byteCode.size() - 1; // L1
 
-		byteCode.changeOperand(PC_jumpToL1, 0, PC_L1 - 2 + ""); // "-2", protoze
-																// potrebujeme
-																// jeste nacist
-																// promenne pro
-																// skok
-
-		// OLD: if true, pokracuju dolu (tj. skocim na L1); if false, preskocim
-		// (tj. PC + 2)
+		// "-2", protoze potrebujeme jeste nacteni promennych pro podminku
+		byteCode.changeOperand(PC_L1, 0, PC_jumpToL1 - 2 + "");
 		// skok na L1
-		byteCode.changeOperand(PC_L1, 0, (PC_jumpToL1 + 1) + "");
-		byteCode.get(PC_L1).setInsCode(
-				byteCode.get(PC_L1).getInvertedForInstruction());
-
-		// skok na L1
-		// byteCode.add(new Instruction(InsSet.JUMP,
-		// (PC_jumpToL1 + 1) + ""));
-
+		byteCode.changeOperand(PC_jumpToL1, 0, PC_L1 + 1 + "");
 	}
 
 	private void expression(AST node) {
@@ -228,7 +213,7 @@ public class Compiler implements Constants {
 			AST firstLOC = token_EXPRESSION.getFirstChild();
 			expression(firstLOC);
 			AST nextLOC = firstLOC.getNextSibling();
-			while(nextLOC != null){
+			while (nextLOC != null) {
 				expression(nextLOC);
 				nextLOC = nextLOC.getNextSibling();
 			}
@@ -236,16 +221,25 @@ public class Compiler implements Constants {
 			logic_expression(token_EXPRESSION);
 		} else if (isArithmetic(tokenName)) {
 			arithmetic_expression(token_EXPRESSION);
+		} else if (tokenName.equals(DOUBLE_PLUS)) {
+			// token is now "++", its first child is the variable name
+			incrementVar(token_EXPRESSION.getFirstChild().getText(), 1);
 		} else if (isNumeric(tokenName)) {
 			byteCode.add(new Instruction(InsSet.bipush, tokenName));
+		} else if (tokenName.equals(EMPTY_EXPR)) {
+			return;
 		} else
 		// je to literal
 		{
-			// pro FOR hazi null
-			// opravit
 			byteCode.add(new Instruction(InsSet.iload, variableMap
 					.get(tokenName) + ""));
 		}
+	}
+
+	private void incrementVar(String variable, int n) {
+		int varIndex = (Integer) variableMap.get(variable);
+		byteCode.add(new Instruction(InsSet.iinc, Integer.toString(varIndex),
+				Integer.toString(n)));
 	}
 
 	// zkompiluje podminku v if (...), vstupem je token podminky
@@ -323,7 +317,7 @@ public class Compiler implements Constants {
 	private void if_condition(AST node) { // TODO : slozene zavorky pred
 		// if condition
 		AST node_token_COND_EXPR = node.getFirstChild();
-//		mini_print(node);
+		// mini_print(node);
 		// if branch
 		AST node_token_IF_BRANCH = node_token_COND_EXPR.getNextSibling();
 		// else branch (might be null)
@@ -360,7 +354,7 @@ public class Compiler implements Constants {
 
 		// potrebuju:
 		// 1) kam skocit z if
-		byteCode.changeOperand(PC_ifJump, 0, (PC_jumpToL2 + 2) + "");
+		byteCode.changeOperand(PC_ifJump, 0, (PC_jumpToL2 + 1) + "");
 
 		// 2) kam skocit z konce if-part
 		byteCode.changeOperand(PC_jumpToL2, 0, (PC_L2 + 1) + "");

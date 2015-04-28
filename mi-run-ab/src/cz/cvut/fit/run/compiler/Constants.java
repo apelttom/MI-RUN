@@ -22,6 +22,7 @@ public interface Constants {
 	public static final String MINUS = "-";
 	public static final String PLUS = "+";
 	public static final String MULTI = "*";
+	public static final String DOUBLE_PLUS = "++";
 
 	public static final String INT_TYPE = "int";
 	public static final String DOUBLE_TYPE = "double";
@@ -36,4 +37,5 @@ public interface Constants {
 	public static final String LEFT_PARENT = "(";
 	public static final String RIGHT_PARENT = ")";
 	
+	public static final String EMPTY_EXPR = ";";
 }

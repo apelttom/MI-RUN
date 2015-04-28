@@ -1,5 +1,6 @@
 package cz.cvut.fit.run.vm;
 
+import java.io.InvalidObjectException;
 import java.util.List;
 
 import cz.cvut.fit.run.compiler.ByteCode;
@@ -9,9 +10,11 @@ import cz.cvut.fit.run.compiler.Instruction.InsSet;
 public class Interpreter {
 
 	private ByteCode bytecode;
+	private Methods methods = null;
 
 	public Interpreter(ByteCode bytecode) {
 		this.bytecode = bytecode;
+		this.methods = new Methods();
 	}
 
 	public void execute() throws Exception {
@@ -20,7 +23,7 @@ public class Interpreter {
 				handleInstruction(bytecode.get(PC));
 			} catch (GotoException e) {
 				// System.out.println(e.toString());
-				
+
 				// PC have to be one lesser, cause it is automatically
 				// incremented in the for clause.
 				PC = e.getJumpToPC() - 1;
@@ -32,11 +35,11 @@ public class Interpreter {
 		InsSet instr = inst.getInstructionCode();
 		List<String> instrArgs = inst.getOperands();
 
-		Methods methods = new Methods();
+		// Methods methods = new Methods();
 		InterpreterContext context = InterpreterContext.getInstance();
 
-		// System.out.println("Interpreter.handleInstruction() instruction "
-		// + instr.toString() + " size " + inst.getSize());
+//		System.out.println("Interpreter.handleInstruction() instruction "
+//				+ instr.toString() + " size " + inst.getSize());
 
 		/* Bytecode instruction without arguments */
 		if (inst.getSize() == 0) {
@@ -71,7 +74,14 @@ public class Interpreter {
 				throw new GotoException(Integer.parseInt(instrArgs.get(0)));
 			}
 		}
-		
+
+		else if (inst.getSize() == 2) {
+			if (instr.equals(InsSet.iinc)) {
+				methods.incVar(Integer.parseInt(instrArgs.get(0)),
+						Integer.parseInt(instrArgs.get(1)));
+			}
+		}
+
 		System.out.println(InterpreterContext.getInstance().toString());
 	}
 
@@ -83,9 +93,39 @@ public class Interpreter {
 				|| instr.equals(InsSet.if_icmpge) || instr
 					.equals(InsSet.if_icmple));
 	}
-	
 
-	private void handleLogicalCondition(InsSet instr, int jumpToPC) {
-		
+	private void handleLogicalCondition(InsSet instr, int jumpToPC)
+			throws InvalidObjectException {
+		if (instr.equals(InsSet.if_icmpeq)) {
+			if (methods.iequal()) {
+				throw new GotoException(jumpToPC);
+			}
+			return;
+		} else if (instr.equals(InsSet.if_icmpne)) {
+			if (!methods.iequal()) {
+				throw new GotoException(jumpToPC);
+			}
+			return;
+		} else if (instr.equals(InsSet.if_icmplt)) {
+			if (methods.ilesser()) {
+				throw new GotoException(jumpToPC);
+			}
+			return;
+		} else if (instr.equals(InsSet.if_icmpge)) {
+			if (!methods.ilesser()) {
+				throw new GotoException(jumpToPC);
+			}
+			return;
+		} else if (instr.equals(InsSet.if_icmpgt)) {
+			if (methods.igreater()) {
+				throw new GotoException(jumpToPC);
+			}
+			return;
+		} else if (instr.equals(InsSet.if_icmple)) {
+			if (!methods.igreater()) {
+				throw new GotoException(jumpToPC);
+			}
+			return;
+		}
 	}
 }

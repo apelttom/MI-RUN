@@ -44,9 +44,9 @@ public class Main {
 			ByteCode byteCode = compiler.compile(myTree);
 
 //			 print bytecode
-//			for (int PC = 0; PC <= byteCode.size() -1 ; PC++) {
-//				System.out.println(PC + ": " + byteCode.get(PC).toString());
-//			}
+			for (int PC = 0; PC <= byteCode.size() -1 ; PC++) {
+				System.out.println(PC + ": " + byteCode.get(PC).toString());
+			}
 
 			// interpret bytecode somehow
 			Interpreter interpreter = new Interpreter(byteCode);

@@ -6,8 +6,8 @@ import java.util.List;
 public class Instruction {
 
 	public enum InsSet {
-		bipush, istore, iload, iadd, isub, imul, if_icmpeq, if_icmpne, 
-		if_icmplt, if_icmpge, if_icmpgt, if_icmple, go_to, re_turn
+		bipush, istore, iload, iadd, isub, imul, iinc, if_icmpeq, if_icmpne, 
+		if_icmplt, if_icmpge, if_icmpgt, if_icmple, go_to, re_turn,
 	};
 
 	/**
@@ -31,6 +31,8 @@ public class Instruction {
 	 * 
 	 * imul = first two top values (MUST BE INT) are popped out of the stack 
 	 * 		and their multiplication is then pushed on the top of the stack
+	 * 
+	 * iinc index n = increment local variable on index by n
 	 * 
 	 * if_icmp<condition> branchindex = poppes two top values (MUST BE INT) 
 	 * 		from the stack and compared. Results:
@@ -117,7 +119,7 @@ public class Instruction {
 
 	@Override
 	public String toString() {
-		String s = insCode + ""
+		String s = insCode + " "
 				+ (operands.size() > 0 ? " " + operandsToString() : "");
 		return s;
 	}
