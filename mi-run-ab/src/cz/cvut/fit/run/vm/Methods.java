@@ -2,6 +2,9 @@ package cz.cvut.fit.run.vm;
 
 import java.io.InvalidObjectException;
 
+/*
+ * Maybe should be Singleton
+ */
 public class Methods {
 
 	private static final String invTypesArithm = "Two objects from the top of the stack are not Integers.";

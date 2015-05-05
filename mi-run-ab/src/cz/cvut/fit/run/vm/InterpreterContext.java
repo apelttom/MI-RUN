@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+/*
+ * Should be called FrameFactory and should be creating frames (Frame = context of one method)
+ */
 public class InterpreterContext {
 
 	private static InterpreterContext instance = null;
@@ -31,8 +34,8 @@ public class InterpreterContext {
 	public Object popFromStack() {
 		return stack.pop();
 	}
-	
-	public boolean isStackEmpty(){
+
+	public boolean isStackEmpty() {
 		return stack.isEmpty();
 	}
 
@@ -45,12 +48,12 @@ public class InterpreterContext {
 	public Object istoreVar(int varIndex, Object a) {
 		return locals.put(varIndex, a);
 	}
-	
-	public Object iloadVar(int varIndex){
+
+	public Object iloadVar(int varIndex) {
 		return locals.get(varIndex);
 	}
 
-	public String toString(){
+	public String toString() {
 		String partA = "STACK:\n" + this.stack.toString() + "\n";
 		String partB = "LOCALS:\n" + this.locals.toString() + "\n";
 		return partA + partB;

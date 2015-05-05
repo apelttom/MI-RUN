@@ -17,6 +17,8 @@ import cz.cvut.fit.run.parser.JavaRecognizer;
 import cz.cvut.fit.run.vm.Interpreter;
 
 public class Main {
+	
+/* TODO: method invocation, object creation */
 
 	public static void main(String[] args) throws Exception {
 		// TODO add code path do argument
@@ -37,14 +39,14 @@ public class Main {
 			// get AST tree and print it in LISP notation
 			CommonAST myTree = (CommonAST) parser.getAST();
 			// System.out.println(myTree.toStringList());
-//			 printRoot(myTree);
+			// printRoot(myTree);
 
-			// generate bytecode, true = print nodes, false = you guess what :)
+			// generate bytecode, true = print nodes
 			Compiler compiler = new Compiler(false);
 			ByteCode byteCode = compiler.compile(myTree);
 
-//			 print bytecode
-			for (int PC = 0; PC <= byteCode.size() -1 ; PC++) {
+			// print bytecode
+			for (int PC = 0; PC <= byteCode.size() - 1; PC++) {
 				System.out.println(PC + ": " + byteCode.get(PC).toString());
 			}
 
@@ -99,20 +101,19 @@ public class Main {
 		if (node == null) {
 			return;
 		}
-//		System.out.println(node.toString());
+		// System.out.println(node.toString());
 		mini_print(node);
 		printRoot(node.getFirstChild());
 		printRoot(node.getNextSibling());
 	}
-	
+
 	private static void mini_print(AST node) {
-		System.out
-				.println("------------------------------");
+		System.out.println("------------------------------");
 		String Basic = "    " + node.toString() + "\n";
-		if(node.getFirstChild() != null){
+		if (node.getFirstChild() != null) {
 			Basic += node.getFirstChild().toString() + "\t";
 			AST sibling = node.getFirstChild().getNextSibling();
-			while(sibling != null){
+			while (sibling != null) {
 				Basic += sibling.toString() + "\t";
 				sibling = sibling.getNextSibling();
 			}
