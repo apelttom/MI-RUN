@@ -1,6 +1,7 @@
 package cz.cvut.fit.run.vm;
 
 import java.io.InvalidObjectException;
+import java.util.ArrayList;
 import java.util.List;
 
 import cz.cvut.fit.run.compiler.ByteCode;
@@ -9,18 +10,22 @@ import cz.cvut.fit.run.compiler.Instruction.InsSet;
 
 public class Interpreter {
 
-	private ByteCode bytecode;
-	private Methods methods = null;
+	private List<Object> heap = null;
+	private List<ClassFile> classFiles = null;
+	private FrameFactory frameFactory = null;
 
-	public Interpreter(ByteCode bytecode) {
-		this.bytecode = bytecode;
-		this.methods = new Methods();
+	public Interpreter(List<ClassFile> classFiles) {
+		this.classFiles = classFiles;
+		this.heap = new ArrayList<Object>();
+		this.frameFactory = new FrameFactory();
 	}
 
 	public void execute() throws Exception {
-		for (int PC = 0; PC <= bytecode.size() - 1; PC++) {
+		ByteCode main = classFiles.get(0).getMethod(0).getBytecode();
+		Frame mainFrame = frameFactory.makeFrame();
+		for (int PC = 0; PC <= main.size() - 1; PC++) {
 			try {
-				handleInstruction(bytecode.get(PC));
+				handleInstruction(main.get(PC), mainFrame);
 			} catch (GotoException e) {
 				// System.out.println(e.toString());
 
@@ -31,24 +36,23 @@ public class Interpreter {
 		}
 	}
 
-	private void handleInstruction(Instruction inst) throws Exception {
+	private void handleInstruction(Instruction inst, Frame frame)
+			throws Exception {
 		InsSet instr = inst.getInstructionCode();
 		List<String> instrArgs = inst.getOperands();
+		StackOperations methods = StackOperations.getInstance();
 
-		// Methods methods = new Methods();
-		InterpreterContext context = InterpreterContext.getInstance();
-
-//		System.out.println("Interpreter.handleInstruction() instruction "
+		// System.out.println("Interpreter.handleInstruction() instruction "
 //				+ instr.toString() + " size " + inst.getSize());
 
 		/* Bytecode instruction without arguments */
 		if (inst.getSize() == 0) {
 			if (instr.equals(InsSet.iadd)) {
-				methods.iaddition();
+				methods.iaddition(frame);
 			} else if (instr.equals(InsSet.isub)) {
-				methods.isubtraction();
+				methods.isubtraction(frame);
 			} else if (instr.equals(InsSet.imul)) {
-				methods.imultiplication();
+				methods.imultiplication(frame);
 			} else if (instr.equals(InsSet.re_turn)) {
 				return;
 			} else {
@@ -59,17 +63,17 @@ public class Interpreter {
 		/* Bytecode instruction with one argument */
 		else if (inst.getSize() == 1) {
 			if (isLogicalCondition(instr)) {
-				handleLogicalCondition(instr,
+				handleLogicalCondition(frame, instr,
 						Integer.parseInt(instrArgs.get(0)));
 			}
 			// for cycle
 			// else if (isForCycle) {}
 			else if (instr.equals(InsSet.bipush)) {
-				context.pushToStack(Integer.parseInt(instrArgs.get(0)));
+				frame.pushToStack(Integer.parseInt(instrArgs.get(0)));
 			} else if (instr.equals(InsSet.istore)) {
-				methods.istoreVar(Integer.parseInt(instrArgs.get(0)));
+				methods.istoreVar(frame, Integer.parseInt(instrArgs.get(0)));
 			} else if (instr.equals(InsSet.iload)) {
-				methods.iloadVar(Integer.parseInt(instrArgs.get(0)));
+				methods.iloadVar(frame, Integer.parseInt(instrArgs.get(0)));
 			} else if (instr.equals(InsSet.go_to)) {
 				throw new GotoException(Integer.parseInt(instrArgs.get(0)));
 			}
@@ -77,12 +81,12 @@ public class Interpreter {
 
 		else if (inst.getSize() == 2) {
 			if (instr.equals(InsSet.iinc)) {
-				methods.incVar(Integer.parseInt(instrArgs.get(0)),
+				methods.incVar(frame, Integer.parseInt(instrArgs.get(0)),
 						Integer.parseInt(instrArgs.get(1)));
 			}
 		}
 
-		System.out.println(InterpreterContext.getInstance().toString());
+//		System.out.println(FrameFactory.getInstance().toString());
 	}
 
 	private static boolean isLogicalCondition(InsSet instr) {
@@ -94,35 +98,37 @@ public class Interpreter {
 					.equals(InsSet.if_icmple));
 	}
 
-	private void handleLogicalCondition(InsSet instr, int jumpToPC)
+	private void handleLogicalCondition(Frame frame, InsSet instr, int jumpToPC)
 			throws InvalidObjectException {
+		StackOperations methods = StackOperations.getInstance();
+
 		if (instr.equals(InsSet.if_icmpeq)) {
-			if (methods.iequal()) {
+			if (methods.iequal(frame)) {
 				throw new GotoException(jumpToPC);
 			}
 			return;
 		} else if (instr.equals(InsSet.if_icmpne)) {
-			if (!methods.iequal()) {
+			if (!methods.iequal(frame)) {
 				throw new GotoException(jumpToPC);
 			}
 			return;
 		} else if (instr.equals(InsSet.if_icmplt)) {
-			if (methods.ilesser()) {
+			if (methods.ilesser(frame)) {
 				throw new GotoException(jumpToPC);
 			}
 			return;
 		} else if (instr.equals(InsSet.if_icmpge)) {
-			if (!methods.ilesser()) {
+			if (!methods.ilesser(frame)) {
 				throw new GotoException(jumpToPC);
 			}
 			return;
 		} else if (instr.equals(InsSet.if_icmpgt)) {
-			if (methods.igreater()) {
+			if (methods.igreater(frame)) {
 				throw new GotoException(jumpToPC);
 			}
 			return;
 		} else if (instr.equals(InsSet.if_icmple)) {
-			if (!methods.igreater()) {
+			if (!methods.igreater(frame)) {
 				throw new GotoException(jumpToPC);
 			}
 			return;

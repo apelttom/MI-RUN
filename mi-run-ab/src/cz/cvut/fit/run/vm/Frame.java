@@ -4,27 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-/*
- * Should be called FrameFactory and should be creating frames (Frame = context of one method)
- */
-public class InterpreterContext {
+public class Frame {
 
-	private static InterpreterContext instance = null;
+	private int frameID = -1;
 	private Stack<Object> stack = null;
 	private Map<Integer, Object> locals = null;
 
-	private InterpreterContext() {
-		stack = new Stack<Object>();
-		locals = new HashMap<Integer, Object>();
-	}
-
-	public static InterpreterContext getInstance() {
-		if (instance != null) {
-			return instance;
-		} else {
-			InterpreterContext.instance = new InterpreterContext();
-			return instance;
-		}
+	public Frame(int ID) {
+		this.frameID = ID;
+		this.stack = new Stack<Object>();
+		this.locals = new HashMap<Integer, Object>();
 	}
 
 	public Object pushToStack(Object obj) {
@@ -54,8 +43,10 @@ public class InterpreterContext {
 	}
 
 	public String toString() {
-		String partA = "STACK:\n" + this.stack.toString() + "\n";
-		String partB = "LOCALS:\n" + this.locals.toString() + "\n";
-		return partA + partB;
+		String partA = "Frame " + frameID + ":\n";
+		String partB = "STACK:\n" + this.stack.toString() + "\n";
+		String partC = "LOCALS:\n" + this.locals.toString() + "\n";
+		return partA + partB + partC;
 	}
+
 }

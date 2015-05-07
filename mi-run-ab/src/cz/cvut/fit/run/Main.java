@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Method;
+import java.util.List;
 
 import antlr.CommonAST;
 import antlr.RecognitionException;
@@ -15,6 +17,7 @@ import cz.cvut.fit.run.compiler.Instruction;
 import cz.cvut.fit.run.parser.JavaLexer;
 import cz.cvut.fit.run.parser.JavaRecognizer;
 import cz.cvut.fit.run.vm.Interpreter;
+import cz.cvut.fit.run.vm.MiniJavaMethod;
 
 public class Main {
 	
@@ -43,16 +46,16 @@ public class Main {
 
 			// generate bytecode, true = print nodes
 			Compiler compiler = new Compiler(false);
-			ByteCode byteCode = compiler.compile(myTree);
+			List<MiniJavaMethod> methods = compiler.compile(myTree);
 
-			// print bytecode
-			for (int PC = 0; PC <= byteCode.size() - 1; PC++) {
-				System.out.println(PC + ": " + byteCode.get(PC).toString());
+			// print bytecode of all methods
+			for (MiniJavaMethod method : methods) {
+				System.out.println(method.toString());
 			}
 
 			// interpret bytecode somehow
-			Interpreter interpreter = new Interpreter(byteCode);
-			interpreter.execute();
+//			Interpreter interpreter = new Interpreter(byteCode);
+//			interpreter.execute();
 
 		} catch (FileNotFoundException | RecognitionException
 				| TokenStreamException e) {

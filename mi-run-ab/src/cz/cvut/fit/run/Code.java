@@ -11,5 +11,9 @@ public class Code {
 			}
 		}
 	}
+	
+	public static void myMethod(){
+		int tom = 5;
+	}
 
 }
