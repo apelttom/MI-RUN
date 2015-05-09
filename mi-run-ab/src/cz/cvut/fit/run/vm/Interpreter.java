@@ -2,6 +2,8 @@ package cz.cvut.fit.run.vm;
 
 import java.io.InvalidObjectException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import cz.cvut.fit.run.compiler.ByteCode;
@@ -119,10 +121,17 @@ public class Interpreter {
 		} else if (instr.equals(InsSet.new_class)) {
 			// Create dynamically new object on Heap. It will be generic object
 			// ABObject
-			heap.add(new Object());
+			createObject(op1);
 		} 
 		else {
 			throw new UnsupportedOperationException(instr.name());
+		}
+	}
+
+	private void createObject(String name) {
+		ClassFile[] classFilesArray = classFiles.toArray(new ClassFile[classFiles.size()]);
+		for (ClassFile cf : classFilesArray) {
+//			if (cf.get)
 		}
 	}
 
