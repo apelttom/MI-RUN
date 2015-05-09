@@ -3,7 +3,8 @@ package cz.cvut.fit.run;
 public class ABCode {
 
 	public void main() {
-		int result = factorial(12);
+		int n = 3;
+		ABCode object = new ABCode(1+1, n);
 	}
 	
 	public final int factorial(int n){
