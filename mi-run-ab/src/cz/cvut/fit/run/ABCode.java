@@ -5,11 +5,8 @@ public class ABCode {
 	int a = 7;
 
 	public void main() {
-		new ABCode();
+		int b = 1;
+		ABCode o = new ABCode();
 	}
 	
-	public final int factorial(int n){
-		return n++;
-	}
-
 }

@@ -133,4 +133,23 @@ public class Instruction {
 	public InsSet getInstructionCode() {
 		return insCode;
 	}
+	
+	public static InsSet load(String type) {
+		if (type == null) {
+			throw new NullPointerException("instruction load with null reference type");
+		}
+		switch (type) {
+			case "int": return InsSet.iload;
+			default: return InsSet.aload;
+		}
+	}
+	public static InsSet store(String type) {
+		if (type == null) {
+			throw new NullPointerException("instruction store with null reference type");
+		}
+		switch (type) {
+			case "int": return InsSet.istore;
+			default: return InsSet.astore;
+		}
+	}
 }
