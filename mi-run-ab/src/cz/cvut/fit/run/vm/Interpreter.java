@@ -34,6 +34,7 @@ public class Interpreter {
 		for (int PC = 0; PC <= bytecode.size() - 1; PC++) {
 			try {
 //				System.out.println(bytecode.get(PC));
+
 				handleInstruction(bytecode.get(PC), frame);
 			} catch (GotoException e) {
 				// System.out.println(e.toString());

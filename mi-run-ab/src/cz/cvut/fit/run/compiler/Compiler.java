@@ -268,12 +268,27 @@ public class Compiler implements Constants {
 			bytecode.add(new Instruction(InsSet.bipush, tokenName));
 		} else if (tokenName.equals(EMPTY_EXPR)) {
 			return;
+		} else if (tokenName.equals(NEW_CLASS)) {
+			new_class(token_EXPRESSION, bytecode);
 		} else
 		// je to literal
 		{
 			bytecode.add(new Instruction(InsSet.iload, variableMap
 					.get(tokenName) + ""));
 		}
+	}
+
+	private void new_class(AST token_new, ByteCode bytecode) {
+		AST token_className = token_new.getFirstChild();
+		String className = token_className.getText();
+		
+		List<AST> tokens_classArgs = getAstChildren(token_className.getNextSibling());
+		for (AST arg : tokens_classArgs) {
+			// evaluate all arguments
+			expression(arg, bytecode);
+		}
+		bytecode.add(new Instruction(InsSet.new_class, className, 
+				String.valueOf(tokens_classArgs.size())));
 	}
 
 	private void incrementVar(String variable, int n, ByteCode bytecode) {

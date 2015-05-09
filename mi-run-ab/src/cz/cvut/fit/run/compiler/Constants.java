@@ -38,4 +38,5 @@ public interface Constants {
 	public static final String RIGHT_PARENT = ")";
 	
 	public static final String EMPTY_EXPR = ";";
+	public static final String NEW_CLASS = "new";
 }
