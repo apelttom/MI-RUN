@@ -48,20 +48,30 @@ public class FrameOperations {
 			throws InvalidObjectException {
 		Object a = frame.popFromStack();
 		if (a instanceof Integer) {
-			frame.istoreVar(varIndex, (Integer) a);
+			frame.storeVar(varIndex, (Integer) a);
 		} else {
 			throw new InvalidObjectException(invTypeiStore + " " + a);
 		}
 	}
+	
+	public static void astoreVar(Frame frame, int varIndex) {
+		Object a = frame.popFromStack();
+		frame.storeVar(varIndex, a);
+	}
 
 	public static void iloadVar(Frame frame, int varIndex)
 			throws InvalidObjectException {
-		Object a = frame.iloadVar(varIndex);
+		Object a = frame.loadVar(varIndex);
 		if (a instanceof Integer) {
 			frame.pushToStack(a);
 		} else {
 			throw new InvalidObjectException(invTypeiLoad + " " + a);
 		}
+	}
+	
+	public static void aloadVar(Frame frame, int varIndex) {
+		Object a = frame.loadVar(varIndex);
+		frame.pushToStack(a);
 	}
 
 	public static boolean iequal(Frame frame) throws InvalidObjectException {
@@ -93,7 +103,7 @@ public class FrameOperations {
 
 	public static void incVar(Frame frame, int index, int n)
 			throws InvalidObjectException {
-		Object a = frame.iloadVar(index);
+		Object a = frame.loadVar(index);
 		if (a instanceof Integer) {
 			frame.pushToStack((Integer) a + n);
 			istoreVar(frame, index);

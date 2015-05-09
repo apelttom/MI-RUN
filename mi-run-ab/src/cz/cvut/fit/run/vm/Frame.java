@@ -41,12 +41,12 @@ public class Frame {
 	 * @param a
 	 * @return the element previously at the specified position
 	 */
-	public Object istoreVar(int varIndex, Integer a) {
+	public Object storeVar(int varIndex, Object a) {
 		return locals.put(varIndex, a);
 	}
 
-	public Integer iloadVar(int varIndex) {
-		return (Integer) locals.get(varIndex);
+	public Object loadVar(int varIndex) {
+		return locals.get(varIndex);
 	}
 
 	@Override

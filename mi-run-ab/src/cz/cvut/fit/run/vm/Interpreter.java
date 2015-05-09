@@ -2,8 +2,6 @@ package cz.cvut.fit.run.vm;
 
 import java.io.InvalidObjectException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 import cz.cvut.fit.run.compiler.ByteCode;
@@ -97,15 +95,19 @@ public class Interpreter {
 			frame.pushToStack(Integer.parseInt(op1));
 		} else if (instr.equals(InsSet.istore)) {
 			FrameOperations.istoreVar(frame, Integer.parseInt(op1));
+		} else if (instr.equals(InsSet.astore)) {
+			FrameOperations.astoreVar(frame, Integer.parseInt(op1));
 		} else if (instr.equals(InsSet.iload)) {
 			FrameOperations.iloadVar(frame, Integer.parseInt(op1));
+		} else if (instr.equals(InsSet.aload)) {
+			FrameOperations.aloadVar(frame, Integer.parseInt(op1));
 		} else if (instr.equals(InsSet.go_to)) {
 			throw new GotoException(Integer.parseInt(op1));
 		} else if (instr.equals(InsSet.invoke)) {
 			Frame newFrame = frameFactory.makeFrame(frame);
 			MethodInfo method = classFiles.get(0).getMethod(op1);
 			for (int i = 0; i < method.getArgTypes().size(); i++) {
-				newFrame.istoreVar(i, (Integer) frame.popFromStack());
+				newFrame.storeVar(i, (Integer) frame.popFromStack());
 				// inverse declaration?
 			}
 			executeInternal(method.getBytecode(), newFrame);
