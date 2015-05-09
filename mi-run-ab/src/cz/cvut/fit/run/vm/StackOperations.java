@@ -65,7 +65,7 @@ public class StackOperations {
 			throws InvalidObjectException {
 		Object a = frame.popFromStack();
 		if (a instanceof Integer) {
-			frame.istoreVar(varIndex, (Integer) a);
+			frame.istoreVar(varIndex, a);
 		} else {
 			throw new InvalidObjectException(invTypeiStore);
 		}
@@ -75,7 +75,7 @@ public class StackOperations {
 			throws InvalidObjectException {
 		Object a = frame.iloadVar(varIndex);
 		if (a instanceof Integer) {
-			frame.pushToStack((Integer) a);
+			frame.pushToStack(a);
 		} else {
 			throw new InvalidObjectException(invTypeiLoad);
 		}

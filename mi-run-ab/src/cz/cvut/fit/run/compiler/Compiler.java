@@ -282,7 +282,7 @@ public class Compiler implements Constants {
 	}
 
 	private void incrementVar(String variable, int n, ByteCode bytecode) {
-		int varIndex = (Integer) variableMap.get(variable);
+		int varIndex = variableMap.get(variable);
 		bytecode.add(new Instruction(InsSet.iinc, Integer.toString(varIndex),
 				Integer.toString(n)));
 	}

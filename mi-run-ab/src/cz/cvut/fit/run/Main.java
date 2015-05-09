@@ -7,8 +7,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.event.ListSelectionEvent;
-
 import antlr.CommonAST;
 import antlr.RecognitionException;
 import antlr.TokenStreamException;

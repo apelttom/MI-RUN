@@ -88,7 +88,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t8 = _t;
-			AST tmp1_AST_in = (AST) _t;
+			AST tmp1_AST_in = _t;
 			match(_t, PACKAGE_DEF);
 			_t = _t.getFirstChild();
 			annotations(_t);
@@ -116,7 +116,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			switch (_t.getType()) {
 			case IMPORT: {
 				AST __t10 = _t;
-				AST tmp2_AST_in = (AST) _t;
+				AST tmp2_AST_in = _t;
 				match(_t, IMPORT);
 				_t = _t.getFirstChild();
 				identifierStar(_t);
@@ -127,7 +127,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case STATIC_IMPORT: {
 				AST __t11 = _t;
-				AST tmp3_AST_in = (AST) _t;
+				AST tmp3_AST_in = _t;
 				match(_t, STATIC_IMPORT);
 				_t = _t.getFirstChild();
 				identifierStar(_t);
@@ -159,12 +159,12 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			switch (_t.getType()) {
 			case CLASS_DEF: {
 				AST __t13 = _t;
-				AST tmp4_AST_in = (AST) _t;
+				AST tmp4_AST_in = _t;
 				match(_t, CLASS_DEF);
 				_t = _t.getFirstChild();
 				modifiers(_t);
 				_t = _retTree;
-				AST tmp5_AST_in = (AST) _t;
+				AST tmp5_AST_in = _t;
 				match(_t, IDENT);
 				_t = _t.getNextSibling();
 				{
@@ -196,12 +196,12 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case INTERFACE_DEF: {
 				AST __t15 = _t;
-				AST tmp6_AST_in = (AST) _t;
+				AST tmp6_AST_in = _t;
 				match(_t, INTERFACE_DEF);
 				_t = _t.getFirstChild();
 				modifiers(_t);
 				_t = _retTree;
-				AST tmp7_AST_in = (AST) _t;
+				AST tmp7_AST_in = _t;
 				match(_t, IDENT);
 				_t = _t.getNextSibling();
 				{
@@ -231,12 +231,12 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case ENUM_DEF: {
 				AST __t17 = _t;
-				AST tmp8_AST_in = (AST) _t;
+				AST tmp8_AST_in = _t;
 				match(_t, ENUM_DEF);
 				_t = _t.getFirstChild();
 				modifiers(_t);
 				_t = _retTree;
-				AST tmp9_AST_in = (AST) _t;
+				AST tmp9_AST_in = _t;
 				match(_t, IDENT);
 				_t = _t.getNextSibling();
 				implementsClause(_t);
@@ -249,12 +249,12 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case ANNOTATION_DEF: {
 				AST __t18 = _t;
-				AST tmp10_AST_in = (AST) _t;
+				AST tmp10_AST_in = _t;
 				match(_t, ANNOTATION_DEF);
 				_t = _t.getFirstChild();
 				modifiers(_t);
 				_t = _retTree;
-				AST tmp11_AST_in = (AST) _t;
+				AST tmp11_AST_in = _t;
 				match(_t, IDENT);
 				_t = _t.getNextSibling();
 				annotationBlock(_t);
@@ -282,7 +282,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t62 = _t;
-			AST tmp12_AST_in = (AST) _t;
+			AST tmp12_AST_in = _t;
 			match(_t, ANNOTATIONS);
 			_t = _t.getFirstChild();
 			{
@@ -318,19 +318,19 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 				_t = ASTNULL;
 			switch (_t.getType()) {
 			case IDENT: {
-				AST tmp13_AST_in = (AST) _t;
+				AST tmp13_AST_in = _t;
 				match(_t, IDENT);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case DOT: {
 				AST __t157 = _t;
-				AST tmp14_AST_in = (AST) _t;
+				AST tmp14_AST_in = _t;
 				match(_t, DOT);
 				_t = _t.getFirstChild();
 				identifier(_t);
 				_t = _retTree;
-				AST tmp15_AST_in = (AST) _t;
+				AST tmp15_AST_in = _t;
 				match(_t, IDENT);
 				_t = _t.getNextSibling();
 				_t = __t157;
@@ -359,14 +359,14 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 				_t = ASTNULL;
 			switch (_t.getType()) {
 			case IDENT: {
-				AST tmp16_AST_in = (AST) _t;
+				AST tmp16_AST_in = _t;
 				match(_t, IDENT);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case DOT: {
 				AST __t159 = _t;
-				AST tmp17_AST_in = (AST) _t;
+				AST tmp17_AST_in = _t;
 				match(_t, DOT);
 				_t = _t.getFirstChild();
 				identifier(_t);
@@ -376,13 +376,13 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 						_t = ASTNULL;
 					switch (_t.getType()) {
 					case STAR: {
-						AST tmp18_AST_in = (AST) _t;
+						AST tmp18_AST_in = _t;
 						match(_t, STAR);
 						_t = _t.getNextSibling();
 						break;
 					}
 					case IDENT: {
-						AST tmp19_AST_in = (AST) _t;
+						AST tmp19_AST_in = _t;
 						match(_t, IDENT);
 						_t = _t.getNextSibling();
 						break;
@@ -415,7 +415,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t57 = _t;
-			AST tmp20_AST_in = (AST) _t;
+			AST tmp20_AST_in = _t;
 			match(_t, MODIFIERS);
 			_t = _t.getFirstChild();
 			{
@@ -448,7 +448,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t20 = _t;
-			AST tmp21_AST_in = (AST) _t;
+			AST tmp21_AST_in = _t;
 			match(_t, TYPE_PARAMETERS);
 			_t = _t.getFirstChild();
 			{
@@ -487,7 +487,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t79 = _t;
-			AST tmp22_AST_in = (AST) _t;
+			AST tmp22_AST_in = _t;
 			match(_t, EXTENDS_CLAUSE);
 			_t = _t.getFirstChild();
 			{
@@ -520,7 +520,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t83 = _t;
-			AST tmp23_AST_in = (AST) _t;
+			AST tmp23_AST_in = _t;
 			match(_t, IMPLEMENTS_CLAUSE);
 			_t = _t.getFirstChild();
 			{
@@ -553,7 +553,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t91 = _t;
-			AST tmp24_AST_in = (AST) _t;
+			AST tmp24_AST_in = _t;
 			match(_t, OBJBLOCK);
 			_t = _t.getFirstChild();
 			{
@@ -586,7 +586,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 					}
 					case STATIC_INIT: {
 						AST __t93 = _t;
-						AST tmp25_AST_in = (AST) _t;
+						AST tmp25_AST_in = _t;
 						match(_t, STATIC_INIT);
 						_t = _t.getFirstChild();
 						slist(_t);
@@ -597,7 +597,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 					}
 					case INSTANCE_INIT: {
 						AST __t94 = _t;
-						AST tmp26_AST_in = (AST) _t;
+						AST tmp26_AST_in = _t;
 						match(_t, INSTANCE_INIT);
 						_t = _t.getFirstChild();
 						slist(_t);
@@ -629,7 +629,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t87 = _t;
-			AST tmp27_AST_in = (AST) _t;
+			AST tmp27_AST_in = _t;
 			match(_t, OBJBLOCK);
 			_t = _t.getFirstChild();
 			{
@@ -678,7 +678,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t101 = _t;
-			AST tmp28_AST_in = (AST) _t;
+			AST tmp28_AST_in = _t;
 			match(_t, OBJBLOCK);
 			_t = _t.getFirstChild();
 			{
@@ -724,7 +724,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 					}
 					case STATIC_INIT: {
 						AST __t105 = _t;
-						AST tmp29_AST_in = (AST) _t;
+						AST tmp29_AST_in = _t;
 						match(_t, STATIC_INIT);
 						_t = _t.getFirstChild();
 						slist(_t);
@@ -735,7 +735,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 					}
 					case INSTANCE_INIT: {
 						AST __t106 = _t;
-						AST tmp30_AST_in = (AST) _t;
+						AST tmp30_AST_in = _t;
 						match(_t, INSTANCE_INIT);
 						_t = _t.getFirstChild();
 						slist(_t);
@@ -767,7 +767,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t97 = _t;
-			AST tmp31_AST_in = (AST) _t;
+			AST tmp31_AST_in = _t;
 			match(_t, OBJBLOCK);
 			_t = _t.getFirstChild();
 			{
@@ -816,10 +816,10 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t24 = _t;
-			AST tmp32_AST_in = (AST) _t;
+			AST tmp32_AST_in = _t;
 			match(_t, TYPE_PARAMETER);
 			_t = _t.getFirstChild();
-			AST tmp33_AST_in = (AST) _t;
+			AST tmp33_AST_in = _t;
 			match(_t, IDENT);
 			_t = _t.getNextSibling();
 			{
@@ -856,7 +856,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t27 = _t;
-			AST tmp34_AST_in = (AST) _t;
+			AST tmp34_AST_in = _t;
 			match(_t, TYPE_UPPER_BOUNDS);
 			_t = _t.getFirstChild();
 			{
@@ -898,7 +898,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 				_t = ASTNULL;
 			switch (_t.getType()) {
 			case IDENT: {
-				AST tmp35_AST_in = (AST) _t;
+				AST tmp35_AST_in = _t;
 				match(_t, IDENT);
 				_t = _t.getNextSibling();
 				{
@@ -926,7 +926,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case DOT: {
 				AST __t37 = _t;
-				AST tmp36_AST_in = (AST) _t;
+				AST tmp36_AST_in = _t;
 				match(_t, DOT);
 				_t = _t.getFirstChild();
 				classOrInterfaceType(_t);
@@ -954,7 +954,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t31 = _t;
-			AST tmp37_AST_in = (AST) _t;
+			AST tmp37_AST_in = _t;
 			match(_t, TYPE);
 			_t = _t.getFirstChild();
 			typeSpecArray(_t);
@@ -980,7 +980,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			switch (_t.getType()) {
 			case ARRAY_DECLARATOR: {
 				AST __t33 = _t;
-				AST tmp38_AST_in = (AST) _t;
+				AST tmp38_AST_in = _t;
 				match(_t, ARRAY_DECLARATOR);
 				_t = _t.getFirstChild();
 				typeSpecArray(_t);
@@ -1066,55 +1066,55 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 				_t = ASTNULL;
 			switch (_t.getType()) {
 			case LITERAL_void: {
-				AST tmp39_AST_in = (AST) _t;
+				AST tmp39_AST_in = _t;
 				match(_t, LITERAL_void);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_boolean: {
-				AST tmp40_AST_in = (AST) _t;
+				AST tmp40_AST_in = _t;
 				match(_t, LITERAL_boolean);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_byte: {
-				AST tmp41_AST_in = (AST) _t;
+				AST tmp41_AST_in = _t;
 				match(_t, LITERAL_byte);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_char: {
-				AST tmp42_AST_in = (AST) _t;
+				AST tmp42_AST_in = _t;
 				match(_t, LITERAL_char);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_short: {
-				AST tmp43_AST_in = (AST) _t;
+				AST tmp43_AST_in = _t;
 				match(_t, LITERAL_short);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_int: {
-				AST tmp44_AST_in = (AST) _t;
+				AST tmp44_AST_in = _t;
 				match(_t, LITERAL_int);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_float: {
-				AST tmp45_AST_in = (AST) _t;
+				AST tmp45_AST_in = _t;
 				match(_t, LITERAL_float);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_long: {
-				AST tmp46_AST_in = (AST) _t;
+				AST tmp46_AST_in = _t;
 				match(_t, LITERAL_long);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_double: {
-				AST tmp47_AST_in = (AST) _t;
+				AST tmp47_AST_in = _t;
 				match(_t, LITERAL_double);
 				_t = _t.getNextSibling();
 				break;
@@ -1138,7 +1138,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t39 = _t;
-			AST tmp48_AST_in = (AST) _t;
+			AST tmp48_AST_in = _t;
 			match(_t, TYPE_ARGUMENTS);
 			_t = _t.getFirstChild();
 			{
@@ -1177,7 +1177,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t43 = _t;
-			AST tmp49_AST_in = (AST) _t;
+			AST tmp49_AST_in = _t;
 			match(_t, TYPE_ARGUMENT);
 			_t = _t.getFirstChild();
 			{
@@ -1216,7 +1216,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t46 = _t;
-			AST tmp50_AST_in = (AST) _t;
+			AST tmp50_AST_in = _t;
 			match(_t, WILDCARD_TYPE);
 			_t = _t.getFirstChild();
 			{
@@ -1258,7 +1258,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			switch (_t.getType()) {
 			case TYPE_UPPER_BOUNDS: {
 				AST __t49 = _t;
-				AST tmp51_AST_in = (AST) _t;
+				AST tmp51_AST_in = _t;
 				match(_t, TYPE_UPPER_BOUNDS);
 				_t = _t.getFirstChild();
 				{
@@ -1286,7 +1286,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case TYPE_LOWER_BOUNDS: {
 				AST __t52 = _t;
-				AST tmp52_AST_in = (AST) _t;
+				AST tmp52_AST_in = _t;
 				match(_t, TYPE_LOWER_BOUNDS);
 				_t = _t.getFirstChild();
 				{
@@ -1334,79 +1334,79 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 				_t = ASTNULL;
 			switch (_t.getType()) {
 			case LITERAL_private: {
-				AST tmp53_AST_in = (AST) _t;
+				AST tmp53_AST_in = _t;
 				match(_t, LITERAL_private);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_public: {
-				AST tmp54_AST_in = (AST) _t;
+				AST tmp54_AST_in = _t;
 				match(_t, LITERAL_public);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_protected: {
-				AST tmp55_AST_in = (AST) _t;
+				AST tmp55_AST_in = _t;
 				match(_t, LITERAL_protected);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_static: {
-				AST tmp56_AST_in = (AST) _t;
+				AST tmp56_AST_in = _t;
 				match(_t, LITERAL_static);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_transient: {
-				AST tmp57_AST_in = (AST) _t;
+				AST tmp57_AST_in = _t;
 				match(_t, LITERAL_transient);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case FINAL: {
-				AST tmp58_AST_in = (AST) _t;
+				AST tmp58_AST_in = _t;
 				match(_t, FINAL);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case ABSTRACT: {
-				AST tmp59_AST_in = (AST) _t;
+				AST tmp59_AST_in = _t;
 				match(_t, ABSTRACT);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_native: {
-				AST tmp60_AST_in = (AST) _t;
+				AST tmp60_AST_in = _t;
 				match(_t, LITERAL_native);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_threadsafe: {
-				AST tmp61_AST_in = (AST) _t;
+				AST tmp61_AST_in = _t;
 				match(_t, LITERAL_threadsafe);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_synchronized: {
-				AST tmp62_AST_in = (AST) _t;
+				AST tmp62_AST_in = _t;
 				match(_t, LITERAL_synchronized);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_const: {
-				AST tmp63_AST_in = (AST) _t;
+				AST tmp63_AST_in = _t;
 				match(_t, LITERAL_const);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_volatile: {
-				AST tmp64_AST_in = (AST) _t;
+				AST tmp64_AST_in = _t;
 				match(_t, LITERAL_volatile);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case STRICTFP: {
-				AST tmp65_AST_in = (AST) _t;
+				AST tmp65_AST_in = _t;
 				match(_t, STRICTFP);
 				_t = _t.getNextSibling();
 				break;
@@ -1435,7 +1435,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t66 = _t;
-			AST tmp66_AST_in = (AST) _t;
+			AST tmp66_AST_in = _t;
 			match(_t, ANNOTATION);
 			_t = _t.getFirstChild();
 			identifier(_t);
@@ -1630,10 +1630,10 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t72 = _t;
-			AST tmp67_AST_in = (AST) _t;
+			AST tmp67_AST_in = _t;
 			match(_t, ANNOTATION_MEMBER_VALUE_PAIR);
 			_t = _t.getFirstChild();
-			AST tmp68_AST_in = (AST) _t;
+			AST tmp68_AST_in = _t;
 			match(_t, IDENT);
 			_t = _t.getNextSibling();
 			annotationMemberValueInitializer(_t);
@@ -1659,7 +1659,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			switch (_t.getType()) {
 			case QUESTION: {
 				AST __t228 = _t;
-				AST tmp69_AST_in = (AST) _t;
+				AST tmp69_AST_in = _t;
 				match(_t, QUESTION);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1674,7 +1674,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LOR: {
 				AST __t229 = _t;
-				AST tmp70_AST_in = (AST) _t;
+				AST tmp70_AST_in = _t;
 				match(_t, LOR);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1687,7 +1687,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LAND: {
 				AST __t230 = _t;
-				AST tmp71_AST_in = (AST) _t;
+				AST tmp71_AST_in = _t;
 				match(_t, LAND);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1700,7 +1700,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case BOR: {
 				AST __t231 = _t;
-				AST tmp72_AST_in = (AST) _t;
+				AST tmp72_AST_in = _t;
 				match(_t, BOR);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1713,7 +1713,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case BXOR: {
 				AST __t232 = _t;
-				AST tmp73_AST_in = (AST) _t;
+				AST tmp73_AST_in = _t;
 				match(_t, BXOR);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1726,7 +1726,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case BAND: {
 				AST __t233 = _t;
-				AST tmp74_AST_in = (AST) _t;
+				AST tmp74_AST_in = _t;
 				match(_t, BAND);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1739,7 +1739,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case NOT_EQUAL: {
 				AST __t234 = _t;
-				AST tmp75_AST_in = (AST) _t;
+				AST tmp75_AST_in = _t;
 				match(_t, NOT_EQUAL);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1752,7 +1752,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case EQUAL: {
 				AST __t235 = _t;
-				AST tmp76_AST_in = (AST) _t;
+				AST tmp76_AST_in = _t;
 				match(_t, EQUAL);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1765,7 +1765,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LT: {
 				AST __t236 = _t;
-				AST tmp77_AST_in = (AST) _t;
+				AST tmp77_AST_in = _t;
 				match(_t, LT);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1778,7 +1778,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case GT: {
 				AST __t237 = _t;
-				AST tmp78_AST_in = (AST) _t;
+				AST tmp78_AST_in = _t;
 				match(_t, GT);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1791,7 +1791,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LE: {
 				AST __t238 = _t;
-				AST tmp79_AST_in = (AST) _t;
+				AST tmp79_AST_in = _t;
 				match(_t, LE);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1804,7 +1804,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case GE: {
 				AST __t239 = _t;
-				AST tmp80_AST_in = (AST) _t;
+				AST tmp80_AST_in = _t;
 				match(_t, GE);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1817,7 +1817,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case SL: {
 				AST __t240 = _t;
-				AST tmp81_AST_in = (AST) _t;
+				AST tmp81_AST_in = _t;
 				match(_t, SL);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1830,7 +1830,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case SR: {
 				AST __t241 = _t;
-				AST tmp82_AST_in = (AST) _t;
+				AST tmp82_AST_in = _t;
 				match(_t, SR);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1843,7 +1843,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case BSR: {
 				AST __t242 = _t;
-				AST tmp83_AST_in = (AST) _t;
+				AST tmp83_AST_in = _t;
 				match(_t, BSR);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1856,7 +1856,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case PLUS: {
 				AST __t243 = _t;
-				AST tmp84_AST_in = (AST) _t;
+				AST tmp84_AST_in = _t;
 				match(_t, PLUS);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1869,7 +1869,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case MINUS: {
 				AST __t244 = _t;
-				AST tmp85_AST_in = (AST) _t;
+				AST tmp85_AST_in = _t;
 				match(_t, MINUS);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1882,7 +1882,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case DIV: {
 				AST __t245 = _t;
-				AST tmp86_AST_in = (AST) _t;
+				AST tmp86_AST_in = _t;
 				match(_t, DIV);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1895,7 +1895,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case MOD: {
 				AST __t246 = _t;
-				AST tmp87_AST_in = (AST) _t;
+				AST tmp87_AST_in = _t;
 				match(_t, MOD);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1908,7 +1908,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case STAR: {
 				AST __t247 = _t;
-				AST tmp88_AST_in = (AST) _t;
+				AST tmp88_AST_in = _t;
 				match(_t, STAR);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1921,7 +1921,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case INC: {
 				AST __t248 = _t;
-				AST tmp89_AST_in = (AST) _t;
+				AST tmp89_AST_in = _t;
 				match(_t, INC);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1932,7 +1932,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case DEC: {
 				AST __t249 = _t;
-				AST tmp90_AST_in = (AST) _t;
+				AST tmp90_AST_in = _t;
 				match(_t, DEC);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1943,7 +1943,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case POST_INC: {
 				AST __t250 = _t;
-				AST tmp91_AST_in = (AST) _t;
+				AST tmp91_AST_in = _t;
 				match(_t, POST_INC);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1954,7 +1954,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case POST_DEC: {
 				AST __t251 = _t;
-				AST tmp92_AST_in = (AST) _t;
+				AST tmp92_AST_in = _t;
 				match(_t, POST_DEC);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1965,7 +1965,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case BNOT: {
 				AST __t252 = _t;
-				AST tmp93_AST_in = (AST) _t;
+				AST tmp93_AST_in = _t;
 				match(_t, BNOT);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1976,7 +1976,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LNOT: {
 				AST __t253 = _t;
-				AST tmp94_AST_in = (AST) _t;
+				AST tmp94_AST_in = _t;
 				match(_t, LNOT);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -1987,7 +1987,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LITERAL_instanceof: {
 				AST __t254 = _t;
-				AST tmp95_AST_in = (AST) _t;
+				AST tmp95_AST_in = _t;
 				match(_t, LITERAL_instanceof);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -2000,7 +2000,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case UNARY_MINUS: {
 				AST __t255 = _t;
-				AST tmp96_AST_in = (AST) _t;
+				AST tmp96_AST_in = _t;
 				match(_t, UNARY_MINUS);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -2011,7 +2011,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case UNARY_PLUS: {
 				AST __t256 = _t;
-				AST tmp97_AST_in = (AST) _t;
+				AST tmp97_AST_in = _t;
 				match(_t, UNARY_PLUS);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -2063,7 +2063,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t74 = _t;
-			AST tmp98_AST_in = (AST) _t;
+			AST tmp98_AST_in = _t;
 			match(_t, ANNOTATION_ARRAY_INIT);
 			_t = _t.getFirstChild();
 			{
@@ -2175,7 +2175,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t113 = _t;
-			AST tmp99_AST_in = (AST) _t;
+			AST tmp99_AST_in = _t;
 			match(_t, METHOD_DEF);
 			_t = _t.getFirstChild();
 			modifiers(_t);
@@ -2218,7 +2218,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t120 = _t;
-			AST tmp100_AST_in = (AST) _t;
+			AST tmp100_AST_in = _t;
 			match(_t, VARIABLE_DEF);
 			_t = _t.getFirstChild();
 			modifiers(_t);
@@ -2246,7 +2246,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t109 = _t;
-			AST tmp101_AST_in = (AST) _t;
+			AST tmp101_AST_in = _t;
 			match(_t, CTOR_DEF);
 			_t = _t.getFirstChild();
 			modifiers(_t);
@@ -2304,7 +2304,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t116 = _t;
-			AST tmp102_AST_in = (AST) _t;
+			AST tmp102_AST_in = _t;
 			match(_t, METHOD_DEF);
 			_t = _t.getFirstChild();
 			modifiers(_t);
@@ -2364,7 +2364,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t162 = _t;
-			AST tmp103_AST_in = (AST) _t;
+			AST tmp103_AST_in = _t;
 			match(_t, SLIST);
 			_t = _t.getFirstChild();
 			{
@@ -2397,14 +2397,14 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t126 = _t;
-			AST tmp104_AST_in = (AST) _t;
+			AST tmp104_AST_in = _t;
 			match(_t, ANNOTATION_FIELD_DEF);
 			_t = _t.getFirstChild();
 			modifiers(_t);
 			_t = _retTree;
 			typeSpec(_t);
 			_t = _retTree;
-			AST tmp105_AST_in = (AST) _t;
+			AST tmp105_AST_in = _t;
 			match(_t, IDENT);
 			_t = _t.getNextSibling();
 			{
@@ -2491,12 +2491,12 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t129 = _t;
-			AST tmp106_AST_in = (AST) _t;
+			AST tmp106_AST_in = _t;
 			match(_t, ENUM_CONSTANT_DEF);
 			_t = _t.getFirstChild();
 			annotations(_t);
 			_t = _retTree;
-			AST tmp107_AST_in = (AST) _t;
+			AST tmp107_AST_in = _t;
 			match(_t, IDENT);
 			_t = _t.getNextSibling();
 			{
@@ -2550,11 +2550,11 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 		AST methodHead_AST_in = (_t == ASTNULL) ? null : (AST) _t;
 
 		try { // for error handling
-			AST tmp108_AST_in = (AST) _t;
+			AST tmp108_AST_in = _t;
 			match(_t, IDENT);
 			_t = _t.getNextSibling();
 			AST __t148 = _t;
-			AST tmp109_AST_in = (AST) _t;
+			AST tmp109_AST_in = _t;
 			match(_t, PARAMETERS);
 			_t = _t.getFirstChild();
 			{
@@ -2608,13 +2608,13 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 				_t = ASTNULL;
 			switch (_t.getType()) {
 			case IDENT: {
-				AST tmp110_AST_in = (AST) _t;
+				AST tmp110_AST_in = _t;
 				match(_t, IDENT);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LBRACK: {
-				AST tmp111_AST_in = (AST) _t;
+				AST tmp111_AST_in = _t;
 				match(_t, LBRACK);
 				_t = _t.getNextSibling();
 				variableDeclarator(_t);
@@ -2644,7 +2644,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			switch (_t.getType()) {
 			case ASSIGN: {
 				AST __t141 = _t;
-				AST tmp112_AST_in = (AST) _t;
+				AST tmp112_AST_in = _t;
 				match(_t, ASSIGN);
 				_t = _t.getFirstChild();
 				initializer(_t);
@@ -2675,14 +2675,14 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t122 = _t;
-			AST tmp113_AST_in = (AST) _t;
+			AST tmp113_AST_in = _t;
 			match(_t, PARAMETER_DEF);
 			_t = _t.getFirstChild();
 			modifiers(_t);
 			_t = _retTree;
 			typeSpec(_t);
 			_t = _retTree;
-			AST tmp114_AST_in = (AST) _t;
+			AST tmp114_AST_in = _t;
 			match(_t, IDENT);
 			_t = _t.getNextSibling();
 			_t = __t122;
@@ -2702,14 +2702,14 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t124 = _t;
-			AST tmp115_AST_in = (AST) _t;
+			AST tmp115_AST_in = _t;
 			match(_t, VARIABLE_PARAMETER_DEF);
 			_t = _t.getFirstChild();
 			modifiers(_t);
 			_t = _retTree;
 			typeSpec(_t);
 			_t = _retTree;
-			AST tmp116_AST_in = (AST) _t;
+			AST tmp116_AST_in = _t;
 			match(_t, IDENT);
 			_t = _t.getNextSibling();
 			_t = __t124;
@@ -2729,7 +2729,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t209 = _t;
-			AST tmp117_AST_in = (AST) _t;
+			AST tmp117_AST_in = _t;
 			match(_t, ELIST);
 			_t = _t.getFirstChild();
 			{
@@ -2762,7 +2762,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t133 = _t;
-			AST tmp118_AST_in = (AST) _t;
+			AST tmp118_AST_in = _t;
 			match(_t, OBJBLOCK);
 			_t = _t.getFirstChild();
 			{
@@ -2790,7 +2790,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 					}
 					case INSTANCE_INIT: {
 						AST __t135 = _t;
-						AST tmp119_AST_in = (AST) _t;
+						AST tmp119_AST_in = _t;
 						match(_t, INSTANCE_INIT);
 						_t = _t.getFirstChild();
 						slist(_t);
@@ -2822,7 +2822,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t138 = _t;
-			AST tmp120_AST_in = (AST) _t;
+			AST tmp120_AST_in = _t;
 			match(_t, INSTANCE_INIT);
 			_t = _t.getFirstChild();
 			slist(_t);
@@ -2875,7 +2875,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t213 = _t;
-			AST tmp121_AST_in = (AST) _t;
+			AST tmp121_AST_in = _t;
 			match(_t, EXPR);
 			_t = _t.getFirstChild();
 			expr(_t);
@@ -2897,7 +2897,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t144 = _t;
-			AST tmp122_AST_in = (AST) _t;
+			AST tmp122_AST_in = _t;
 			match(_t, ARRAY_INIT);
 			_t = _t.getFirstChild();
 			{
@@ -2930,7 +2930,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t153 = _t;
-			AST tmp123_AST_in = (AST) _t;
+			AST tmp123_AST_in = _t;
 			match(_t, LITERAL_throws);
 			_t = _t.getFirstChild();
 			{
@@ -2985,10 +2985,10 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LABELED_STAT: {
 				AST __t166 = _t;
-				AST tmp124_AST_in = (AST) _t;
+				AST tmp124_AST_in = _t;
 				match(_t, LABELED_STAT);
 				_t = _t.getFirstChild();
-				AST tmp125_AST_in = (AST) _t;
+				AST tmp125_AST_in = _t;
 				match(_t, IDENT);
 				_t = _t.getNextSibling();
 				stat(_t);
@@ -2999,7 +2999,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LITERAL_if: {
 				AST __t167 = _t;
-				AST tmp126_AST_in = (AST) _t;
+				AST tmp126_AST_in = _t;
 				match(_t, LITERAL_if);
 				_t = _t.getFirstChild();
 				expression(_t);
@@ -3049,7 +3049,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LITERAL_for: {
 				AST __t169 = _t;
-				AST tmp127_AST_in = (AST) _t;
+				AST tmp127_AST_in = _t;
 				match(_t, LITERAL_for);
 				_t = _t.getFirstChild();
 				{
@@ -3058,7 +3058,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 					switch (_t.getType()) {
 					case FOR_INIT: {
 						AST __t171 = _t;
-						AST tmp128_AST_in = (AST) _t;
+						AST tmp128_AST_in = _t;
 						match(_t, FOR_INIT);
 						_t = _t.getFirstChild();
 						{
@@ -3103,7 +3103,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 						_t = __t171;
 						_t = _t.getNextSibling();
 						AST __t175 = _t;
-						AST tmp129_AST_in = (AST) _t;
+						AST tmp129_AST_in = _t;
 						match(_t, FOR_CONDITION);
 						_t = _t.getFirstChild();
 						{
@@ -3126,7 +3126,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 						_t = __t175;
 						_t = _t.getNextSibling();
 						AST __t177 = _t;
-						AST tmp130_AST_in = (AST) _t;
+						AST tmp130_AST_in = _t;
 						match(_t, FOR_ITERATOR);
 						_t = _t.getFirstChild();
 						{
@@ -3152,7 +3152,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 					}
 					case FOR_EACH_CLAUSE: {
 						AST __t179 = _t;
-						AST tmp131_AST_in = (AST) _t;
+						AST tmp131_AST_in = _t;
 						match(_t, FOR_EACH_CLAUSE);
 						_t = _t.getFirstChild();
 						parameterDef(_t);
@@ -3176,7 +3176,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LITERAL_while: {
 				AST __t180 = _t;
-				AST tmp132_AST_in = (AST) _t;
+				AST tmp132_AST_in = _t;
 				match(_t, LITERAL_while);
 				_t = _t.getFirstChild();
 				expression(_t);
@@ -3189,7 +3189,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LITERAL_do: {
 				AST __t181 = _t;
-				AST tmp133_AST_in = (AST) _t;
+				AST tmp133_AST_in = _t;
 				match(_t, LITERAL_do);
 				_t = _t.getFirstChild();
 				stat(_t);
@@ -3202,7 +3202,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LITERAL_break: {
 				AST __t182 = _t;
-				AST tmp134_AST_in = (AST) _t;
+				AST tmp134_AST_in = _t;
 				match(_t, LITERAL_break);
 				_t = _t.getFirstChild();
 				{
@@ -3210,7 +3210,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 						_t = ASTNULL;
 					switch (_t.getType()) {
 					case IDENT: {
-						AST tmp135_AST_in = (AST) _t;
+						AST tmp135_AST_in = _t;
 						match(_t, IDENT);
 						_t = _t.getNextSibling();
 						break;
@@ -3229,7 +3229,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LITERAL_continue: {
 				AST __t184 = _t;
-				AST tmp136_AST_in = (AST) _t;
+				AST tmp136_AST_in = _t;
 				match(_t, LITERAL_continue);
 				_t = _t.getFirstChild();
 				{
@@ -3237,7 +3237,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 						_t = ASTNULL;
 					switch (_t.getType()) {
 					case IDENT: {
-						AST tmp137_AST_in = (AST) _t;
+						AST tmp137_AST_in = _t;
 						match(_t, IDENT);
 						_t = _t.getNextSibling();
 						break;
@@ -3256,7 +3256,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LITERAL_return: {
 				AST __t186 = _t;
-				AST tmp138_AST_in = (AST) _t;
+				AST tmp138_AST_in = _t;
 				match(_t, LITERAL_return);
 				_t = _t.getFirstChild();
 				{
@@ -3282,7 +3282,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LITERAL_switch: {
 				AST __t188 = _t;
-				AST tmp139_AST_in = (AST) _t;
+				AST tmp139_AST_in = _t;
 				match(_t, LITERAL_switch);
 				_t = _t.getFirstChild();
 				expression(_t);
@@ -3306,7 +3306,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LITERAL_throw: {
 				AST __t191 = _t;
-				AST tmp140_AST_in = (AST) _t;
+				AST tmp140_AST_in = _t;
 				match(_t, LITERAL_throw);
 				_t = _t.getFirstChild();
 				expression(_t);
@@ -3317,7 +3317,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LITERAL_synchronized: {
 				AST __t192 = _t;
-				AST tmp141_AST_in = (AST) _t;
+				AST tmp141_AST_in = _t;
 				match(_t, LITERAL_synchronized);
 				_t = _t.getFirstChild();
 				expression(_t);
@@ -3340,7 +3340,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case LITERAL_assert: {
 				AST __t193 = _t;
-				AST tmp142_AST_in = (AST) _t;
+				AST tmp142_AST_in = _t;
 				match(_t, LITERAL_assert);
 				_t = _t.getFirstChild();
 				expression(_t);
@@ -3367,7 +3367,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 				break;
 			}
 			case EMPTY_STAT: {
-				AST tmp143_AST_in = (AST) _t;
+				AST tmp143_AST_in = _t;
 				match(_t, EMPTY_STAT);
 				_t = _t.getNextSibling();
 				break;
@@ -3391,7 +3391,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t196 = _t;
-			AST tmp144_AST_in = (AST) _t;
+			AST tmp144_AST_in = _t;
 			match(_t, CASE_GROUP);
 			_t = _t.getFirstChild();
 			{
@@ -3402,7 +3402,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 					switch (_t.getType()) {
 					case LITERAL_case: {
 						AST __t198 = _t;
-						AST tmp145_AST_in = (AST) _t;
+						AST tmp145_AST_in = _t;
 						match(_t, LITERAL_case);
 						_t = _t.getFirstChild();
 						expression(_t);
@@ -3412,7 +3412,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 						break;
 					}
 					case LITERAL_default: {
-						AST tmp146_AST_in = (AST) _t;
+						AST tmp146_AST_in = _t;
 						match(_t, LITERAL_default);
 						_t = _t.getNextSibling();
 						break;
@@ -3447,7 +3447,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t201 = _t;
-			AST tmp147_AST_in = (AST) _t;
+			AST tmp147_AST_in = _t;
 			match(_t, LITERAL_try);
 			_t = _t.getFirstChild();
 			slist(_t);
@@ -3471,7 +3471,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 				switch (_t.getType()) {
 				case LITERAL_finally: {
 					AST __t205 = _t;
-					AST tmp148_AST_in = (AST) _t;
+					AST tmp148_AST_in = _t;
 					match(_t, LITERAL_finally);
 					_t = _t.getFirstChild();
 					slist(_t);
@@ -3505,7 +3505,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t207 = _t;
-			AST tmp149_AST_in = (AST) _t;
+			AST tmp149_AST_in = _t;
 			match(_t, LITERAL_catch);
 			_t = _t.getFirstChild();
 			parameterDef(_t);
@@ -3586,7 +3586,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case ASSIGN: {
 				AST __t215 = _t;
-				AST tmp150_AST_in = (AST) _t;
+				AST tmp150_AST_in = _t;
 				match(_t, ASSIGN);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -3599,7 +3599,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case PLUS_ASSIGN: {
 				AST __t216 = _t;
-				AST tmp151_AST_in = (AST) _t;
+				AST tmp151_AST_in = _t;
 				match(_t, PLUS_ASSIGN);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -3612,7 +3612,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case MINUS_ASSIGN: {
 				AST __t217 = _t;
-				AST tmp152_AST_in = (AST) _t;
+				AST tmp152_AST_in = _t;
 				match(_t, MINUS_ASSIGN);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -3625,7 +3625,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case STAR_ASSIGN: {
 				AST __t218 = _t;
-				AST tmp153_AST_in = (AST) _t;
+				AST tmp153_AST_in = _t;
 				match(_t, STAR_ASSIGN);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -3638,7 +3638,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case DIV_ASSIGN: {
 				AST __t219 = _t;
-				AST tmp154_AST_in = (AST) _t;
+				AST tmp154_AST_in = _t;
 				match(_t, DIV_ASSIGN);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -3651,7 +3651,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case MOD_ASSIGN: {
 				AST __t220 = _t;
-				AST tmp155_AST_in = (AST) _t;
+				AST tmp155_AST_in = _t;
 				match(_t, MOD_ASSIGN);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -3664,7 +3664,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case SR_ASSIGN: {
 				AST __t221 = _t;
-				AST tmp156_AST_in = (AST) _t;
+				AST tmp156_AST_in = _t;
 				match(_t, SR_ASSIGN);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -3677,7 +3677,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case BSR_ASSIGN: {
 				AST __t222 = _t;
-				AST tmp157_AST_in = (AST) _t;
+				AST tmp157_AST_in = _t;
 				match(_t, BSR_ASSIGN);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -3690,7 +3690,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case SL_ASSIGN: {
 				AST __t223 = _t;
-				AST tmp158_AST_in = (AST) _t;
+				AST tmp158_AST_in = _t;
 				match(_t, SL_ASSIGN);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -3703,7 +3703,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case BAND_ASSIGN: {
 				AST __t224 = _t;
-				AST tmp159_AST_in = (AST) _t;
+				AST tmp159_AST_in = _t;
 				match(_t, BAND_ASSIGN);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -3716,7 +3716,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case BXOR_ASSIGN: {
 				AST __t225 = _t;
-				AST tmp160_AST_in = (AST) _t;
+				AST tmp160_AST_in = _t;
 				match(_t, BXOR_ASSIGN);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -3729,7 +3729,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case BOR_ASSIGN: {
 				AST __t226 = _t;
-				AST tmp161_AST_in = (AST) _t;
+				AST tmp161_AST_in = _t;
 				match(_t, BOR_ASSIGN);
 				_t = _t.getFirstChild();
 				expr(_t);
@@ -3762,14 +3762,14 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 				_t = ASTNULL;
 			switch (_t.getType()) {
 			case IDENT: {
-				AST tmp162_AST_in = (AST) _t;
+				AST tmp162_AST_in = _t;
 				match(_t, IDENT);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case DOT: {
 				AST __t258 = _t;
-				AST tmp163_AST_in = (AST) _t;
+				AST tmp163_AST_in = _t;
 				match(_t, DOT);
 				_t = _t.getFirstChild();
 				{
@@ -3844,7 +3844,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 								_t = ASTNULL;
 							switch (_t.getType()) {
 							case IDENT: {
-								AST tmp164_AST_in = (AST) _t;
+								AST tmp164_AST_in = _t;
 								match(_t, IDENT);
 								_t = _t.getNextSibling();
 								break;
@@ -3855,13 +3855,13 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 								break;
 							}
 							case LITERAL_this: {
-								AST tmp165_AST_in = (AST) _t;
+								AST tmp165_AST_in = _t;
 								match(_t, LITERAL_this);
 								_t = _t.getNextSibling();
 								break;
 							}
 							case LITERAL_class: {
-								AST tmp166_AST_in = (AST) _t;
+								AST tmp166_AST_in = _t;
 								match(_t, LITERAL_class);
 								_t = _t.getNextSibling();
 								break;
@@ -3872,7 +3872,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 								break;
 							}
 							case LITERAL_super: {
-								AST tmp167_AST_in = (AST) _t;
+								AST tmp167_AST_in = _t;
 								match(_t, LITERAL_super);
 								_t = _t.getNextSibling();
 								break;
@@ -3907,7 +3907,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 					}
 					case ARRAY_DECLARATOR: {
 						AST __t262 = _t;
-						AST tmp168_AST_in = (AST) _t;
+						AST tmp168_AST_in = _t;
 						match(_t, ARRAY_DECLARATOR);
 						_t = _t.getFirstChild();
 						typeSpecArray(_t);
@@ -3932,7 +3932,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 								_t = ASTNULL;
 							switch (_t.getType()) {
 							case LITERAL_class: {
-								AST tmp169_AST_in = (AST) _t;
+								AST tmp169_AST_in = _t;
 								match(_t, LITERAL_class);
 								_t = _t.getNextSibling();
 								break;
@@ -3963,7 +3963,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case METHOD_CALL: {
 				AST __t264 = _t;
-				AST tmp170_AST_in = (AST) _t;
+				AST tmp170_AST_in = _t;
 				match(_t, METHOD_CALL);
 				_t = _t.getFirstChild();
 				primaryExpression(_t);
@@ -3999,7 +3999,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case TYPECAST: {
 				AST __t266 = _t;
-				AST tmp171_AST_in = (AST) _t;
+				AST tmp171_AST_in = _t;
 				match(_t, TYPECAST);
 				_t = _t.getFirstChild();
 				typeSpec(_t);
@@ -4026,31 +4026,31 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 				break;
 			}
 			case LITERAL_super: {
-				AST tmp172_AST_in = (AST) _t;
+				AST tmp172_AST_in = _t;
 				match(_t, LITERAL_super);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_true: {
-				AST tmp173_AST_in = (AST) _t;
+				AST tmp173_AST_in = _t;
 				match(_t, LITERAL_true);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_false: {
-				AST tmp174_AST_in = (AST) _t;
+				AST tmp174_AST_in = _t;
 				match(_t, LITERAL_false);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_this: {
-				AST tmp175_AST_in = (AST) _t;
+				AST tmp175_AST_in = _t;
 				match(_t, LITERAL_this);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_null: {
-				AST tmp176_AST_in = (AST) _t;
+				AST tmp176_AST_in = _t;
 				match(_t, LITERAL_null);
 				_t = _t.getNextSibling();
 				break;
@@ -4079,7 +4079,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t272 = _t;
-			AST tmp177_AST_in = (AST) _t;
+			AST tmp177_AST_in = _t;
 			match(_t, INDEX_OP);
 			_t = _t.getFirstChild();
 			expr(_t);
@@ -4103,7 +4103,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t275 = _t;
-			AST tmp178_AST_in = (AST) _t;
+			AST tmp178_AST_in = _t;
 			match(_t, LITERAL_new);
 			_t = _t.getFirstChild();
 			{
@@ -4209,7 +4209,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			switch (_t.getType()) {
 			case CTOR_CALL: {
 				AST __t268 = _t;
-				AST tmp179_AST_in = (AST) _t;
+				AST tmp179_AST_in = _t;
 				match(_t, CTOR_CALL);
 				_t = _t.getFirstChild();
 				elist(_t);
@@ -4220,7 +4220,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 			}
 			case SUPER_CTOR_CALL: {
 				AST __t269 = _t;
-				AST tmp180_AST_in = (AST) _t;
+				AST tmp180_AST_in = _t;
 				match(_t, SUPER_CTOR_CALL);
 				_t = _t.getFirstChild();
 				{
@@ -4289,37 +4289,37 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 				_t = ASTNULL;
 			switch (_t.getType()) {
 			case NUM_INT: {
-				AST tmp181_AST_in = (AST) _t;
+				AST tmp181_AST_in = _t;
 				match(_t, NUM_INT);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case CHAR_LITERAL: {
-				AST tmp182_AST_in = (AST) _t;
+				AST tmp182_AST_in = _t;
 				match(_t, CHAR_LITERAL);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case STRING_LITERAL: {
-				AST tmp183_AST_in = (AST) _t;
+				AST tmp183_AST_in = _t;
 				match(_t, STRING_LITERAL);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case NUM_FLOAT: {
-				AST tmp184_AST_in = (AST) _t;
+				AST tmp184_AST_in = _t;
 				match(_t, NUM_FLOAT);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case NUM_DOUBLE: {
-				AST tmp185_AST_in = (AST) _t;
+				AST tmp185_AST_in = _t;
 				match(_t, NUM_DOUBLE);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case NUM_LONG: {
-				AST tmp186_AST_in = (AST) _t;
+				AST tmp186_AST_in = _t;
 				match(_t, NUM_LONG);
 				_t = _t.getNextSibling();
 				break;
@@ -4343,7 +4343,7 @@ public class JavaTreeParser extends antlr.TreeParser implements JavaTreeParserTo
 
 		try { // for error handling
 			AST __t281 = _t;
-			AST tmp187_AST_in = (AST) _t;
+			AST tmp187_AST_in = _t;
 			match(_t, ARRAY_DECLARATOR);
 			_t = _t.getFirstChild();
 			{

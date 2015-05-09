@@ -42,6 +42,7 @@ public class Frame {
 		return locals.get(varIndex);
 	}
 
+	@Override
 	public String toString() {
 		String partA = "Frame " + frameID + ":\n";
 		String partB = "STACK:  " + this.stack.toString() + "\n";

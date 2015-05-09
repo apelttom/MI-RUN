@@ -27,6 +27,7 @@ public class ByteCode implements Iterable<Instruction> {
 		return instructions.isEmpty();
 	}
 
+	@Override
 	public Iterator<Instruction> iterator() {
 		return instructions.iterator();
 	}

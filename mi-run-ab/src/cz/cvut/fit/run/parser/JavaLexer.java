@@ -120,6 +120,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		literals.put(new ANTLRHashString("short", this), new Integer(82));
 	}
 
+	@Override
 	public Token nextToken() throws TokenStreamException {
 		Token theRetToken = null;
 		tryAgain: for (;;) {
@@ -395,7 +396,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 								uponEOF();
 								_returnToken = makeToken(Token.EOF_TYPE);
 							} else {
-								throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+								throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 							}
 						}
 					}
@@ -1125,7 +1126,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 						} else if ((LA(1) == '\n')) {
 							match('\n');
 						} else {
-							throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+							throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 						}
 
 					}
@@ -1138,7 +1139,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 					if (_cnt369 >= 1) {
 						break _loop369;
 					} else {
-						throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+						throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 					}
 				}
 				}
@@ -1193,7 +1194,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 				break;
 			}
 			default: {
-				throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+				throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 			}
 			}
 		}
@@ -1276,7 +1277,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 					match(_tokenSet_2);
 				}
 			} else {
-				throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+				throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 			}
 
 		}
@@ -1340,7 +1341,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 							if (_cnt390 >= 1) {
 								break _loop390;
 							} else {
-								throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+								throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 							}
 						}
 
@@ -1366,13 +1367,13 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 								matchRange('0', '7');
 							} else if ((_tokenSet_0.member(LA(1))) && (true) && (true) && (true)) {
 							} else {
-								throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+								throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 							}
 
 						}
 					} else if ((_tokenSet_0.member(LA(1))) && (true) && (true) && (true)) {
 					} else {
-						throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+						throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 					}
 
 				}
@@ -1388,14 +1389,14 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 						matchRange('0', '7');
 					} else if ((_tokenSet_0.member(LA(1))) && (true) && (true) && (true)) {
 					} else {
-						throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+						throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 					}
 
 				}
 				break;
 			}
 			default: {
-				throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+				throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 			}
 			}
 		}
@@ -1477,7 +1478,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 				break;
 			}
 			default: {
-				throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+				throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 			}
 			}
 		}
@@ -1579,7 +1580,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 				break;
 			}
 			default: {
-				throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+				throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 			}
 			}
 		}
@@ -1732,7 +1733,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 									if (_cnt405 >= 1) {
 										break _loop405;
 									} else {
-										throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+										throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 									}
 								}
 
@@ -1814,7 +1815,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 									break;
 								}
 								default: {
-									throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+									throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 								}
 								}
 							}
@@ -1827,7 +1828,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 										if (_cnt413 >= 1) {
 											break _loop413;
 										} else {
-											throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+											throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 										}
 									}
 
@@ -1851,7 +1852,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 													if (_cnt416 >= 1) {
 														break _loop416;
 													} else {
-														throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(),
+														throw new NoViableAltForCharException(LA(1), getFilename(), getLine(),
 																getColumn());
 													}
 												}
@@ -1878,7 +1879,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 												break;
 											}
 											default: {
-												throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+												throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 											}
 											}
 										}
@@ -1899,7 +1900,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 											if (_cnt420 >= 1) {
 												break _loop420;
 											} else {
-												throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+												throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 											}
 										}
 
@@ -1916,7 +1917,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 											if (_cnt422 >= 1) {
 												break _loop422;
 											} else {
-												throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+												throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 											}
 										}
 
@@ -1957,7 +1958,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 					break;
 				}
 				default: {
-					throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+					throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 				}
 				}
 			}
@@ -1974,7 +1975,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 							break;
 						}
 						default: {
-							throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+							throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 						}
 						}
 					}
@@ -2045,7 +2046,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 							break;
 						}
 						default: {
-							throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+							throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 						}
 						}
 					}
@@ -2065,7 +2066,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 			break;
 		}
 		default: {
-			throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+			throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 		}
 		}
 		if (_createToken && _token == null && _ttype != Token.SKIP) {
@@ -2093,7 +2094,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 				break;
 			}
 			default: {
-				throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+				throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 			}
 			}
 		}
@@ -2120,7 +2121,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 				break;
 			}
 			default: {
-				throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+				throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 			}
 			}
 		}
@@ -2133,7 +2134,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 					if (_cnt439 >= 1) {
 						break _loop439;
 					} else {
-						throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+						throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 					}
 				}
 
@@ -2172,7 +2173,7 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 			break;
 		}
 		default: {
-			throw new NoViableAltForCharException((char) LA(1), getFilename(), getLine(), getColumn());
+			throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
 		}
 		}
 		if (_createToken && _token == null && _ttype != Token.SKIP) {
