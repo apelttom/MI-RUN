@@ -129,14 +129,18 @@ public class Interpreter {
 	}
 
 	private void createObject(Frame frame, String name) {
+		ClassFile result = null;
+		// here I find ClassFile of class I am creating
 		ClassFile[] classFilesArray = classFiles.toArray(new ClassFile[classFiles.size()]);
 		for (ClassFile cf : classFilesArray) {
-//			if (cf.get)
+			if (cf.getThis().equals(name)) {
+				result = cf;
+			}
 		}
-		
-		ABObject dynamicObj = new ABObject(classfile);
+		// dynamic creation of object
+		ABObject dynamicObj = new ABObject(result);
 		heap.add(dynamicObj);
-		frame.pushToStack(referenceToObj);
+		frame.pushToStack(dynamicObj);
 	}
 
 	private static boolean isLogicalCondition(InsSet instr) {
