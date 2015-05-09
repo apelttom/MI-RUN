@@ -8,7 +8,6 @@ import java.util.List;
  */
 public class FrameFactory {
 
-
 	private int frameCounter = 0;
 	private List<Frame> frames = new ArrayList<Frame>();
 
@@ -20,7 +19,7 @@ public class FrameFactory {
 	}
 
 	public void print() {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder("\n");
 		for (Frame f : frames) {
 			sb.append(f.toString()).append("\n");
 		}

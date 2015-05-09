@@ -9,8 +9,9 @@ import cz.cvut.fit.run.compiler.Instruction;
 import cz.cvut.fit.run.compiler.Instruction.InsSet;
 
 public class Interpreter {
-
-	private List<Object> heap = null;
+	
+	private static final String MAIN = "main";
+	private List<Object> heap = null; // FIXME what is it for?
 	private List<ClassFile> classFiles = null;
 	private FrameFactory frameFactory = null;
 
@@ -21,7 +22,7 @@ public class Interpreter {
 	}
 
 	public void execute() throws Exception {
-		ByteCode main = classFiles.get(0).getMethod(0).getBytecode();
+		ByteCode main = classFiles.get(0).getMethod(MAIN).getBytecode();
 		Frame mainFrame = frameFactory.makeFrame(null);
 		
 		executeInternal(main, mainFrame);
@@ -120,8 +121,12 @@ public class Interpreter {
 	}
 
 	private static boolean isLogicalCondition(InsSet instr) {
-		return (instr.equals(InsSet.if_icmpgt) || instr.equals(InsSet.if_icmpeq) || instr.equals(InsSet.if_icmplt)
-				|| instr.equals(InsSet.if_icmpne) || instr.equals(InsSet.if_icmpge) || instr.equals(InsSet.if_icmple));
+		return (instr.equals(InsSet.if_icmpgt) || 
+				instr.equals(InsSet.if_icmpeq) || 
+				instr.equals(InsSet.if_icmplt) || 
+				instr.equals(InsSet.if_icmpne) || 
+				instr.equals(InsSet.if_icmpge) || 
+				instr.equals(InsSet.if_icmple));
 	}
 
 	private void handleLogicalCondition(Frame frame, InsSet instr, int jumpToPC) throws InvalidObjectException {
@@ -130,32 +135,26 @@ public class Interpreter {
 			if (FrameOperations.iequal(frame)) {
 				throw new GotoException(jumpToPC);
 			}
-			return;
 		} else if (instr.equals(InsSet.if_icmpne)) {
 			if (!FrameOperations.iequal(frame)) {
 				throw new GotoException(jumpToPC);
 			}
-			return;
 		} else if (instr.equals(InsSet.if_icmplt)) {
 			if (FrameOperations.ilesser(frame)) {
 				throw new GotoException(jumpToPC);
 			}
-			return;
 		} else if (instr.equals(InsSet.if_icmpge)) {
 			if (!FrameOperations.ilesser(frame)) {
 				throw new GotoException(jumpToPC);
 			}
-			return;
 		} else if (instr.equals(InsSet.if_icmpgt)) {
 			if (FrameOperations.igreater(frame)) {
 				throw new GotoException(jumpToPC);
 			}
-			return;
 		} else if (instr.equals(InsSet.if_icmple)) {
 			if (!FrameOperations.igreater(frame)) {
 				throw new GotoException(jumpToPC);
 			}
-			return;
 		}
 	}
 }
