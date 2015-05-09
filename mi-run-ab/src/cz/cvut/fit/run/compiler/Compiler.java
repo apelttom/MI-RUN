@@ -20,12 +20,12 @@ public class Compiler implements Constants {
 	public Compiler(boolean printNodes) {
 		this();
 		this.printNodes = printNodes;
-		this.methods = new ArrayList<MiniJavaMethod>();
 	}
 
 	public Compiler() {
 		this.PC = BC_VariableCount = 0;
 		this.variableMap = new HashMap<String, Integer>();
+		this.methods = new ArrayList<MiniJavaMethod>();
 	}
 
 	public List<MiniJavaMethod> compile(AST root) {
@@ -96,54 +96,67 @@ public class Compiler implements Constants {
 	// expects METHOD_DEF token
 	private void functionHeader(AST node) {
 		List<AST> tokens = getAstChildren(node);
-		AST methodName = null;
+		AST token_MODIFIERS = tokens.get(0);
+		AST token_TYPE = tokens.get(1);
+		AST token_methodName = tokens.get(2);
+		/*AST methodName = null;
 		for (AST ast : tokens) {
 			// next sibling of the TYPE node is method name, so let's store it!
 			if (ast.getText().equals("TYPE")) {
 				methodName = ast.getNextSibling();
 			}
+		}*/
+		MiniJavaMethod newMethod = new MiniJavaMethod(token_methodName.getText());
+		for (AST flag : getAstChildren(token_MODIFIERS)) {
+			// method flags (public, static, final, virtual, ...)
+			newMethod.addFlag(flag.getText());
 		}
+		// method return type (may be "void")
+		newMethod.setReturnType(token_TYPE.getFirstChild().getText());
+		
 		AST token_PARAMETERS = tokens.get(3);
-
-		functionParams(token_PARAMETERS);
+		functionParams(newMethod, token_PARAMETERS);
 
 		AST token_BODY = tokens.get(4);
-
-		ByteCode compiledCode = fuctionBody(token_BODY);
-
-		MiniJavaMethod newMethod = new MiniJavaMethod(methodName.getText());
-		newMethod.setBytecode(compiledCode);
+		ByteCode byteCode = fuctionBody(token_BODY);
+		
+		newMethod.setBytecode(byteCode);
 		this.methods.add(newMethod);
 	}
 
 	// expects PARAMETERS token
-	private void functionParams(AST node) {
+	private void functionParams(MiniJavaMethod method, AST node) {
 		/*
-		 * TODO: Based on the parameters there is need to distinc betveen
+		 * TODO: Based on the parameters there is need to distinc between
 		 * invokestatic and invokevirtual. Now this method do practically
 		 * nothing
 		 */
-		List<AST> tokens_PARAMETERS = getAstChildren(node);
+		List<AST> tokens_PARAMETER_DEF = getAstChildren(node);
 
-		if (tokens_PARAMETERS.isEmpty()) {
+		if (tokens_PARAMETER_DEF.isEmpty()) {
+			// method has no arguments
 			return;
 		}
 
 		int i = 0;
 
 		do {
-			List<AST> tokens_SINGLE_PARAM = getAstChildren(tokens_PARAMETERS
-					.get(i));
+			List<AST> tokens_SINGLE_PARAM = getAstChildren(tokens_PARAMETER_DEF.get(i));
 
 			if (tokens_SINGLE_PARAM.isEmpty()) {
 				break;
 			}
-
+			// tokens_SINGLE_PARAM.get(0) are MODIFIERS such as final etc.
 			AST token_TYPE = tokens_SINGLE_PARAM.get(1);
-			// TODO
-
+			method.addArgType(token_TYPE.getFirstChild().getText());
+			// does not work for arrays yet, structure [ > ArrayType
+			
+			// TODO inicializovat vstupni promenne funkce, aby s nimi mohla pracovat
+			String paramName = token_TYPE.getNextSibling().getText();
+			variableMap.put(paramName, BC_VariableCount++);
+			
 			i++;
-		} while (i < tokens_PARAMETERS.size());
+		} while (i < tokens_PARAMETER_DEF.size());
 	}
 
 	private ByteCode fuctionBody(AST node) {
@@ -156,8 +169,12 @@ public class Compiler implements Constants {
 			expression(node_token_TOKEN, bytecode);
 			node_token_TOKEN = node_token_TOKEN.getNextSibling();
 		} while (node_token_TOKEN != null);
-		// return statement
-		bytecode.add(new Instruction(InsSet.re_turn));
+		
+		if (bytecode.get(bytecode.size()-1).getInstructionCode() != InsSet.re_turn) {
+			// return statement (void) if not in code itself
+			// TODO sometimes return statement should return void, sometimes stack value
+			bytecode.add(new Instruction(InsSet.re_turn));
+		}
 		return bytecode;
 	}
 
@@ -168,7 +185,7 @@ public class Compiler implements Constants {
 	}
 
 	private void for_cycle(AST node, ByteCode bytecode) {
-		/**
+		/*
 		 * Nejdrive provedu inicializaci (prvni cast "for" prikazu). Pak skocim
 		 * dolu, kde nactu na zasobnik promenne pro podminku. Provedu podminku.
 		 * Pokud je true, skocim nahoru na telo kodu (po nemz nasleduje
@@ -235,6 +252,8 @@ public class Compiler implements Constants {
 				expression(nextLOC, bytecode);
 				nextLOC = nextLOC.getNextSibling();
 			}
+		} else if (tokenName.equals(LEFT_PARENT)) {
+			function_call(token_EXPRESSION, bytecode);
 		} else if (isLogical(tokenName)) {
 			logic_expression(token_EXPRESSION, bytecode);
 		} else if (isArithmetic(tokenName)) {
@@ -328,9 +347,15 @@ public class Compiler implements Constants {
 		}
 	}
 
-	private void function_call(AST node) {
-		// TODO : blablabla LEFT_PARENT
-
+	private void function_call(AST node, ByteCode bytecode) {
+		AST token_methodName = node.getFirstChild();
+		AST token_ELIST = token_methodName.getNextSibling(); //parent of all parameters
+		for (AST param : getAstChildren(token_ELIST)) {
+			expression(param, bytecode);
+		}
+		bytecode.add(new Instruction(InsSet.invoke, token_methodName.getText()));
+		// TODO invokestatic, invokespecial, invokedynamic, invokeinterface, invokevirtual
+		// TODO invoke method by index in constant pool, not by name
 	}
 
 	private void if_condition(AST node, ByteCode bytecode) { // TODO : slozene
@@ -387,9 +412,10 @@ public class Compiler implements Constants {
 	private void variable_definition(AST node, ByteCode bytecode) {
 		boolean isArray = false;
 		AST node_token_TYPEVAL;
-		AST dummy = node.getFirstChild(); // MODIFIERS
-		AST node_token_TYPE = dummy.getNextSibling();
+		AST token_MODIFIERS = node.getFirstChild();
+		AST node_token_TYPE = token_MODIFIERS.getNextSibling();
 		if (node_token_TYPE.getFirstChild().getText().equals(LEFT_SQ_BR)) {
+			// array
 			AST node_token_ARRTYPE = node_token_TYPE.getFirstChild();
 			node_token_TYPEVAL = node_token_ARRTYPE.getFirstChild();
 			isArray = true;
@@ -426,6 +452,7 @@ public class Compiler implements Constants {
 			variableMap.put(node_token_VARNAME.getText(), BC_VariableCount);
 			BC_VariableCount++;
 		} else {
+			// is array
 			AST node_token_ARRLEN = node_token_ASSIGN.getFirstChild()
 					.getFirstChild().getFirstChild().getNextSibling()
 					.getFirstChild().getFirstChild();
@@ -450,7 +477,7 @@ public class Compiler implements Constants {
 	}
 
 	private static boolean isNumeric(String str) {
-		return str.matches("-?\\d+(\\.\\d+)?"); // match a number with optional
-												// '-' and decimal.
+		// match a number with optional '-' and decimal.
+		return str.matches("-?\\d+(\\.\\d+)?");
 	}
 }

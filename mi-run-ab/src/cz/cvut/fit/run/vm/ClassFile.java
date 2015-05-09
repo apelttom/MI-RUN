@@ -5,7 +5,14 @@ import java.util.List;
 
 public class ClassFile {
 
+	// flags (private, static, volatile, ...)
+	// constant pool
+	// this class
+	// super class
+	// interfaces
+	// fields
 	private List<MiniJavaMethod> methods = null;
+	// attributes
 
 	public ClassFile() {
 		this.methods = new ArrayList<MiniJavaMethod>();

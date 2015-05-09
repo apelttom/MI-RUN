@@ -1,5 +1,6 @@
 package cz.cvut.fit.run.vm;
 
+@SuppressWarnings("serial")
 public class GotoException extends RuntimeException {
 	
 	private final String go_to = "bytecode instruction GOTO ";

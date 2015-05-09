@@ -42,10 +42,10 @@ public class Main {
 			// get AST tree and print it in LISP notation
 			CommonAST myTree = (CommonAST) parser.getAST();
 			// System.out.println(myTree.toStringList());
-			// printRoot(myTree);
+			 printRoot(myTree);
 
 			// generate bytecode, true = print nodes
-			Compiler compiler = new Compiler(false);
+			Compiler compiler = new Compiler();
 			List<MiniJavaMethod> methods = compiler.compile(myTree);
 
 			// print bytecode of all methods

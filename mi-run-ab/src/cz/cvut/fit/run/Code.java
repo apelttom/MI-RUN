@@ -2,18 +2,14 @@ package cz.cvut.fit.run;
 
 public class Code {
 
-	public static void main(String[] args) {
+	public void main() {
 		int a = 10;
-		int b = a + 5;
-		if(a < b){
-			for (int i = 0; i < 3; i++) {
-				b = a;
-			}
-		}
+		int b = myMethod(a);
 	}
 	
-	public static void myMethod(){
-		int tom = 5;
+	public final int myMethod(int i){
+		int five = 5;
+		return five-i;
 	}
 
 }
