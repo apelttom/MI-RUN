@@ -33,7 +33,7 @@ public class Interpreter {
 	private void executeInternal(ByteCode bytecode, Frame frame) throws Exception {
 		for (int PC = 0; PC <= bytecode.size() - 1; PC++) {
 			try {
-				System.out.println(bytecode.get(PC));
+//				System.out.println(bytecode.get(PC));
 				handleInstruction(bytecode.get(PC), frame);
 			} catch (GotoException e) {
 				// System.out.println(e.toString());
@@ -115,7 +115,12 @@ public class Interpreter {
 			throws Exception {
 		if (instr.equals(InsSet.iinc)) {
 			FrameOperations.incVar(frame, Integer.parseInt(op1), Integer.parseInt(op2));
-		} else {
+		} else if (instr.equals(InsSet.new_class)) {
+			// Create dynamically new object on Heap. It will be generic object
+			// ABObject
+			heap.add(new Object());
+		} 
+		else {
 			throw new UnsupportedOperationException(instr.name());
 		}
 	}
