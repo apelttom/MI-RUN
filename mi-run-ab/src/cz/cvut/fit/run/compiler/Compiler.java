@@ -187,7 +187,6 @@ public class Compiler implements Constants {
 					bytecode);
 		} else if (isNumeric(tokenName)) {
 			bytecode.add(new Instruction(InsSet.bipush, tokenName));
-			assignedVariableType = null;
 		} else if (tokenName.equals(EMPTY_EXPR)) {
 			return;
 		} else if (tokenName.equals(NEW_CLASS)) {
@@ -197,7 +196,6 @@ public class Compiler implements Constants {
 		{
 			bytecode.add(new Instruction(Instruction.load(assignedVariableType), 
 					String.valueOf(variableMap.get(tokenName))));
-			assignedVariableType = null;
 		}
 	}
 
@@ -294,6 +292,7 @@ public class Compiler implements Constants {
 		} else {
 			node_token_TYPEVAL = node_token_TYPE.getFirstChild();
 		}
+		assignedVariableType = node_token_TYPEVAL.getText();
 		AST node_token_VARNAME = node_token_TYPE.getNextSibling();
 	
 		AST node_token_ASSIGN = node_token_VARNAME.getNextSibling();
@@ -317,7 +316,6 @@ public class Compiler implements Constants {
 			} else {
 				// Prirazujeme nejaky vyraz, musime ho nejdriv zpracovat a
 				// vysledek pak hodit do promenne
-				assignedVariableType = node_token_TYPEVAL.getText();
 				expression(node_token_ASSIGN.getFirstChild(), bytecode);
 			}
 			bytecode.add(new Instruction(Instruction.store(assignedVariableType), BC_VariableCount + ""));
