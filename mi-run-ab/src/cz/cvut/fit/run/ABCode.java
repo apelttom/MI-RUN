@@ -1,17 +1,15 @@
 package cz.cvut.fit.run;
 
 public class ABCode {
+	
+	int a = 7;
 
 	public void main() {
-		int n = 3;
-		ABCode object = new ABCode(1+1, n);
+		new ABCode();
 	}
 	
 	public final int factorial(int n){
-		if (n == 0) {
-			return 1;
-		}
-		return n * factorial(n - 1);
+		return n++;
 	}
 
 }

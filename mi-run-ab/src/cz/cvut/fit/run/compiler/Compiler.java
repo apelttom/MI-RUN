@@ -12,7 +12,6 @@ import cz.cvut.fit.run.vm.MethodInfo;
 
 public class Compiler implements Constants {
 
-	private int PC = 0; // program counter
 	private int BC_VariableCount = 0; // bytecode variable count
 	private Map<String, Integer> variableMap;
 	private List<MethodInfo> methods = null;
@@ -25,55 +24,48 @@ public class Compiler implements Constants {
 	}
 
 	public Compiler() {
-		this.PC = BC_VariableCount = 0;
+		BC_VariableCount = 0;
 		this.variableMap = new HashMap<String, Integer>();
-		this.methods = new ArrayList<MethodInfo>();
 		this.classfile = new ClassFile();
 	}
 
 	public ClassFile compile(AST root) {
-		// byteCode.clear();
-		AST temp = root;
-		traverse(temp, 0);
-		while (temp.getNextSibling() != null) {
-			temp = temp.getNextSibling();
-			traverse(temp, 0);
-		}
-		// TODO pridavat metody rovnou do classfile
-		for (MethodInfo m : methods) {
-			classfile.addMethod(m);
-		}
+		AST token_package = root;
+		AST token_CLASS_DEF = token_package.getNextSibling();
+		
+		classHeader(token_CLASS_DEF);
+		
 		return this.classfile;
 	}
 
-	private void traverse(AST node, int depth) {
-		PC++;
-		if (printNodes) {
-			printNode(node, depth);
+	// expects CLASS_DEF
+	private void classHeader(AST node) {
+		AST token_MODIFIERS = node.getFirstChild();
+		for (AST flag : getAstChildren(token_MODIFIERS)) {
+			classfile.addFlag(flag.getText());
 		}
-		compileInternal(node);
-		if (node.getFirstChild() == null) {
-			return;
+		AST token_name = token_MODIFIERS.getNextSibling();
+		classfile.setThis(token_name.getText());
+		AST token_EXTENDS = token_name.getNextSibling();
+		AST token_EXTENDS_token = token_EXTENDS.getFirstChild();
+		classfile.setSuper(token_EXTENDS_token == null ? null : token_EXTENDS_token.getText());
+		AST token_IMPLEMENTS = token_EXTENDS.getNextSibling();
+		for (AST iface : getAstChildren(token_IMPLEMENTS)) {
+			classfile.addFlag(iface.getText());
 		}
-		for (AST ast : getAstChildren(node)) {
-			traverse(ast, depth + 1);
-		}
+		objectBlock(token_IMPLEMENTS.getNextSibling());
 	}
 
-	private void printNode(AST node, int depth) {
-		for (int i = 0; i < depth; i++) {
-			System.out.print(" ");
-		}
-		System.out.println(node.getText());
-	}
-
-	// expects AST root
-	private void compileInternal(AST node) {
-		String tokenName = node.getText();
-		if (tokenName.equals("METHOD_DEF")) {
-			// resetujeme pocitadlo promennych, vstupujeme do lokalni promenne
-			BC_VariableCount = 0;
-			functionHeader(node);
+	// expects OBJBLOCK
+	private void objectBlock(AST node) {
+		AST token = node.getFirstChild();
+		while (token != null) {
+			if ("METHOD_DEF".equals(token.getText())) {
+				functionHeader(token);
+			} else if ("VARIABLE_DEF".equals(token.getText())) {
+				// TODO
+			}
+			token = token.getNextSibling();
 		}
 	}
 
@@ -128,7 +120,7 @@ public class Compiler implements Constants {
 		ByteCode byteCode = fuctionBody(token_BODY);
 		
 		newMethod.setBytecode(byteCode);
-		this.methods.add(newMethod);
+		this.classfile.addMethod(newMethod);
 	}
 
 	// expects PARAMETERS token

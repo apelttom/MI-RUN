@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import antlr.CommonAST;
@@ -41,7 +43,7 @@ public class Main {
 			// get AST tree and print it in LISP notation
 			CommonAST myTree = (CommonAST) parser.getAST();
 			// System.out.println(myTree.toStringList());
-			 printRoot(myTree);
+//			 printRoot(myTree);
 
 			// generate bytecode, true = print nodes
 			Compiler compiler = new Compiler();
@@ -55,8 +57,10 @@ public class Main {
 			// interpret bytecode somehow
 			List<ClassFile> cfList = new ArrayList<ClassFile>(1);
 			cfList.add(cf);
+			
 			Interpreter interpreter = new Interpreter(cfList);
 			interpreter.execute();
+			System.out.println(cf);
 
 		} catch (FileNotFoundException | RecognitionException
 				| TokenStreamException e) {
