@@ -121,18 +121,22 @@ public class Interpreter {
 		} else if (instr.equals(InsSet.new_class)) {
 			// Create dynamically new object on Heap. It will be generic object
 			// ABObject
-			createObject(op1);
+			createObject(frame, op1);
 		} 
 		else {
 			throw new UnsupportedOperationException(instr.name());
 		}
 	}
 
-	private void createObject(String name) {
+	private void createObject(Frame frame, String name) {
 		ClassFile[] classFilesArray = classFiles.toArray(new ClassFile[classFiles.size()]);
 		for (ClassFile cf : classFilesArray) {
 //			if (cf.get)
 		}
+		
+		ABObject dynamicObj = new ABObject(classfile);
+		heap.add(dynamicObj);
+		frame.pushToStack(referenceToObj);
 	}
 
 	private static boolean isLogicalCondition(InsSet instr) {
