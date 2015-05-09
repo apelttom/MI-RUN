@@ -38,4 +38,8 @@ public class ABObject {
 		}
 		globals.put(index, variable);
 	}
+	
+	public String toString(){
+		return "Dynamic object of "+classfile.getThis();
+	}
 }
