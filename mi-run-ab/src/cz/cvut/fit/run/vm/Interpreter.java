@@ -22,7 +22,7 @@ public class Interpreter {
 
 	public void execute() throws Exception {
 		ByteCode main = classFiles.get(0).getMethod(0).getBytecode();
-		Frame mainFrame = frameFactory.makeFrame();
+		Frame mainFrame = frameFactory.makeFrame(null);
 		
 		executeInternal(main, mainFrame);
 		
@@ -32,6 +32,7 @@ public class Interpreter {
 	private void executeInternal(ByteCode bytecode, Frame frame) throws Exception {
 		for (int PC = 0; PC <= bytecode.size() - 1; PC++) {
 			try {
+				System.out.println(bytecode.get(PC));
 				handleInstruction(bytecode.get(PC), frame);
 			} catch (GotoException e) {
 				// System.out.println(e.toString());
@@ -39,6 +40,8 @@ public class Interpreter {
 				// PC have to be one lesser, cause it is automatically
 				// incremented in the for clause.
 				PC = e.getJumpToPC() - 1;
+			} catch (ReturnException e1) {
+				break;
 			}
 		}
 	}
@@ -62,16 +65,18 @@ public class Interpreter {
 		}
 	}
 
-	private void noArgumentsInstruction(Frame frame, InsSet instr) throws InvalidObjectException {
-		StackOperations methods = StackOperations.getInstance();
+	private void noArgumentsInstruction(Frame frame, InsSet instr) throws Exception {
 		if (instr.equals(InsSet.iadd)) {
-			methods.iaddition(frame);
+			FrameOperations.iaddition(frame);
 		} else if (instr.equals(InsSet.isub)) {
-			methods.isubtraction(frame);
+			FrameOperations.isubtraction(frame);
 		} else if (instr.equals(InsSet.imul)) {
-			methods.imultiplication(frame);
+			FrameOperations.imultiplication(frame);
 		} else if (instr.equals(InsSet.re_turn)) {
 			return;
+		} else if (instr.equals(InsSet.ireturn)) {
+			FrameOperations.ireturn(frame);
+			throw new ReturnException();
 		} else {
 			throw new UnsupportedOperationException(instr.name());
 		}
@@ -79,7 +84,6 @@ public class Interpreter {
 
 	private void oneArgumentInstruction(Frame frame, InsSet instr, String op1) 
 			throws Exception {
-		StackOperations methods = StackOperations.getInstance();
 		if (isLogicalCondition(instr)) {
 			handleLogicalCondition(frame, instr, Integer.parseInt(op1));
 		}
@@ -88,16 +92,16 @@ public class Interpreter {
 		else if (instr.equals(InsSet.bipush)) {
 			frame.pushToStack(Integer.parseInt(op1));
 		} else if (instr.equals(InsSet.istore)) {
-			methods.istoreVar(frame, Integer.parseInt(op1));
+			FrameOperations.istoreVar(frame, Integer.parseInt(op1));
 		} else if (instr.equals(InsSet.iload)) {
-			methods.iloadVar(frame, Integer.parseInt(op1));
+			FrameOperations.iloadVar(frame, Integer.parseInt(op1));
 		} else if (instr.equals(InsSet.go_to)) {
 			throw new GotoException(Integer.parseInt(op1));
 		} else if (instr.equals(InsSet.invoke)) {
-			Frame newFrame = frameFactory.makeFrame();
+			Frame newFrame = frameFactory.makeFrame(frame);
 			MiniJavaMethod method = classFiles.get(0).getMethod(op1);
 			for (int i = 0; i < method.getArgTypes().size(); i++) {
-				newFrame.istoreVar(i, frame.iloadVar(i));
+				newFrame.istoreVar(i, (Integer) frame.popFromStack());
 				// inverse declaration?
 			}
 			executeInternal(method.getBytecode(), newFrame);
@@ -108,9 +112,8 @@ public class Interpreter {
 
 	private void twoArgumentsInstruction(Frame frame, InsSet instr, String op1, String op2) 
 			throws Exception {
-		StackOperations methods = StackOperations.getInstance();
 		if (instr.equals(InsSet.iinc)) {
-			methods.incVar(frame, Integer.parseInt(op1), Integer.parseInt(op2));
+			FrameOperations.incVar(frame, Integer.parseInt(op1), Integer.parseInt(op2));
 		} else {
 			throw new UnsupportedOperationException(instr.name());
 		}
@@ -122,35 +125,34 @@ public class Interpreter {
 	}
 
 	private void handleLogicalCondition(Frame frame, InsSet instr, int jumpToPC) throws InvalidObjectException {
-		StackOperations methods = StackOperations.getInstance();
 
 		if (instr.equals(InsSet.if_icmpeq)) {
-			if (methods.iequal(frame)) {
+			if (FrameOperations.iequal(frame)) {
 				throw new GotoException(jumpToPC);
 			}
 			return;
 		} else if (instr.equals(InsSet.if_icmpne)) {
-			if (!methods.iequal(frame)) {
+			if (!FrameOperations.iequal(frame)) {
 				throw new GotoException(jumpToPC);
 			}
 			return;
 		} else if (instr.equals(InsSet.if_icmplt)) {
-			if (methods.ilesser(frame)) {
+			if (FrameOperations.ilesser(frame)) {
 				throw new GotoException(jumpToPC);
 			}
 			return;
 		} else if (instr.equals(InsSet.if_icmpge)) {
-			if (!methods.ilesser(frame)) {
+			if (!FrameOperations.ilesser(frame)) {
 				throw new GotoException(jumpToPC);
 			}
 			return;
 		} else if (instr.equals(InsSet.if_icmpgt)) {
-			if (methods.igreater(frame)) {
+			if (FrameOperations.igreater(frame)) {
 				throw new GotoException(jumpToPC);
 			}
 			return;
 		} else if (instr.equals(InsSet.if_icmple)) {
-			if (!methods.igreater(frame)) {
+			if (!FrameOperations.igreater(frame)) {
 				throw new GotoException(jumpToPC);
 			}
 			return;

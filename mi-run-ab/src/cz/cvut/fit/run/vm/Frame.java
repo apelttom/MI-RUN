@@ -7,15 +7,22 @@ import java.util.Stack;
 public class Frame {
 
 	private int frameID = -1;
+	private Frame parent;
+
 	private Stack<Object> stack = null;
 	private Map<Integer, Object> locals = null;
 
-	public Frame(int ID) {
+	public Frame(int ID, Frame parent) {
 		this.frameID = ID;
+		this.parent = parent;
 		this.stack = new Stack<Object>();
 		this.locals = new HashMap<Integer, Object>();
 	}
 
+	public Frame getParent() {
+		return parent;
+	}
+	
 	public Object pushToStack(Object obj) {
 		return stack.push(obj);
 	}
@@ -34,12 +41,12 @@ public class Frame {
 	 * @param a
 	 * @return the element previously at the specified position
 	 */
-	public Object istoreVar(int varIndex, Object a) {
+	public Object istoreVar(int varIndex, Integer a) {
 		return locals.put(varIndex, a);
 	}
 
-	public Object iloadVar(int varIndex) {
-		return locals.get(varIndex);
+	public Integer iloadVar(int varIndex) {
+		return (Integer) locals.get(varIndex);
 	}
 
 	@Override

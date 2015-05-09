@@ -2,30 +2,13 @@ package cz.cvut.fit.run.vm;
 
 import java.io.InvalidObjectException;
 
-/*
- * Is Singleton
- */
-public class StackOperations {
+public class FrameOperations {
 
 	private static final String invTypesArithm = "Two objects from the top of the stack are not Integers.";
 	private static final String invTypeiStore = "Object from the top of the stack is not an Integer.";
 	private static final String invTypeiLoad = "Loaded object is not an Integer.";
 
-	private static StackOperations instance = null;
-
-	private StackOperations() {
-	}
-
-	public static StackOperations getInstance() {
-		if (instance != null) {
-			return instance;
-		} else {
-			instance = new StackOperations();
-			return instance;
-		}
-	}
-
-	public Object iaddition(Frame frame) throws InvalidObjectException {
+	public static Object iaddition(Frame frame) throws InvalidObjectException {
 		Object a = frame.popFromStack();
 		Object b = frame.popFromStack();
 		if ((a instanceof Integer) && (b instanceof Integer)) {
@@ -33,23 +16,23 @@ public class StackOperations {
 			frame.pushToStack(res);
 			return res;
 		} else {
-			throw new InvalidObjectException(invTypesArithm);
+			throw new InvalidObjectException(invTypesArithm + " " + a + " " + b);
 		}
 	}
 
-	public Object isubtraction(Frame frame) throws InvalidObjectException {
+	public static Object isubtraction(Frame frame) throws InvalidObjectException {
 		Object a = frame.popFromStack();
 		Object b = frame.popFromStack();
 		if ((a instanceof Integer) && (b instanceof Integer)) {
-			int res = (Integer) a - (Integer) b;
+			int res = (Integer) b - (Integer) a;
 			frame.pushToStack(res);
 			return res;
 		} else {
-			throw new InvalidObjectException(invTypesArithm);
+			throw new InvalidObjectException(invTypesArithm + " " + a + " " + b);
 		}
 	}
 
-	public Object imultiplication(Frame frame) throws InvalidObjectException {
+	public static Object imultiplication(Frame frame) throws InvalidObjectException {
 		Object a = frame.popFromStack();
 		Object b = frame.popFromStack();
 		if ((a instanceof Integer) && (b instanceof Integer)) {
@@ -57,40 +40,40 @@ public class StackOperations {
 			frame.pushToStack(res);
 			return res;
 		} else {
-			throw new InvalidObjectException(invTypesArithm);
+			throw new InvalidObjectException(invTypesArithm + " " + a);
 		}
 	}
 
-	public void istoreVar(Frame frame, int varIndex)
+	public static void istoreVar(Frame frame, int varIndex)
 			throws InvalidObjectException {
 		Object a = frame.popFromStack();
 		if (a instanceof Integer) {
-			frame.istoreVar(varIndex, a);
+			frame.istoreVar(varIndex, (Integer) a);
 		} else {
-			throw new InvalidObjectException(invTypeiStore);
+			throw new InvalidObjectException(invTypeiStore + " " + a);
 		}
 	}
 
-	public void iloadVar(Frame frame, int varIndex)
+	public static void iloadVar(Frame frame, int varIndex)
 			throws InvalidObjectException {
 		Object a = frame.iloadVar(varIndex);
 		if (a instanceof Integer) {
 			frame.pushToStack(a);
 		} else {
-			throw new InvalidObjectException(invTypeiLoad);
+			throw new InvalidObjectException(invTypeiLoad + " " + a);
 		}
 	}
 
-	public boolean iequal(Frame frame) throws InvalidObjectException {
+	public static boolean iequal(Frame frame) throws InvalidObjectException {
 		Object a = frame.popFromStack();
 		Object b = frame.popFromStack();
 		if ((a instanceof Integer) && (b instanceof Integer)) {
 			return ((Integer) a == (Integer) b);
 		}
-		throw new InvalidObjectException(invTypesArithm);
+		throw new InvalidObjectException(invTypesArithm + " " + a + " " + b);
 	}
 
-	public boolean ilesser(Frame frame) throws InvalidObjectException {
+	public static boolean ilesser(Frame frame) throws InvalidObjectException {
 		Object value1 = frame.popFromStack();
 		Object value2 = frame.popFromStack();
 		if ((value1 instanceof Integer) && (value2 instanceof Integer)) {
@@ -99,7 +82,7 @@ public class StackOperations {
 		throw new InvalidObjectException(invTypesArithm);
 	}
 
-	public boolean igreater(Frame frame) throws InvalidObjectException {
+	public static boolean igreater(Frame frame) throws InvalidObjectException {
 		Object value1 = frame.popFromStack();
 		Object value2 = frame.popFromStack();
 		if ((value1 instanceof Integer) && (value2 instanceof Integer)) {
@@ -108,7 +91,7 @@ public class StackOperations {
 		throw new InvalidObjectException(invTypesArithm);
 	}
 
-	public void incVar(Frame frame, int index, int n)
+	public static void incVar(Frame frame, int index, int n)
 			throws InvalidObjectException {
 		Object a = frame.iloadVar(index);
 		if (a instanceof Integer) {
@@ -117,6 +100,10 @@ public class StackOperations {
 		} else {
 			throw new InvalidObjectException(invTypeiLoad);
 		}
+	}
+
+	public static void ireturn(Frame frame) {
+		frame.getParent().pushToStack((Integer) frame.popFromStack());
 	}
 
 }

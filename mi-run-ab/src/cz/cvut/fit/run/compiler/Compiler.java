@@ -177,18 +177,13 @@ public class Compiler implements Constants {
 			node_token_TOKEN = node_token_TOKEN.getNextSibling();
 		} while (node_token_TOKEN != null);
 		
-		if (bytecode.get(bytecode.size()-1).getInstructionCode() != InsSet.re_turn) {
-			// return statement (void) if not in code itself
-			// TODO sometimes return statement should return void, sometimes stack value
-			bytecode.add(new Instruction(InsSet.re_turn));
-		}
 		return bytecode;
 	}
 
 	private void return_statement(AST node, ByteCode bytecode) {
 		expression(node.getFirstChild(), bytecode);
 		// return statement
-		bytecode.add(new Instruction(InsSet.re_turn));
+		bytecode.add(new Instruction(InsSet.ireturn));
 	}
 
 	private void for_cycle(AST node, ByteCode bytecode) {
