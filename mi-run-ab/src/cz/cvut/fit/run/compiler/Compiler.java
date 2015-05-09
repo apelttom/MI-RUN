@@ -7,6 +7,7 @@ import java.util.Map;
 
 import antlr.collections.AST;
 import cz.cvut.fit.run.compiler.Instruction.InsSet;
+import cz.cvut.fit.run.vm.ClassFile;
 import cz.cvut.fit.run.vm.MiniJavaMethod;
 
 public class Compiler implements Constants {
@@ -15,6 +16,7 @@ public class Compiler implements Constants {
 	private int BC_VariableCount = 0; // bytecode variable count
 	private Map<String, Integer> variableMap;
 	private List<MiniJavaMethod> methods = null;
+	private ClassFile classfile = null;
 	private boolean printNodes = false;
 
 	public Compiler(boolean printNodes) {
@@ -26,9 +28,10 @@ public class Compiler implements Constants {
 		this.PC = BC_VariableCount = 0;
 		this.variableMap = new HashMap<String, Integer>();
 		this.methods = new ArrayList<MiniJavaMethod>();
+		this.classfile = new ClassFile();
 	}
 
-	public List<MiniJavaMethod> compile(AST root) {
+	public ClassFile compile(AST root) {
 		// byteCode.clear();
 		AST temp = root;
 		traverse(temp, 0);
@@ -36,7 +39,11 @@ public class Compiler implements Constants {
 			temp = temp.getNextSibling();
 			traverse(temp, 0);
 		}
-		return this.methods;
+		// TODO pridavat metody rovnou do classfile
+		for (MiniJavaMethod m : methods) {
+			classfile.addMethod(m);
+		}
+		return this.classfile;
 	}
 
 	private void traverse(AST node, int depth) {

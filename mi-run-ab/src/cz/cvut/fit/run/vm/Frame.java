@@ -44,8 +44,8 @@ public class Frame {
 
 	public String toString() {
 		String partA = "Frame " + frameID + ":\n";
-		String partB = "STACK:\n" + this.stack.toString() + "\n";
-		String partC = "LOCALS:\n" + this.locals.toString() + "\n";
+		String partB = "STACK:  " + this.stack.toString() + "\n";
+		String partC = "LOCALS: " + this.locals.toString() + "\n";
 		return partA + partB + partC;
 	}
 

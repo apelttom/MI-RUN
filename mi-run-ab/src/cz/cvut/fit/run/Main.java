@@ -4,18 +4,19 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.event.ListSelectionEvent;
 
 import antlr.CommonAST;
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
 import antlr.collections.AST;
-import cz.cvut.fit.run.compiler.ByteCode;
 import cz.cvut.fit.run.compiler.Compiler;
-import cz.cvut.fit.run.compiler.Instruction;
 import cz.cvut.fit.run.parser.JavaLexer;
 import cz.cvut.fit.run.parser.JavaRecognizer;
+import cz.cvut.fit.run.vm.ClassFile;
 import cz.cvut.fit.run.vm.Interpreter;
 import cz.cvut.fit.run.vm.MiniJavaMethod;
 
@@ -46,16 +47,18 @@ public class Main {
 
 			// generate bytecode, true = print nodes
 			Compiler compiler = new Compiler();
-			List<MiniJavaMethod> methods = compiler.compile(myTree);
+			ClassFile cf = compiler.compile(myTree);
 
 			// print bytecode of all methods
-			for (MiniJavaMethod method : methods) {
+			for (MiniJavaMethod method : cf.getMethods()) {
 				System.out.println(method.toString());
 			}
-
+			
 			// interpret bytecode somehow
-//			Interpreter interpreter = new Interpreter(byteCode);
-//			interpreter.execute();
+			List<ClassFile> cfList = new ArrayList<ClassFile>(1);
+			cfList.add(cf);
+			Interpreter interpreter = new Interpreter(cfList);
+			interpreter.execute();
 
 		} catch (FileNotFoundException | RecognitionException
 				| TokenStreamException e) {
