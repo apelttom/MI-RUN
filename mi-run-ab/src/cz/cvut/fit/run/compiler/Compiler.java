@@ -8,14 +8,14 @@ import java.util.Map;
 import antlr.collections.AST;
 import cz.cvut.fit.run.compiler.Instruction.InsSet;
 import cz.cvut.fit.run.vm.ClassFile;
-import cz.cvut.fit.run.vm.MiniJavaMethod;
+import cz.cvut.fit.run.vm.MethodInfo;
 
 public class Compiler implements Constants {
 
 	private int PC = 0; // program counter
 	private int BC_VariableCount = 0; // bytecode variable count
 	private Map<String, Integer> variableMap;
-	private List<MiniJavaMethod> methods = null;
+	private List<MethodInfo> methods = null;
 	private ClassFile classfile = null;
 	private boolean printNodes = false;
 
@@ -27,7 +27,7 @@ public class Compiler implements Constants {
 	public Compiler() {
 		this.PC = BC_VariableCount = 0;
 		this.variableMap = new HashMap<String, Integer>();
-		this.methods = new ArrayList<MiniJavaMethod>();
+		this.methods = new ArrayList<MethodInfo>();
 		this.classfile = new ClassFile();
 	}
 
@@ -40,7 +40,7 @@ public class Compiler implements Constants {
 			traverse(temp, 0);
 		}
 		// TODO pridavat metody rovnou do classfile
-		for (MiniJavaMethod m : methods) {
+		for (MethodInfo m : methods) {
 			classfile.addMethod(m);
 		}
 		return this.classfile;
@@ -113,7 +113,7 @@ public class Compiler implements Constants {
 				methodName = ast.getNextSibling();
 			}
 		}*/
-		MiniJavaMethod newMethod = new MiniJavaMethod(token_methodName.getText());
+		MethodInfo newMethod = new MethodInfo(token_methodName.getText());
 		for (AST flag : getAstChildren(token_MODIFIERS)) {
 			// method flags (public, static, final, virtual, ...)
 			newMethod.addFlag(flag.getText());
@@ -132,7 +132,7 @@ public class Compiler implements Constants {
 	}
 
 	// expects PARAMETERS token
-	private void functionParams(MiniJavaMethod method, AST node) {
+	private void functionParams(MethodInfo method, AST node) {
 		/*
 		 * TODO: Based on the parameters there is need to distinc between
 		 * invokestatic and invokevirtual. Now this method do practically

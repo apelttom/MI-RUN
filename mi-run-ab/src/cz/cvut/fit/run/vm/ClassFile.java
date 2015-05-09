@@ -12,27 +12,27 @@ public class ClassFile {
 	// super class
 	// interfaces
 	// fields
-	private List<MiniJavaMethod> methods = null;
+	private List<MethodInfo> methods = null;
 	// attributes
 
 	public ClassFile() {
-		this.methods = new ArrayList<MiniJavaMethod>();
+		this.methods = new ArrayList<MethodInfo>();
 	}
 
-	public boolean addMethod(MiniJavaMethod m) {
+	public boolean addMethod(MethodInfo m) {
 		return this.methods.add(m);
 	}
 	
-	public List<MiniJavaMethod> getMethods() {
+	public List<MethodInfo> getMethods() {
 		return this.methods;
 	}
 
-	public MiniJavaMethod getMethod(int index) {
+	public MethodInfo getMethod(int index) {
 		return this.methods.get(index);
 	}
 
-	public MiniJavaMethod getMethod(String name) throws Exception {
-		for (MiniJavaMethod m : methods) {
+	public MethodInfo getMethod(String name) throws Exception {
+		for (MethodInfo m : methods) {
 			if (m.getName().equals(name)) {
 				return m;
 			}

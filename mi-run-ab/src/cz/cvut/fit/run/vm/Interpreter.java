@@ -100,7 +100,7 @@ public class Interpreter {
 			throw new GotoException(Integer.parseInt(op1));
 		} else if (instr.equals(InsSet.invoke)) {
 			Frame newFrame = frameFactory.makeFrame(frame);
-			MiniJavaMethod method = classFiles.get(0).getMethod(op1);
+			MethodInfo method = classFiles.get(0).getMethod(op1);
 			for (int i = 0; i < method.getArgTypes().size(); i++) {
 				newFrame.istoreVar(i, (Integer) frame.popFromStack());
 				// inverse declaration?

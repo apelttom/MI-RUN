@@ -16,7 +16,7 @@ import cz.cvut.fit.run.parser.JavaLexer;
 import cz.cvut.fit.run.parser.JavaRecognizer;
 import cz.cvut.fit.run.vm.ClassFile;
 import cz.cvut.fit.run.vm.Interpreter;
-import cz.cvut.fit.run.vm.MiniJavaMethod;
+import cz.cvut.fit.run.vm.MethodInfo;
 
 public class Main {
 	
@@ -26,7 +26,7 @@ public class Main {
 		// TODO add code path do argument
 
 		try {
-			File file = new File("src/cz/cvut/fit/run/Code.java");
+			File file = new File("src/cz/cvut/fit/run/ABCode.java");
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 
 			// Create a scanner that reads from the input stream
@@ -48,7 +48,7 @@ public class Main {
 			ClassFile cf = compiler.compile(myTree);
 
 			// print bytecode of all methods
-			for (MiniJavaMethod method : cf.getMethods()) {
+			for (MethodInfo method : cf.getMethods()) {
 				System.out.println(method.toString());
 			}
 			

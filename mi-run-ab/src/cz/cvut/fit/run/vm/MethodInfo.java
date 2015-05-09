@@ -5,7 +5,7 @@ import java.util.List;
 
 import cz.cvut.fit.run.compiler.ByteCode;
 
-public class MiniJavaMethod {
+public class MethodInfo {
 
 	private List<String> flags; //(private, static, volatile, ...)
 	private String name = "undefined";
@@ -15,7 +15,7 @@ public class MiniJavaMethod {
 	private String returnType;
 	private ByteCode bytecode = null;
 
-	public MiniJavaMethod(String name){
+	public MethodInfo(String name){
 		this.name = name;
 		this.bytecode = new ByteCode();
 		this.argTypes = new ArrayList<String>();

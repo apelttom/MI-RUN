@@ -1,9 +1,9 @@
 package cz.cvut.fit.run;
 
-public class Code {
+public class ABCode {
 
 	public void main() {
-		int result = factorial(10);
+		int result = factorial(12);
 	}
 	
 	public final int factorial(int n){
