@@ -11,13 +11,13 @@ import cz.cvut.fit.run.compiler.Instruction.InsSet;
 public class Interpreter {
 	
 	private static final String MAIN = "main";
-	private List<Object> heap = null; // FIXME what is it for?
+	private List<ABObject> heap = null; // FIXME what is it for?
 	private List<ClassFile> classFiles = null;
 	private FrameFactory frameFactory = null;
 
 	public Interpreter(List<ClassFile> classFiles) {
 		this.classFiles = classFiles;
-		this.heap = new ArrayList<Object>();
+		this.heap = new ArrayList<ABObject>();
 		this.frameFactory = new FrameFactory();
 	}
 

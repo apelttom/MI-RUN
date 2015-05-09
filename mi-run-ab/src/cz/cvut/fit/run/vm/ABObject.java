@@ -1,6 +1,7 @@
 package cz.cvut.fit.run.vm;
 
 import java.lang.instrument.IllegalClassFormatException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ABObject {
@@ -10,6 +11,7 @@ public class ABObject {
 
 	public ABObject(ClassFile classfile) {
 		this.classfile = classfile;
+		this.globals = new HashMap<Integer, ABClassVar>();
 	}
 
 	public ABObject(ClassFile classfile, Map<Integer, ABClassVar> globals) {
