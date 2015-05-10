@@ -15,40 +15,43 @@ import cz.cvut.fit.run.vm.Interpreter;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		// TODO add code path do argument
+		// "src/cz/cvut/fit/run/ABCode.java"
+		if (args != null && args.length == 1) {
+			try {
+				File file = new File(args[0]);
+				BufferedReader reader = new BufferedReader(new FileReader(file));
 
-		try {
-			File file = new File("src/cz/cvut/fit/run/ABCode.java");
-			BufferedReader reader = new BufferedReader(new FileReader(file));
+				// Create a scanner that reads from the input stream
+				JavaLexer lexer = new JavaLexer(reader);
 
-			// Create a scanner that reads from the input stream
-			JavaLexer lexer = new JavaLexer(reader);
+				// Create a parser that reads from the scanner
+				JavaRecognizer parser = new JavaRecognizer(lexer);
 
-			// Create a parser that reads from the scanner
-			JavaRecognizer parser = new JavaRecognizer(lexer);
+				// start parsing at the compilationUnit rule
+				parser.compilationUnit();
 
-			// start parsing at the compilationUnit rule
-			parser.compilationUnit();
+				// get abstract syntax tree
+				AST ast = parser.getAST();
+				// printRoot(myTree);
 
-			// get abstract syntax tree
-			AST ast = parser.getAST();
-			// printRoot(myTree);
+				// generate all classfiles from given AST
+				Compiler compiler = new Compiler();
+				List<ClassFile> classfiles = compiler.compile(ast);
 
-			// generate all classfiles from given AST
-			Compiler compiler = new Compiler();
-			List<ClassFile> classfiles = compiler.compile(ast);
+				// print bytecode of all classes
+				for (ClassFile cf : classfiles) {
+					System.out.println(cf);
+				}
 
-			// print bytecode of all classes
-			for (ClassFile cf : classfiles) {
-				System.out.println(cf);
+				// interpret bytecode
+				Interpreter interpreter = new Interpreter(classfiles);
+				interpreter.execute();
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-
-			// interpret bytecode
-			Interpreter interpreter = new Interpreter(classfiles);
-			interpreter.execute();
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		} else {
+			throw new IllegalArgumentException("please insert path to source in argument");
 		}
 	}
 
