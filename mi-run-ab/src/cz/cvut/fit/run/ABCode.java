@@ -7,7 +7,7 @@ public class ABCode {
 	int foo;
 
 	public void main() {
-		a = 0;
+		a = 1;
 		ABCode o = new ABCode();
 		o.foo(a);
 

@@ -58,7 +58,11 @@ public class Frame {
 			// method is changing global variable -> change it in object
 			thisClass.changeVariableValue(varIndex, a);
 		}
-		locals.add(varIndex, a);
+		if (varIndex >= locals.size()) {
+			locals.add(a);
+		} else {
+			locals.set(varIndex, a);
+		}
 	}
 
 	public Object loadVar(int varIndex) {
@@ -93,7 +97,7 @@ public class Frame {
 			}
 			sb.append(i).append("=").append(locals.get(i));
 		}
-		sb.append("]");
+		sb.append("]\n");
 		return sb.toString();
 	}
 
