@@ -7,7 +7,7 @@ public class Instruction {
 
 	public enum InsSet {
 		bipush, istore, iload, iadd, isub, imul, iinc, 
-		astore, aload, 
+		astore, aload,
 		if_icmpeq, if_icmpne, if_icmplt, if_icmpge, if_icmpgt, if_icmple, 
 		go_to, re_turn, invoke, ireturn, new_class
 	};

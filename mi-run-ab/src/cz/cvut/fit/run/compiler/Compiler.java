@@ -116,6 +116,10 @@ public class Compiler implements Constants {
 				token_methodName.getText());
 		for (AST flag : getAstChildren(token_MODIFIERS)) {
 			// constructor flags (public, private, ...)
+			if (isGeneric && "public".equals(flag.getText())) {
+				// do not insert second public flag, one is already there
+				continue;
+			}
 			constructor.addFlag(flag.getText());
 		}
 		AST token_PARAMETERS = tokens.get(2);

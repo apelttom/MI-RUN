@@ -2,6 +2,7 @@ package cz.cvut.fit.run.vm;
 
 import java.io.InvalidObjectException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cz.cvut.fit.run.compiler.ByteCode;
@@ -20,11 +21,13 @@ public class Interpreter {
 	private List<ABObject> heap = null; // stores dynamic objects
 	private List<ClassFile> classFiles = null;
 	private FrameFactory frameFactory = null;
+	private Natives natives = null;
 
 	public Interpreter(List<ClassFile> classFiles) {
 		this.classFiles = classFiles;
 		this.heap = new ArrayList<ABObject>();
 		this.frameFactory = new FrameFactory();
+		this.natives = new Natives();
 	}
 
 	public void execute() throws Exception {
@@ -41,8 +44,7 @@ public class Interpreter {
 	private void executeInternal(ByteCode bytecode, Frame frame) throws Exception {
 		for (int PC = 0; PC <= bytecode.size() - 1; PC++) {
 			try {
-				System.out.println(bytecode.get(PC));
-
+//				System.out.println(bytecode.get(PC));
 				handleInstruction(bytecode.get(PC), frame);
 			} catch (GotoException e) {
 				// System.out.println(e.toString());
@@ -114,6 +116,10 @@ public class Interpreter {
 		} else if (instr.equals(InsSet.go_to)) {
 			throw new GotoException(Integer.parseInt(op1));
 		} else if (instr.equals(InsSet.invoke)) {
+			if (natives.contains(op1)) {
+				nativeMethodInvoke(frame, op1);
+				return;
+			}
 			ABObject wrappingObj = frame.getThis();
 			Frame newFrame = frameFactory.makeFrame(frame, wrappingObj);
 			MethodInfo method = frame.getThis().getClassfile().getMethod(op1);
@@ -133,7 +139,7 @@ public class Interpreter {
 			// ABObject
 			createObject(frame, op1);
 		} else if (instr.equals(InsSet.invoke)) {
-			// invoking method on a dynamic object
+			// invoking method on a dynamic object, op1=methodName op2=object index
 			int index = Integer.parseInt(op2);
 			ABObject variable = (ABObject) frame.loadVar(index);
 			ClassFile classfile = variable.getClassfile();
@@ -145,6 +151,17 @@ public class Interpreter {
 		} else {
 			throw new UnsupportedOperationException(instr.name());
 		}
+	}
+
+	private void nativeMethodInvoke(Frame frame, String methodName) {
+		int nArgs = natives.getNumberOfArgs(methodName);
+		List<Object> args = new ArrayList<Object>(nArgs);
+		for (int i = 0; i < nArgs; i++) {
+			args.add(frame.popFromStack());
+		}
+		// we pop object in reverse order
+		Collections.reverse(args);
+		natives.invoke(methodName, args.toArray());
 	}
 
 	private void addArgumentsToMethod(Frame frame, MethodInfo method) {
