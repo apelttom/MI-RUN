@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import antlr.collections.AST;
 import cz.cvut.fit.run.compiler.Instruction.InsSet;
@@ -63,7 +64,16 @@ public class Compiler implements Constants {
 			classfile.addFlag(iface.getText());
 		}
 		
+		createGenericConstructor();
 		objectBlock(token_IMPLEMENTS.getNextSibling());
+	}
+
+	private void createGenericConstructor() {
+		MethodInfo constructor = new MethodInfo(classfile.getThis());
+		constructor.addFlag("public");
+		ByteCode bytecode = new ByteCode();
+		constructor.setBytecode(bytecode);
+		classfile.addMethod(constructor);
 	}
 
 	// expects OBJBLOCK
@@ -79,6 +89,7 @@ public class Compiler implements Constants {
 		}
 	}
 
+	// expects VARIABLE_DEF
 	private void classField(AST node) {
 		List<AST> tokens = getAstChildren(node);
 		AST token_MODIFIERS = tokens.get(0);
@@ -97,6 +108,12 @@ public class Compiler implements Constants {
 			field.flags.add(flag.getText());
 		}
 		classfile.addField(field);
+		try {
+			ByteCode cbc = classfile.getMethod(classfile.getThis()).getBytecode();
+			expression(node, cbc);
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// expects METHOD_DEF token
