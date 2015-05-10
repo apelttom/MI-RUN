@@ -1,11 +1,8 @@
 package cz.cvut.fit.run.vm;
 
-import java.io.InvalidObjectException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
-
-import javax.swing.text.AsyncBoxView;
 
 public class Frame {
 
@@ -13,25 +10,20 @@ public class Frame {
 	private Frame parent;
 
 	private Stack<Object> stack = null;
-	private Map<Integer, Object> locals = null;
-	// first item in locals is a pointer to an object holding this frame
-	private static final int THIS_OFFSET = 1;
-	private static final int THIS_INDEX = 0;
+	private List<Object> locals = null;
+	private ABObject thisClass = null;
 	private int globalVarBound = 0;
 
 	public Frame(int ID, Frame parent) {
 		this.frameID = ID;
 		this.parent = parent;
 		this.stack = new Stack<Object>();
-		this.locals = new HashMap<Integer, Object>();
+		this.locals = new ArrayList<Object>();
 	}
 
 	public Frame(int ID, Frame parent, ABObject wrappingObj) {
-		this.frameID = ID;
-		this.parent = parent;
-		this.stack = new Stack<Object>();
-		this.locals = new HashMap<Integer, Object>();
-		this.locals.put(THIS_INDEX, wrappingObj);
+		this(ID, parent);
+		this.thisClass = wrappingObj;
 		loadGlobalVariables(wrappingObj);
 		this.globalVarBound = locals.size();
 	}
@@ -52,51 +44,57 @@ public class Frame {
 		return stack.isEmpty();
 	}
 
-	public ABObject getThis() throws InvalidObjectException {
-		Object o = locals.get(THIS_INDEX);
-		if (o instanceof ABObject) {
-			return (ABObject) o;
-		}
-		throw new InvalidObjectException(o.toString());
+	public ABObject getThis() {
+		return thisClass;
 	}
 
 	/**
-	 * 
 	 * @param varIndex
 	 * @param a
 	 * @return the element previously at the specified position
 	 */
-	public Object storeVar(int varIndex, Object a) {
-		if (varIndex < this.globalVarBound - THIS_OFFSET) {
+	public void storeVar(int varIndex, Object a) {
+		if (varIndex < this.globalVarBound) {
 			// method is changing global variable -> change it in object
-			((ABObject) locals.get(THIS_INDEX))
-					.changeVariableValue(varIndex, a);
+			thisClass.changeVariableValue(varIndex, a);
 		}
-		return locals.put(varIndex + THIS_OFFSET, a);
+		locals.add(varIndex, a);
 	}
 
 	public Object loadVar(int varIndex) {
-		return locals.get(varIndex + THIS_OFFSET);
+		return locals.get(varIndex);
 	}
 
-	public Object storeArgument(Object a) {
-		int localsPointer = locals.size();
-		return locals.put(localsPointer, a);
+	public void storeArgument(Object a) {
+		locals.add(a);
 	}
 
 	private void loadGlobalVariables(ABObject wrappingObj) {
-		int localsPointer = locals.size();
 		for (ABClassVar global : wrappingObj.getGlobals()) {
-			locals.put(localsPointer++, global.getVariableValue());
+			locals.add(global.getVariableValue());
 		}
 	}
 
 	@Override
 	public String toString() {
-		String partA = "Frame " + frameID + ":\n";
-		String partB = "STACK:  " + this.stack.toString() + "\n";
-		String partC = "LOCALS: " + this.locals.toString() + "\n";
-		return partA + partB + partC;
+		StringBuilder sb = new StringBuilder();
+		sb.append("Frame ");
+		sb.append(frameID);
+		sb.append(":\n");
+		sb.append("STACK: ");
+		sb.append(stack);
+		sb.append("\nLOCALS:[");
+		boolean first = true;
+		for (int i = 0; i < locals.size(); i++) {
+			if (first) {
+				first = false;
+			} else {
+				sb.append(", ");
+			}
+			sb.append(i).append("=").append(locals.get(i));
+		}
+		sb.append("]");
+		return sb.toString();
 	}
 
 }

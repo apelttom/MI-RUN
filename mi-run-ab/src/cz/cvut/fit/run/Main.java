@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import antlr.CommonAST;
@@ -13,7 +12,6 @@ import antlr.TokenStreamException;
 import antlr.collections.AST;
 import cz.cvut.fit.run.compiler.ClassFile;
 import cz.cvut.fit.run.compiler.Compiler;
-import cz.cvut.fit.run.compiler.MethodInfo;
 import cz.cvut.fit.run.parser.JavaLexer;
 import cz.cvut.fit.run.parser.JavaRecognizer;
 import cz.cvut.fit.run.vm.Interpreter;
