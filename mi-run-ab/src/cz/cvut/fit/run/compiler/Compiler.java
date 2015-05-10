@@ -84,6 +84,8 @@ public class Compiler implements Constants {
 				functionHeader(token);
 			} else if ("VARIABLE_DEF".equals(token.getText())) {
 				classField(token);
+			} else if ("CTOR_DEF".equals(token.getText())) {
+				constructorHeader(token);
 			}
 			token = token.getNextSibling();
 		}
@@ -116,19 +118,40 @@ public class Compiler implements Constants {
 		}
 	}
 
+	// expects CTOR_DEF
+	private void constructorHeader(AST node) {
+		List<AST> tokens = getAstChildren(node);
+		AST token_MODIFIERS = tokens.get(0);
+		AST token_methodName = tokens.get(1);
+		boolean isGeneric = (tokens.get(2).getNumberOfChildren() == 0);
+		
+		MethodInfo constructor = isGeneric ? classfile.getMethod(0)
+					: new MethodInfo(token_methodName.getText());
+		for (AST flag : getAstChildren(token_MODIFIERS)) {
+			// constructor flags (public, private, ...)
+			constructor.addFlag(flag.getText());
+		}
+		AST token_PARAMETERS = tokens.get(2);
+		functionParams(constructor, token_PARAMETERS);
+		
+		AST token_BODY = tokens.get(3);
+		ByteCode byteCode = fuctionBody(token_BODY);
+		
+		if (isGeneric) {
+			constructor.getBytecode().merge(byteCode);
+		} else {
+			constructor.setBytecode(byteCode);
+			this.classfile.addMethod(constructor);
+		}
+	}
+
 	// expects METHOD_DEF token
 	private void functionHeader(AST node) {
 		List<AST> tokens = getAstChildren(node);
 		AST token_MODIFIERS = tokens.get(0);
 		AST token_TYPE = tokens.get(1);
 		AST token_methodName = tokens.get(2);
-		/*AST methodName = null;
-		for (AST ast : tokens) {
-			// next sibling of the TYPE node is method name, so let's store it!
-			if (ast.getText().equals("TYPE")) {
-				methodName = ast.getNextSibling();
-			}
-		}*/
+
 		MethodInfo newMethod = new MethodInfo(token_methodName.getText());
 		for (AST flag : getAstChildren(token_MODIFIERS)) {
 			// method flags (public, static, final, virtual, ...)
@@ -139,7 +162,7 @@ public class Compiler implements Constants {
 		
 		AST token_PARAMETERS = tokens.get(3);
 		functionParams(newMethod, token_PARAMETERS);
-
+		
 		AST token_BODY = tokens.get(4);
 		ByteCode byteCode = fuctionBody(token_BODY);
 		
@@ -343,11 +366,9 @@ public class Compiler implements Constants {
 	
 		AST node_token_ASSIGN = node_token_VARNAME.getNextSibling();
 		if (node_token_ASSIGN == null) {
-			// not an assignment, just declaring, can ignore
-			return;
-		}
-	
-		if (!isArray) {
+			// not an assignment, just declaring, assign default
+			bytecode.add(new Instruction(InsSet.bipush, getDefaultValue(assignedVariableType)));
+		} else if (!isArray) {
 			AST node_token_VARVAL = node_token_ASSIGN.getFirstChild()
 					.getFirstChild();
 			String varVal = "";
@@ -364,15 +385,15 @@ public class Compiler implements Constants {
 				// vysledek pak hodit do promenne
 				expression(node_token_ASSIGN.getFirstChild(), bytecode);
 			}
-			bytecode.add(new Instruction(Instruction.store(assignedVariableType), BC_VariableCount + ""));
-			variableMap.put(node_token_VARNAME.getText(), BC_VariableCount);
-			BC_VariableCount++;
 		} else {
-			// is array
+			// TODO is array
 			AST node_token_ARRLEN = node_token_ASSIGN.getFirstChild()
 					.getFirstChild().getFirstChild().getNextSibling()
 					.getFirstChild().getFirstChild();
 		}
+		bytecode.add(new Instruction(Instruction.store(assignedVariableType), BC_VariableCount + ""));
+		variableMap.put(node_token_VARNAME.getText(), BC_VariableCount);
+		BC_VariableCount++;
 	
 	}
 
@@ -388,9 +409,16 @@ public class Compiler implements Constants {
 		for (AST param : getAstChildren(token_ELIST)) {
 			expression(param, bytecode);
 		}
-		bytecode.add(new Instruction(InsSet.invoke, token_methodName.getText()));
-		// TODO invokestatic, invokespecial, invokedynamic, invokeinterface, invokevirtual
-		// TODO invoke method by index in constant pool, not by name
+		if (".".equals(token_methodName.getText())) {
+			// method called on some object
+			AST token_object = token_methodName.getFirstChild(); // might be "new"
+			token_methodName = token_object.getNextSibling();
+			bytecode.add(new Instruction(InsSet.invoke, token_methodName.getText(),
+					String.valueOf(this.variableMap.get(token_object.getText()))));
+		} else {
+			// method in the same class
+			bytecode.add(new Instruction(InsSet.invoke, token_methodName.getText()));
+		}
 	}
 
 	private void if_condition(AST node, ByteCode bytecode) { // TODO : slozene
@@ -514,6 +542,16 @@ public class Compiler implements Constants {
 		}
 	
 		return list;
+	}
+
+	private static String getDefaultValue(String type) {
+		if (type == null) {
+			throw new NullPointerException("get default value with null reference type");
+		}
+		switch (type) {
+			case "int": return "0";
+			default: return "null";
+		}
 	}
 
 	private static boolean isArithmetic(String tokenName) {
