@@ -7,14 +7,13 @@ public class ABCode {
 	int foo;
 
 	public void main() {
-		int a = 24;
-		a = foo(14);
+		int b;
+		ABCode o = new ABCode();
+		o.foo(a);
+
 	}
 	
 	public int foo(int i) {
 		return i;
 	}
-}
-class PrivateClass {
-	
 }
