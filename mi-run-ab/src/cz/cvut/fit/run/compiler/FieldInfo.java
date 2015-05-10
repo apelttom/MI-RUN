@@ -13,6 +13,7 @@ public class FieldInfo {
 		this.type = type;
 		flags = new ArrayList<String>(1);
 	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

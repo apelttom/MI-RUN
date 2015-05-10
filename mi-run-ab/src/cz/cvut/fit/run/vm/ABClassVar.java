@@ -4,6 +4,7 @@ public class ABClassVar {
 
 	// private, public, protected, etc.
 	private String variableProtection;
+	private boolean isStatic;
 	private Object variableValue;
 	// String, Integer, custom, etc.
 	private String variableType;
@@ -14,12 +15,25 @@ public class ABClassVar {
 		this.variableType = type;
 	}
 
+	public ABClassVar(Object val, String type) {
+		this.variableValue = val;
+		this.variableType = type;
+	}
+
 	public String getVariableProtection() {
 		return variableProtection;
 	}
 
 	public void setVariableProtection(String variableProtection) {
 		this.variableProtection = variableProtection;
+	}
+
+	public boolean isStatic() {
+		return isStatic;
+	}
+
+	public void setStatic(boolean isStatic) {
+		this.isStatic = isStatic;
 	}
 
 	public Object getVariableValue() {

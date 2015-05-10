@@ -2,16 +2,19 @@ package cz.cvut.fit.run.vm;
 
 import java.io.InvalidObjectException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cz.cvut.fit.run.compiler.ByteCode;
 import cz.cvut.fit.run.compiler.ClassFile;
+import cz.cvut.fit.run.compiler.FieldInfo;
 import cz.cvut.fit.run.compiler.Instruction;
 import cz.cvut.fit.run.compiler.MethodInfo;
 import cz.cvut.fit.run.compiler.Instruction.InsSet;
 
 public class Interpreter {
-	
+
 	private static final String MAIN = "main";
 	private List<ABObject> heap = null; // FIXME what is it for?
 	private List<ClassFile> classFiles = null;
@@ -26,16 +29,17 @@ public class Interpreter {
 	public void execute() throws Exception {
 		ByteCode main = classFiles.get(0).getMethod(MAIN).getBytecode();
 		Frame mainFrame = frameFactory.makeFrame(null);
-		
+
 		executeInternal(main, mainFrame);
-		
+
 		frameFactory.print();
 	}
 
-	private void executeInternal(ByteCode bytecode, Frame frame) throws Exception {
+	private void executeInternal(ByteCode bytecode, Frame frame)
+			throws Exception {
 		for (int PC = 0; PC <= bytecode.size() - 1; PC++) {
 			try {
-//				System.out.println(bytecode.get(PC));
+				// System.out.println(bytecode.get(PC));
 
 				handleInstruction(bytecode.get(PC), frame);
 			} catch (GotoException e) {
@@ -50,7 +54,8 @@ public class Interpreter {
 		}
 	}
 
-	private void handleInstruction(Instruction inst, Frame frame) throws Exception {
+	private void handleInstruction(Instruction inst, Frame frame)
+			throws Exception {
 		InsSet instr = inst.getInstructionCode();
 		List<String> instrArgs = inst.getOperands();
 
@@ -58,18 +63,23 @@ public class Interpreter {
 		// + instr.toString() + " size " + inst.getSize());
 
 		switch (inst.getSize()) {
-		case 0: noArgumentsInstruction(frame, instr);
+		case 0:
+			noArgumentsInstruction(frame, instr);
 			break;
-		case 1: oneArgumentInstruction(frame, instr, instrArgs.get(0));
+		case 1:
+			oneArgumentInstruction(frame, instr, instrArgs.get(0));
 			break;
-		case 2: twoArgumentsInstruction(frame, instr, instrArgs.get(0), 
-				instrArgs.get(1));
+		case 2:
+			twoArgumentsInstruction(frame, instr, instrArgs.get(0),
+					instrArgs.get(1));
 			break;
-		default: System.err.println("More than 2 arguments instruction "+inst);
+		default:
+			System.err.println("More than 2 arguments instruction " + inst);
 		}
 	}
 
-	private void noArgumentsInstruction(Frame frame, InsSet instr) throws Exception {
+	private void noArgumentsInstruction(Frame frame, InsSet instr)
+			throws Exception {
 		if (instr.equals(InsSet.iadd)) {
 			FrameOperations.iaddition(frame);
 		} else if (instr.equals(InsSet.isub)) {
@@ -86,7 +96,7 @@ public class Interpreter {
 		}
 	}
 
-	private void oneArgumentInstruction(Frame frame, InsSet instr, String op1) 
+	private void oneArgumentInstruction(Frame frame, InsSet instr, String op1)
 			throws Exception {
 		if (isLogicalCondition(instr)) {
 			handleLogicalCondition(frame, instr, Integer.parseInt(op1));
@@ -118,16 +128,16 @@ public class Interpreter {
 		}
 	}
 
-	private void twoArgumentsInstruction(Frame frame, InsSet instr, String op1, String op2) 
-			throws Exception {
+	private void twoArgumentsInstruction(Frame frame, InsSet instr, String op1,
+			String op2) throws Exception {
 		if (instr.equals(InsSet.iinc)) {
-			FrameOperations.incVar(frame, Integer.parseInt(op1), Integer.parseInt(op2));
+			FrameOperations.incVar(frame, Integer.parseInt(op1),
+					Integer.parseInt(op2));
 		} else if (instr.equals(InsSet.new_class)) {
 			// Create dynamically new object on Heap. It will be generic object
 			// ABObject
 			createObject(frame, op1);
-		} 
-		else {
+		} else {
 			throw new UnsupportedOperationException(instr.name());
 		}
 	}
@@ -135,28 +145,45 @@ public class Interpreter {
 	private void createObject(Frame frame, String name) {
 		ClassFile result = null;
 		// here I find ClassFile of class I am creating
-		ClassFile[] classFilesArray = classFiles.toArray(new ClassFile[classFiles.size()]);
+		ClassFile[] classFilesArray = classFiles
+				.toArray(new ClassFile[classFiles.size()]);
 		for (ClassFile cf : classFilesArray) {
 			if (cf.getThis().equals(name)) {
 				result = cf;
 			}
 		}
+		// creation of global variables for new dynamic class
+		Map<String, ABClassVar> globals = new HashMap<String, ABClassVar>();
+		for (FieldInfo fieldInfo : result.getFields()) {
+			ABClassVar globalVar = new ABClassVar(null, fieldInfo.type);
+			// flags setup
+			for (String flag : fieldInfo.flags) {
+				if (flag.equals("private") || flag.equals("public")) {
+					globalVar.setVariableProtection(flag);
+				}
+				if (flag.equals("static")) {
+					globalVar.setStatic(true);
+				}
+			}
+			globals.put(fieldInfo.name, globalVar);
+		}
 		// dynamic creation of object
-		ABObject dynamicObj = new ABObject(result);
+		ABObject dynamicObj = new ABObject(result, globals);
 		heap.add(dynamicObj);
 		frame.pushToStack(dynamicObj);
 	}
 
 	private static boolean isLogicalCondition(InsSet instr) {
-		return (instr.equals(InsSet.if_icmpgt) || 
-				instr.equals(InsSet.if_icmpeq) || 
-				instr.equals(InsSet.if_icmplt) || 
-				instr.equals(InsSet.if_icmpne) || 
-				instr.equals(InsSet.if_icmpge) || 
-				instr.equals(InsSet.if_icmple));
+		return (instr.equals(InsSet.if_icmpgt)
+				|| instr.equals(InsSet.if_icmpeq)
+				|| instr.equals(InsSet.if_icmplt)
+				|| instr.equals(InsSet.if_icmpne)
+				|| instr.equals(InsSet.if_icmpge) || instr
+					.equals(InsSet.if_icmple));
 	}
 
-	private void handleLogicalCondition(Frame frame, InsSet instr, int jumpToPC) throws InvalidObjectException {
+	private void handleLogicalCondition(Frame frame, InsSet instr, int jumpToPC)
+			throws InvalidObjectException {
 
 		if (instr.equals(InsSet.if_icmpeq)) {
 			if (FrameOperations.iequal(frame)) {
