@@ -14,7 +14,10 @@ public class Frame {
 
 	private Stack<Object> stack = null;
 	private Map<Integer, Object> locals = null;
-	private int localsOffset = 0;
+	// first item in locals is a pointer to an object holding this frame
+	private static final int THIS_OFFSET = 1;
+	private static final int THIS_INDEX = 0;
+	private int globalVarBound = 0;
 
 	public Frame(int ID, Frame parent) {
 		this.frameID = ID;
@@ -28,9 +31,9 @@ public class Frame {
 		this.parent = parent;
 		this.stack = new Stack<Object>();
 		this.locals = new HashMap<Integer, Object>();
-		this.locals.put(0, wrappingObj);
+		this.locals.put(THIS_INDEX, wrappingObj);
 		loadGlobalVariables(wrappingObj);
-		this.localsOffset = locals.size();
+		this.globalVarBound = locals.size();
 	}
 
 	public Frame getParent() {
@@ -50,7 +53,7 @@ public class Frame {
 	}
 
 	public ABObject getThis() throws InvalidObjectException {
-		Object o = locals.get(0);
+		Object o = locals.get(THIS_INDEX);
 		if (o instanceof ABObject) {
 			return (ABObject) o;
 		}
@@ -64,18 +67,22 @@ public class Frame {
 	 * @return the element previously at the specified position
 	 */
 	public Object storeVar(int varIndex, Object a) {
-		return locals.put(varIndex + localsOffset, a);
+		if (varIndex < this.globalVarBound - THIS_OFFSET) {
+			// method is changing global variable -> change it in object
+			((ABObject) locals.get(THIS_INDEX))
+					.changeVariableValue(varIndex, a);
+		}
+		return locals.put(varIndex + THIS_OFFSET, a);
 	}
 
 	public Object loadVar(int varIndex) {
-		return locals.get(varIndex + localsOffset);
+		return locals.get(varIndex + THIS_OFFSET);
 	}
-	
+
 	public Object storeArgument(Object a) {
 		int localsPointer = locals.size();
 		return locals.put(localsPointer, a);
 	}
-
 
 	private void loadGlobalVariables(ABObject wrappingObj) {
 		int localsPointer = locals.size();
