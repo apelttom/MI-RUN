@@ -35,12 +35,12 @@ public class ABObject {
 	public void changeVariableValue(Integer index, Object newValue) {
 		ABClassVar prevVar = globals.get(index);
 		// verify that the types are compatible
-		ABClassVar newVar = new ABClassVar(prevVar.getName(),
-				prevVar.getVariableProtection(), prevVar.isStatic(), newValue,
-				prevVar.getVariableType());
+		ABClassVar newVar = new ABClassVar(prevVar.getName(), prevVar.getVariableProtection(),
+				prevVar.isStatic(), newValue, prevVar.getVariableType());
 		globals.set(index, newVar);
 	}
 
+	@Override
 	public String toString() {
 		return "Dynamic object of " + classfile.getThis();
 	}

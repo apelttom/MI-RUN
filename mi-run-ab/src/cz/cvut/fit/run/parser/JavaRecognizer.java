@@ -220,11 +220,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			annotations_AST = currentAST.root;
-			annotations_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(ANNOTATIONS, "ANNOTATIONS")).add(
-					annotations_AST));
+			annotations_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(ANNOTATIONS, "ANNOTATIONS")).add(annotations_AST));
 			currentAST.root = annotations_AST;
-			currentAST.child = annotations_AST != null && annotations_AST.getFirstChild() != null ? annotations_AST.getFirstChild()
-					: annotations_AST;
+			currentAST.child = annotations_AST != null && annotations_AST.getFirstChild() != null ? annotations_AST
+					.getFirstChild() : annotations_AST;
 			currentAST.advanceChildToEnd();
 		}
 		annotations_AST = currentAST.root;
@@ -459,7 +459,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 				if ((_tokenSet_4.member(LA(1)))) {
 					modifier();
 					astFactory.addASTChild(currentAST, returnAST);
-				} else if (((LA(1) == AT) && (LA(2) == IDENT)) && (LA(1) == AT && !LT(2).getText().equals("interface"))) {
+				} else if (((LA(1) == AT) && (LA(2) == IDENT))
+						&& (LA(1) == AT && !LT(2).getText().equals("interface"))) {
 					annotation();
 					astFactory.addASTChild(currentAST, returnAST);
 				} else {
@@ -470,17 +471,19 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			modifiers_AST = currentAST.root;
-			modifiers_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(MODIFIERS, "MODIFIERS")).add(modifiers_AST));
+			modifiers_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(MODIFIERS, "MODIFIERS")).add(modifiers_AST));
 			currentAST.root = modifiers_AST;
-			currentAST.child = modifiers_AST != null && modifiers_AST.getFirstChild() != null ? modifiers_AST.getFirstChild()
-					: modifiers_AST;
+			currentAST.child = modifiers_AST != null && modifiers_AST.getFirstChild() != null ? modifiers_AST
+					.getFirstChild() : modifiers_AST;
 			currentAST.advanceChildToEnd();
 		}
 		modifiers_AST = currentAST.root;
 		returnAST = modifiers_AST;
 	}
 
-	protected final void typeDefinitionInternal(AST mods) throws RecognitionException, TokenStreamException {
+	protected final void typeDefinitionInternal(AST mods) throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -518,7 +521,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		returnAST = typeDefinitionInternal_AST;
 	}
 
-	public final void classDefinition(AST modifiers) throws RecognitionException, TokenStreamException {
+	public final void classDefinition(AST modifiers) throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -557,17 +561,20 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		cb_AST = returnAST;
 		if (inputState.guessing == 0) {
 			classDefinition_AST = currentAST.root;
-			classDefinition_AST = astFactory.make((new ASTArray(7)).add(astFactory.create(CLASS_DEF, "CLASS_DEF")).add(modifiers)
-					.add(tmp15_AST).add(tp_AST).add(sc_AST).add(ic_AST).add(cb_AST));
+			classDefinition_AST = astFactory.make((new ASTArray(7))
+					.add(astFactory.create(CLASS_DEF, "CLASS_DEF")).add(modifiers).add(tmp15_AST)
+					.add(tp_AST).add(sc_AST).add(ic_AST).add(cb_AST));
 			currentAST.root = classDefinition_AST;
-			currentAST.child = classDefinition_AST != null && classDefinition_AST.getFirstChild() != null ? classDefinition_AST
+			currentAST.child = classDefinition_AST != null
+					&& classDefinition_AST.getFirstChild() != null ? classDefinition_AST
 					.getFirstChild() : classDefinition_AST;
 			currentAST.advanceChildToEnd();
 		}
 		returnAST = classDefinition_AST;
 	}
 
-	public final void interfaceDefinition(AST modifiers) throws RecognitionException, TokenStreamException {
+	public final void interfaceDefinition(AST modifiers) throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -602,17 +609,20 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		ib_AST = returnAST;
 		if (inputState.guessing == 0) {
 			interfaceDefinition_AST = currentAST.root;
-			interfaceDefinition_AST = astFactory.make((new ASTArray(6)).add(astFactory.create(INTERFACE_DEF, "INTERFACE_DEF"))
-					.add(modifiers).add(tmp17_AST).add(tp_AST).add(ie_AST).add(ib_AST));
+			interfaceDefinition_AST = astFactory.make((new ASTArray(6))
+					.add(astFactory.create(INTERFACE_DEF, "INTERFACE_DEF")).add(modifiers)
+					.add(tmp17_AST).add(tp_AST).add(ie_AST).add(ib_AST));
 			currentAST.root = interfaceDefinition_AST;
-			currentAST.child = interfaceDefinition_AST != null && interfaceDefinition_AST.getFirstChild() != null ? interfaceDefinition_AST
+			currentAST.child = interfaceDefinition_AST != null
+					&& interfaceDefinition_AST.getFirstChild() != null ? interfaceDefinition_AST
 					.getFirstChild() : interfaceDefinition_AST;
 			currentAST.advanceChildToEnd();
 		}
 		returnAST = interfaceDefinition_AST;
 	}
 
-	public final void enumDefinition(AST modifiers) throws RecognitionException, TokenStreamException {
+	public final void enumDefinition(AST modifiers) throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -630,17 +640,20 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		eb_AST = returnAST;
 		if (inputState.guessing == 0) {
 			enumDefinition_AST = currentAST.root;
-			enumDefinition_AST = astFactory.make((new ASTArray(5)).add(astFactory.create(ENUM_DEF, "ENUM_DEF")).add(modifiers)
-					.add(tmp19_AST).add(ic_AST).add(eb_AST));
+			enumDefinition_AST = astFactory.make((new ASTArray(5))
+					.add(astFactory.create(ENUM_DEF, "ENUM_DEF")).add(modifiers).add(tmp19_AST)
+					.add(ic_AST).add(eb_AST));
 			currentAST.root = enumDefinition_AST;
-			currentAST.child = enumDefinition_AST != null && enumDefinition_AST.getFirstChild() != null ? enumDefinition_AST
+			currentAST.child = enumDefinition_AST != null
+					&& enumDefinition_AST.getFirstChild() != null ? enumDefinition_AST
 					.getFirstChild() : enumDefinition_AST;
 			currentAST.advanceChildToEnd();
 		}
 		returnAST = enumDefinition_AST;
 	}
 
-	public final void annotationDefinition(AST modifiers) throws RecognitionException, TokenStreamException {
+	public final void annotationDefinition(AST modifiers) throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -658,10 +671,12 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		ab_AST = returnAST;
 		if (inputState.guessing == 0) {
 			annotationDefinition_AST = currentAST.root;
-			annotationDefinition_AST = astFactory.make((new ASTArray(4)).add(astFactory.create(ANNOTATION_DEF, "ANNOTATION_DEF"))
-					.add(modifiers).add(tmp22_AST).add(ab_AST));
+			annotationDefinition_AST = astFactory.make((new ASTArray(4))
+					.add(astFactory.create(ANNOTATION_DEF, "ANNOTATION_DEF")).add(modifiers)
+					.add(tmp22_AST).add(ab_AST));
 			currentAST.root = annotationDefinition_AST;
-			currentAST.child = annotationDefinition_AST != null && annotationDefinition_AST.getFirstChild() != null ? annotationDefinition_AST
+			currentAST.child = annotationDefinition_AST != null
+					&& annotationDefinition_AST.getFirstChild() != null ? annotationDefinition_AST
 					.getFirstChild() : annotationDefinition_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -687,14 +702,15 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 			declaration_AST = currentAST.root;
 			declaration_AST = v_AST;
 			currentAST.root = declaration_AST;
-			currentAST.child = declaration_AST != null && declaration_AST.getFirstChild() != null ? declaration_AST.getFirstChild()
-					: declaration_AST;
+			currentAST.child = declaration_AST != null && declaration_AST.getFirstChild() != null ? declaration_AST
+					.getFirstChild() : declaration_AST;
 			currentAST.advanceChildToEnd();
 		}
 		returnAST = declaration_AST;
 	}
 
-	public final void typeSpec(boolean addImagNode) throws RecognitionException, TokenStreamException {
+	public final void typeSpec(boolean addImagNode) throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -728,7 +744,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		returnAST = typeSpec_AST;
 	}
 
-	public final void variableDefinitions(AST mods, AST t) throws RecognitionException, TokenStreamException {
+	public final void variableDefinitions(AST mods, AST t) throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -752,7 +769,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		returnAST = variableDefinitions_AST;
 	}
 
-	public final void classTypeSpec(boolean addImagNode) throws RecognitionException, TokenStreamException {
+	public final void classTypeSpec(boolean addImagNode) throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -783,19 +801,22 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 			classTypeSpec_AST = currentAST.root;
 
 			if (addImagNode) {
-				classTypeSpec_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE")).add(classTypeSpec_AST));
+				classTypeSpec_AST = astFactory.make((new ASTArray(2)).add(
+						astFactory.create(TYPE, "TYPE")).add(classTypeSpec_AST));
 			}
 
 			currentAST.root = classTypeSpec_AST;
-			currentAST.child = classTypeSpec_AST != null && classTypeSpec_AST.getFirstChild() != null ? classTypeSpec_AST.getFirstChild()
-					: classTypeSpec_AST;
+			currentAST.child = classTypeSpec_AST != null
+					&& classTypeSpec_AST.getFirstChild() != null ? classTypeSpec_AST
+					.getFirstChild() : classTypeSpec_AST;
 			currentAST.advanceChildToEnd();
 		}
 		classTypeSpec_AST = currentAST.root;
 		returnAST = classTypeSpec_AST;
 	}
 
-	public final void builtInTypeSpec(boolean addImagNode) throws RecognitionException, TokenStreamException {
+	public final void builtInTypeSpec(boolean addImagNode) throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -826,12 +847,13 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 			builtInTypeSpec_AST = currentAST.root;
 
 			if (addImagNode) {
-				builtInTypeSpec_AST = astFactory
-						.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE")).add(builtInTypeSpec_AST));
+				builtInTypeSpec_AST = astFactory.make((new ASTArray(2)).add(
+						astFactory.create(TYPE, "TYPE")).add(builtInTypeSpec_AST));
 			}
 
 			currentAST.root = builtInTypeSpec_AST;
-			currentAST.child = builtInTypeSpec_AST != null && builtInTypeSpec_AST.getFirstChild() != null ? builtInTypeSpec_AST
+			currentAST.child = builtInTypeSpec_AST != null
+					&& builtInTypeSpec_AST.getFirstChild() != null ? builtInTypeSpec_AST
 					.getFirstChild() : builtInTypeSpec_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -839,7 +861,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		returnAST = builtInTypeSpec_AST;
 	}
 
-	public final void classOrInterfaceType(boolean addImagNode) throws RecognitionException, TokenStreamException {
+	public final void classOrInterfaceType(boolean addImagNode) throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -994,12 +1017,13 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 			classOrInterfaceType_AST = currentAST.root;
 
 			if (addImagNode) {
-				classOrInterfaceType_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE")).add(
-						classOrInterfaceType_AST));
+				classOrInterfaceType_AST = astFactory.make((new ASTArray(2)).add(
+						astFactory.create(TYPE, "TYPE")).add(classOrInterfaceType_AST));
 			}
 
 			currentAST.root = classOrInterfaceType_AST;
-			currentAST.child = classOrInterfaceType_AST != null && classOrInterfaceType_AST.getFirstChild() != null ? classOrInterfaceType_AST
+			currentAST.child = classOrInterfaceType_AST != null
+					&& classOrInterfaceType_AST.getFirstChild() != null ? classOrInterfaceType_AST
 					.getFirstChild() : classOrInterfaceType_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -1025,7 +1049,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		astFactory.addASTChild(currentAST, returnAST);
 		{
 			_loop33: do {
-				if (((LA(1) == COMMA) && (_tokenSet_5.member(LA(2)))) && (inputState.guessing != 0 || ltCounter == currentLtLevel + 1)) {
+				if (((LA(1) == COMMA) && (_tokenSet_5.member(LA(2))))
+						&& (inputState.guessing != 0 || ltCounter == currentLtLevel + 1)) {
 					match(COMMA);
 					typeArgument();
 					astFactory.addASTChild(currentAST, returnAST);
@@ -1049,11 +1074,12 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 			throw new SemanticException("(currentLtLevel != 0) || ltCounter == currentLtLevel");
 		if (inputState.guessing == 0) {
 			typeArguments_AST = currentAST.root;
-			typeArguments_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE_ARGUMENTS, "TYPE_ARGUMENTS")).add(
-					typeArguments_AST));
+			typeArguments_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(TYPE_ARGUMENTS, "TYPE_ARGUMENTS")).add(typeArguments_AST));
 			currentAST.root = typeArguments_AST;
-			currentAST.child = typeArguments_AST != null && typeArguments_AST.getFirstChild() != null ? typeArguments_AST.getFirstChild()
-					: typeArguments_AST;
+			currentAST.child = typeArguments_AST != null
+					&& typeArguments_AST.getFirstChild() != null ? typeArguments_AST
+					.getFirstChild() : typeArguments_AST;
 			currentAST.advanceChildToEnd();
 		}
 		typeArguments_AST = currentAST.root;
@@ -1094,7 +1120,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		returnAST = typeArgumentSpec_AST;
 	}
 
-	public final void builtInTypeArraySpec(boolean addImagNode) throws RecognitionException, TokenStreamException {
+	public final void builtInTypeArraySpec(boolean addImagNode) throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -1131,12 +1158,13 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 			builtInTypeArraySpec_AST = currentAST.root;
 
 			if (addImagNode) {
-				builtInTypeArraySpec_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE")).add(
-						builtInTypeArraySpec_AST));
+				builtInTypeArraySpec_AST = astFactory.make((new ASTArray(2)).add(
+						astFactory.create(TYPE, "TYPE")).add(builtInTypeArraySpec_AST));
 			}
 
 			currentAST.root = builtInTypeArraySpec_AST;
-			currentAST.child = builtInTypeArraySpec_AST != null && builtInTypeArraySpec_AST.getFirstChild() != null ? builtInTypeArraySpec_AST
+			currentAST.child = builtInTypeArraySpec_AST != null
+					&& builtInTypeArraySpec_AST.getFirstChild() != null ? builtInTypeArraySpec_AST
 					.getFirstChild() : builtInTypeArraySpec_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -1178,11 +1206,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			typeArgument_AST = currentAST.root;
-			typeArgument_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE_ARGUMENT, "TYPE_ARGUMENT")).add(
-					typeArgument_AST));
+			typeArgument_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(TYPE_ARGUMENT, "TYPE_ARGUMENT")).add(typeArgument_AST));
 			currentAST.root = typeArgument_AST;
-			currentAST.child = typeArgument_AST != null && typeArgument_AST.getFirstChild() != null ? typeArgument_AST.getFirstChild()
-					: typeArgument_AST;
+			currentAST.child = typeArgument_AST != null && typeArgument_AST.getFirstChild() != null ? typeArgument_AST
+					.getFirstChild() : typeArgument_AST;
 			currentAST.advanceChildToEnd();
 		}
 		typeArgument_AST = currentAST.root;
@@ -1277,14 +1305,17 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 
 			if (isUpperBounds) {
 				typeArgumentBounds_AST = astFactory.make((new ASTArray(2)).add(
-						astFactory.create(TYPE_UPPER_BOUNDS, "TYPE_UPPER_BOUNDS")).add(typeArgumentBounds_AST));
+						astFactory.create(TYPE_UPPER_BOUNDS, "TYPE_UPPER_BOUNDS")).add(
+						typeArgumentBounds_AST));
 			} else {
 				typeArgumentBounds_AST = astFactory.make((new ASTArray(2)).add(
-						astFactory.create(TYPE_LOWER_BOUNDS, "TYPE_LOWER_BOUNDS")).add(typeArgumentBounds_AST));
+						astFactory.create(TYPE_LOWER_BOUNDS, "TYPE_LOWER_BOUNDS")).add(
+						typeArgumentBounds_AST));
 			}
 
 			currentAST.root = typeArgumentBounds_AST;
-			currentAST.child = typeArgumentBounds_AST != null && typeArgumentBounds_AST.getFirstChild() != null ? typeArgumentBounds_AST
+			currentAST.child = typeArgumentBounds_AST != null
+					&& typeArgumentBounds_AST.getFirstChild() != null ? typeArgumentBounds_AST
 					.getFirstChild() : typeArgumentBounds_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -1292,7 +1323,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		returnAST = typeArgumentBounds_AST;
 	}
 
-	protected final void typeArgumentsOrParametersEnd() throws RecognitionException, TokenStreamException {
+	protected final void typeArgumentsOrParametersEnd() throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -1665,11 +1697,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			annotation_AST = currentAST.root;
-			annotation_AST = astFactory.make((new ASTArray(3)).add(astFactory.create(ANNOTATION, "ANNOTATION")).add(i_AST)
-					.add(args_AST));
+			annotation_AST = astFactory.make((new ASTArray(3))
+					.add(astFactory.create(ANNOTATION, "ANNOTATION")).add(i_AST).add(args_AST));
 			currentAST.root = annotation_AST;
-			currentAST.child = annotation_AST != null && annotation_AST.getFirstChild() != null ? annotation_AST.getFirstChild()
-					: annotation_AST;
+			currentAST.child = annotation_AST != null && annotation_AST.getFirstChild() != null ? annotation_AST
+					.getFirstChild() : annotation_AST;
 			currentAST.advanceChildToEnd();
 		}
 		returnAST = annotation_AST;
@@ -1696,7 +1728,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		returnAST = annotationArguments_AST;
 	}
 
-	public final void annotationMemberValueInitializer() throws RecognitionException, TokenStreamException {
+	public final void annotationMemberValueInitializer() throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -1757,7 +1790,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		returnAST = annotationMemberValueInitializer_AST;
 	}
 
-	public final void anntotationMemberValuePairs() throws RecognitionException, TokenStreamException {
+	public final void anntotationMemberValuePairs() throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -1799,9 +1833,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		if (inputState.guessing == 0) {
 			annotationMemberValuePair_AST = currentAST.root;
 			annotationMemberValuePair_AST = astFactory.make((new ASTArray(3))
-					.add(astFactory.create(ANNOTATION_MEMBER_VALUE_PAIR, "ANNOTATION_MEMBER_VALUE_PAIR")).add(i_AST).add(v_AST));
+					.add(astFactory.create(ANNOTATION_MEMBER_VALUE_PAIR,
+							"ANNOTATION_MEMBER_VALUE_PAIR")).add(i_AST).add(v_AST));
 			currentAST.root = annotationMemberValuePair_AST;
-			currentAST.child = annotationMemberValuePair_AST != null && annotationMemberValuePair_AST.getFirstChild() != null ? annotationMemberValuePair_AST
+			currentAST.child = annotationMemberValuePair_AST != null
+					&& annotationMemberValuePair_AST.getFirstChild() != null ? annotationMemberValuePair_AST
 					.getFirstChild() : annotationMemberValuePair_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -1859,7 +1895,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		returnAST = conditionalExpression_AST;
 	}
 
-	public final void annotationMemberArrayInitializer() throws RecognitionException, TokenStreamException {
+	public final void annotationMemberArrayInitializer() throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -1950,7 +1987,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		returnAST = annotationMemberArrayInitializer_AST;
 	}
 
-	public final void annotationMemberArrayValueInitializer() throws RecognitionException, TokenStreamException {
+	public final void annotationMemberArrayValueInitializer() throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -2031,10 +2069,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			superClassClause_AST = currentAST.root;
-			superClassClause_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(EXTENDS_CLAUSE, "EXTENDS_CLAUSE")).add(
-					c_AST));
+			superClassClause_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(EXTENDS_CLAUSE, "EXTENDS_CLAUSE")).add(c_AST));
 			currentAST.root = superClassClause_AST;
-			currentAST.child = superClassClause_AST != null && superClassClause_AST.getFirstChild() != null ? superClassClause_AST
+			currentAST.child = superClassClause_AST != null
+					&& superClassClause_AST.getFirstChild() != null ? superClassClause_AST
 					.getFirstChild() : superClassClause_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -2102,10 +2141,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 			throw new SemanticException("(currentLtLevel != 0) || ltCounter == currentLtLevel");
 		if (inputState.guessing == 0) {
 			typeParameters_AST = currentAST.root;
-			typeParameters_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE_PARAMETERS, "TYPE_PARAMETERS")).add(
-					typeParameters_AST));
+			typeParameters_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(TYPE_PARAMETERS, "TYPE_PARAMETERS")).add(typeParameters_AST));
 			currentAST.root = typeParameters_AST;
-			currentAST.child = typeParameters_AST != null && typeParameters_AST.getFirstChild() != null ? typeParameters_AST
+			currentAST.child = typeParameters_AST != null
+					&& typeParameters_AST.getFirstChild() != null ? typeParameters_AST
 					.getFirstChild() : typeParameters_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -2153,10 +2193,12 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			implementsClause_AST = currentAST.root;
-			implementsClause_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(IMPLEMENTS_CLAUSE, "IMPLEMENTS_CLAUSE"))
-					.add(implementsClause_AST));
+			implementsClause_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(IMPLEMENTS_CLAUSE, "IMPLEMENTS_CLAUSE")).add(
+					implementsClause_AST));
 			currentAST.root = implementsClause_AST;
-			currentAST.child = implementsClause_AST != null && implementsClause_AST.getFirstChild() != null ? implementsClause_AST
+			currentAST.child = implementsClause_AST != null
+					&& implementsClause_AST.getFirstChild() != null ? implementsClause_AST
 					.getFirstChild() : implementsClause_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -2219,10 +2261,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		match(RCURLY);
 		if (inputState.guessing == 0) {
 			classBlock_AST = currentAST.root;
-			classBlock_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(OBJBLOCK, "OBJBLOCK")).add(classBlock_AST));
+			classBlock_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(OBJBLOCK, "OBJBLOCK")).add(classBlock_AST));
 			currentAST.root = classBlock_AST;
-			currentAST.child = classBlock_AST != null && classBlock_AST.getFirstChild() != null ? classBlock_AST.getFirstChild()
-					: classBlock_AST;
+			currentAST.child = classBlock_AST != null && classBlock_AST.getFirstChild() != null ? classBlock_AST
+					.getFirstChild() : classBlock_AST;
 			currentAST.advanceChildToEnd();
 		}
 		classBlock_AST = currentAST.root;
@@ -2269,10 +2312,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			interfaceExtends_AST = currentAST.root;
-			interfaceExtends_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(EXTENDS_CLAUSE, "EXTENDS_CLAUSE")).add(
-					interfaceExtends_AST));
+			interfaceExtends_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(EXTENDS_CLAUSE, "EXTENDS_CLAUSE")).add(interfaceExtends_AST));
 			currentAST.root = interfaceExtends_AST;
-			currentAST.child = interfaceExtends_AST != null && interfaceExtends_AST.getFirstChild() != null ? interfaceExtends_AST
+			currentAST.child = interfaceExtends_AST != null
+					&& interfaceExtends_AST.getFirstChild() != null ? interfaceExtends_AST
 					.getFirstChild() : interfaceExtends_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -2334,10 +2378,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		match(RCURLY);
 		if (inputState.guessing == 0) {
 			interfaceBlock_AST = currentAST.root;
-			interfaceBlock_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(OBJBLOCK, "OBJBLOCK")).add(
-					interfaceBlock_AST));
+			interfaceBlock_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(OBJBLOCK, "OBJBLOCK")).add(interfaceBlock_AST));
 			currentAST.root = interfaceBlock_AST;
-			currentAST.child = interfaceBlock_AST != null && interfaceBlock_AST.getFirstChild() != null ? interfaceBlock_AST
+			currentAST.child = interfaceBlock_AST != null
+					&& interfaceBlock_AST.getFirstChild() != null ? interfaceBlock_AST
 					.getFirstChild() : interfaceBlock_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -2458,10 +2503,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		match(RCURLY);
 		if (inputState.guessing == 0) {
 			enumBlock_AST = currentAST.root;
-			enumBlock_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(OBJBLOCK, "OBJBLOCK")).add(enumBlock_AST));
+			enumBlock_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(OBJBLOCK, "OBJBLOCK")).add(enumBlock_AST));
 			currentAST.root = enumBlock_AST;
-			currentAST.child = enumBlock_AST != null && enumBlock_AST.getFirstChild() != null ? enumBlock_AST.getFirstChild()
-					: enumBlock_AST;
+			currentAST.child = enumBlock_AST != null && enumBlock_AST.getFirstChild() != null ? enumBlock_AST
+					.getFirstChild() : enumBlock_AST;
 			currentAST.advanceChildToEnd();
 		}
 		enumBlock_AST = currentAST.root;
@@ -2521,10 +2567,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		match(RCURLY);
 		if (inputState.guessing == 0) {
 			annotationBlock_AST = currentAST.root;
-			annotationBlock_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(OBJBLOCK, "OBJBLOCK")).add(
-					annotationBlock_AST));
+			annotationBlock_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(OBJBLOCK, "OBJBLOCK")).add(annotationBlock_AST));
 			currentAST.root = annotationBlock_AST;
-			currentAST.child = annotationBlock_AST != null && annotationBlock_AST.getFirstChild() != null ? annotationBlock_AST
+			currentAST.child = annotationBlock_AST != null
+					&& annotationBlock_AST.getFirstChild() != null ? annotationBlock_AST
 					.getFirstChild() : annotationBlock_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -2558,11 +2605,12 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			typeParameter_AST = currentAST.root;
-			typeParameter_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE_PARAMETER, "TYPE_PARAMETER")).add(
-					typeParameter_AST));
+			typeParameter_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(TYPE_PARAMETER, "TYPE_PARAMETER")).add(typeParameter_AST));
 			currentAST.root = typeParameter_AST;
-			currentAST.child = typeParameter_AST != null && typeParameter_AST.getFirstChild() != null ? typeParameter_AST.getFirstChild()
-					: typeParameter_AST;
+			currentAST.child = typeParameter_AST != null
+					&& typeParameter_AST.getFirstChild() != null ? typeParameter_AST
+					.getFirstChild() : typeParameter_AST;
 			currentAST.advanceChildToEnd();
 		}
 		typeParameter_AST = currentAST.root;
@@ -2592,10 +2640,12 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			typeParameterBounds_AST = currentAST.root;
-			typeParameterBounds_AST = astFactory.make((new ASTArray(2))
-					.add(astFactory.create(TYPE_UPPER_BOUNDS, "TYPE_UPPER_BOUNDS")).add(typeParameterBounds_AST));
+			typeParameterBounds_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(TYPE_UPPER_BOUNDS, "TYPE_UPPER_BOUNDS")).add(
+					typeParameterBounds_AST));
 			currentAST.root = typeParameterBounds_AST;
-			currentAST.child = typeParameterBounds_AST != null && typeParameterBounds_AST.getFirstChild() != null ? typeParameterBounds_AST
+			currentAST.child = typeParameterBounds_AST != null
+					&& typeParameterBounds_AST.getFirstChild() != null ? typeParameterBounds_AST
 					.getFirstChild() : typeParameterBounds_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -2637,7 +2687,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 						classField_AST = currentAST.root;
 						classField_AST = td_AST;
 						currentAST.root = classField_AST;
-						currentAST.child = classField_AST != null && classField_AST.getFirstChild() != null ? classField_AST
+						currentAST.child = classField_AST != null
+								&& classField_AST.getFirstChild() != null ? classField_AST
 								.getFirstChild() : classField_AST;
 						currentAST.advanceChildToEnd();
 					}
@@ -2686,10 +2737,12 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 							s_AST = returnAST;
 							if (inputState.guessing == 0) {
 								classField_AST = currentAST.root;
-								classField_AST = astFactory.make((new ASTArray(5)).add(astFactory.create(CTOR_DEF, "CTOR_DEF"))
-										.add(mods_AST).add(tp_AST).add(h_AST).add(s_AST));
+								classField_AST = astFactory.make((new ASTArray(5))
+										.add(astFactory.create(CTOR_DEF, "CTOR_DEF")).add(mods_AST)
+										.add(tp_AST).add(h_AST).add(s_AST));
 								currentAST.root = classField_AST;
-								currentAST.child = classField_AST != null && classField_AST.getFirstChild() != null ? classField_AST
+								currentAST.child = classField_AST != null
+										&& classField_AST.getFirstChild() != null ? classField_AST
 										.getFirstChild() : classField_AST;
 								currentAST.advanceChildToEnd();
 							}
@@ -2747,10 +2800,13 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 												.add(astFactory.create(METHOD_DEF, "METHOD_DEF"))
 												.add(mods_AST)
 												.add(tp_AST)
-												.add(astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE")).add(
-														rt_AST))).add(tmp90_AST).add(param_AST).add(tc_AST).add(s2_AST));
+												.add(astFactory.make((new ASTArray(2)).add(
+														astFactory.create(TYPE, "TYPE"))
+														.add(rt_AST))).add(tmp90_AST)
+												.add(param_AST).add(tc_AST).add(s2_AST));
 										currentAST.root = classField_AST;
-										currentAST.child = classField_AST != null && classField_AST.getFirstChild() != null ? classField_AST
+										currentAST.child = classField_AST != null
+												&& classField_AST.getFirstChild() != null ? classField_AST
 												.getFirstChild() : classField_AST;
 										currentAST.advanceChildToEnd();
 									}
@@ -2764,7 +2820,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 										classField_AST = currentAST.root;
 										classField_AST = v_AST;
 										currentAST.root = classField_AST;
-										currentAST.child = classField_AST != null && classField_AST.getFirstChild() != null ? classField_AST
+										currentAST.child = classField_AST != null
+												&& classField_AST.getFirstChild() != null ? classField_AST
 												.getFirstChild() : classField_AST;
 										currentAST.advanceChildToEnd();
 									}
@@ -2791,10 +2848,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 			s3_AST = returnAST;
 			if (inputState.guessing == 0) {
 				classField_AST = currentAST.root;
-				classField_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(STATIC_INIT, "STATIC_INIT")).add(s3_AST));
+				classField_AST = astFactory.make((new ASTArray(2)).add(
+						astFactory.create(STATIC_INIT, "STATIC_INIT")).add(s3_AST));
 				currentAST.root = classField_AST;
-				currentAST.child = classField_AST != null && classField_AST.getFirstChild() != null ? classField_AST.getFirstChild()
-						: classField_AST;
+				currentAST.child = classField_AST != null && classField_AST.getFirstChild() != null ? classField_AST
+						.getFirstChild() : classField_AST;
 				currentAST.advanceChildToEnd();
 			}
 		} else if ((LA(1) == LCURLY)) {
@@ -2802,11 +2860,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 			s4_AST = returnAST;
 			if (inputState.guessing == 0) {
 				classField_AST = currentAST.root;
-				classField_AST = astFactory
-						.make((new ASTArray(2)).add(astFactory.create(INSTANCE_INIT, "INSTANCE_INIT")).add(s4_AST));
+				classField_AST = astFactory.make((new ASTArray(2)).add(
+						astFactory.create(INSTANCE_INIT, "INSTANCE_INIT")).add(s4_AST));
 				currentAST.root = classField_AST;
-				currentAST.child = classField_AST != null && classField_AST.getFirstChild() != null ? classField_AST.getFirstChild()
-						: classField_AST;
+				currentAST.child = classField_AST != null && classField_AST.getFirstChild() != null ? classField_AST
+						.getFirstChild() : classField_AST;
 				currentAST.advanceChildToEnd();
 			}
 		} else {
@@ -2844,7 +2902,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 					interfaceField_AST = currentAST.root;
 					interfaceField_AST = td_AST;
 					currentAST.root = interfaceField_AST;
-					currentAST.child = interfaceField_AST != null && interfaceField_AST.getFirstChild() != null ? interfaceField_AST
+					currentAST.child = interfaceField_AST != null
+							&& interfaceField_AST.getFirstChild() != null ? interfaceField_AST
 							.getFirstChild() : interfaceField_AST;
 					currentAST.advanceChildToEnd();
 				}
@@ -2918,12 +2977,16 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 						match(SEMI);
 						if (inputState.guessing == 0) {
 							interfaceField_AST = currentAST.root;
-							interfaceField_AST = astFactory.make((new ASTArray(7)).add(astFactory.create(METHOD_DEF, "METHOD_DEF"))
-									.add(mods_AST).add(tp_AST)
-									.add(astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE")).add(rt_AST)))
+							interfaceField_AST = astFactory.make((new ASTArray(7))
+									.add(astFactory.create(METHOD_DEF, "METHOD_DEF"))
+									.add(mods_AST)
+									.add(tp_AST)
+									.add(astFactory.make((new ASTArray(2)).add(
+											astFactory.create(TYPE, "TYPE")).add(rt_AST)))
 									.add(tmp96_AST).add(param_AST).add(tc_AST));
 							currentAST.root = interfaceField_AST;
-							currentAST.child = interfaceField_AST != null && interfaceField_AST.getFirstChild() != null ? interfaceField_AST
+							currentAST.child = interfaceField_AST != null
+									&& interfaceField_AST.getFirstChild() != null ? interfaceField_AST
 									.getFirstChild() : interfaceField_AST;
 							currentAST.advanceChildToEnd();
 						}
@@ -2937,7 +3000,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 							interfaceField_AST = currentAST.root;
 							interfaceField_AST = v_AST;
 							currentAST.root = interfaceField_AST;
-							currentAST.child = interfaceField_AST != null && interfaceField_AST.getFirstChild() != null ? interfaceField_AST
+							currentAST.child = interfaceField_AST != null
+									&& interfaceField_AST.getFirstChild() != null ? interfaceField_AST
 									.getFirstChild() : interfaceField_AST;
 							currentAST.advanceChildToEnd();
 						}
@@ -2984,7 +3048,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 					annotationField_AST = currentAST.root;
 					annotationField_AST = td_AST;
 					currentAST.root = annotationField_AST;
-					currentAST.child = annotationField_AST != null && annotationField_AST.getFirstChild() != null ? annotationField_AST
+					currentAST.child = annotationField_AST != null
+							&& annotationField_AST.getFirstChild() != null ? annotationField_AST
 							.getFirstChild() : annotationField_AST;
 					currentAST.advanceChildToEnd();
 				}
@@ -3033,11 +3098,15 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 						if (inputState.guessing == 0) {
 							annotationField_AST = currentAST.root;
 							annotationField_AST = astFactory.make((new ASTArray(5))
-									.add(astFactory.create(ANNOTATION_FIELD_DEF, "ANNOTATION_FIELD_DEF")).add(mods_AST)
-									.add(astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE")).add(rt_AST)))
+									.add(astFactory.create(ANNOTATION_FIELD_DEF,
+											"ANNOTATION_FIELD_DEF"))
+									.add(mods_AST)
+									.add(astFactory.make((new ASTArray(2)).add(
+											astFactory.create(TYPE, "TYPE")).add(rt_AST)))
 									.add(i_AST).add(amvi_AST));
 							currentAST.root = annotationField_AST;
-							currentAST.child = annotationField_AST != null && annotationField_AST.getFirstChild() != null ? annotationField_AST
+							currentAST.child = annotationField_AST != null
+									&& annotationField_AST.getFirstChild() != null ? annotationField_AST
 									.getFirstChild() : annotationField_AST;
 							currentAST.advanceChildToEnd();
 						}
@@ -3051,7 +3120,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 							annotationField_AST = currentAST.root;
 							annotationField_AST = v_AST;
 							currentAST.root = annotationField_AST;
-							currentAST.child = annotationField_AST != null && annotationField_AST.getFirstChild() != null ? annotationField_AST
+							currentAST.child = annotationField_AST != null
+									&& annotationField_AST.getFirstChild() != null ? annotationField_AST
 									.getFirstChild() : annotationField_AST;
 							currentAST.advanceChildToEnd();
 						}
@@ -3125,11 +3195,12 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			enumConstant_AST = currentAST.root;
-			enumConstant_AST = astFactory.make((new ASTArray(5)).add(astFactory.create(ENUM_CONSTANT_DEF, "ENUM_CONSTANT_DEF"))
-					.add(an_AST).add(i_AST).add(a_AST).add(b_AST));
+			enumConstant_AST = astFactory.make((new ASTArray(5))
+					.add(astFactory.create(ENUM_CONSTANT_DEF, "ENUM_CONSTANT_DEF")).add(an_AST)
+					.add(i_AST).add(a_AST).add(b_AST));
 			currentAST.root = enumConstant_AST;
-			currentAST.child = enumConstant_AST != null && enumConstant_AST.getFirstChild() != null ? enumConstant_AST.getFirstChild()
-					: enumConstant_AST;
+			currentAST.child = enumConstant_AST != null && enumConstant_AST.getFirstChild() != null ? enumConstant_AST
+					.getFirstChild() : enumConstant_AST;
 			currentAST.advanceChildToEnd();
 		}
 		returnAST = enumConstant_AST;
@@ -3147,7 +3218,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 			declaratorBrackets_AST = currentAST.root;
 			declaratorBrackets_AST = typ;
 			currentAST.root = declaratorBrackets_AST;
-			currentAST.child = declaratorBrackets_AST != null && declaratorBrackets_AST.getFirstChild() != null ? declaratorBrackets_AST
+			currentAST.child = declaratorBrackets_AST != null
+					&& declaratorBrackets_AST.getFirstChild() != null ? declaratorBrackets_AST
 					.getFirstChild() : declaratorBrackets_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -3219,8 +3291,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 					argList_AST = currentAST.root;
 					argList_AST = astFactory.create(ELIST, "ELIST");
 					currentAST.root = argList_AST;
-					currentAST.child = argList_AST != null && argList_AST.getFirstChild() != null ? argList_AST.getFirstChild()
-							: argList_AST;
+					currentAST.child = argList_AST != null && argList_AST.getFirstChild() != null ? argList_AST
+							.getFirstChild() : argList_AST;
 					currentAST.advanceChildToEnd();
 				}
 				break;
@@ -3289,10 +3361,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		match(RCURLY);
 		if (inputState.guessing == 0) {
 			enumConstantBlock_AST = currentAST.root;
-			enumConstantBlock_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(OBJBLOCK, "OBJBLOCK")).add(
-					enumConstantBlock_AST));
+			enumConstantBlock_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(OBJBLOCK, "OBJBLOCK")).add(enumConstantBlock_AST));
 			currentAST.root = enumConstantBlock_AST;
-			currentAST.child = enumConstantBlock_AST != null && enumConstantBlock_AST.getFirstChild() != null ? enumConstantBlock_AST
+			currentAST.child = enumConstantBlock_AST != null
+					&& enumConstantBlock_AST.getFirstChild() != null ? enumConstantBlock_AST
 					.getFirstChild() : enumConstantBlock_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -3358,7 +3431,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 						enumConstantField_AST = currentAST.root;
 						enumConstantField_AST = td_AST;
 						currentAST.root = enumConstantField_AST;
-						currentAST.child = enumConstantField_AST != null && enumConstantField_AST.getFirstChild() != null ? enumConstantField_AST
+						currentAST.child = enumConstantField_AST != null
+								&& enumConstantField_AST.getFirstChild() != null ? enumConstantField_AST
 								.getFirstChild() : enumConstantField_AST;
 						currentAST.advanceChildToEnd();
 					}
@@ -3449,11 +3523,15 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 							if (inputState.guessing == 0) {
 								enumConstantField_AST = currentAST.root;
 								enumConstantField_AST = astFactory.make((new ASTArray(8))
-										.add(astFactory.create(METHOD_DEF, "METHOD_DEF")).add(mods_AST).add(tp_AST)
-										.add(astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE")).add(rt_AST)))
+										.add(astFactory.create(METHOD_DEF, "METHOD_DEF"))
+										.add(mods_AST)
+										.add(tp_AST)
+										.add(astFactory.make((new ASTArray(2)).add(
+												astFactory.create(TYPE, "TYPE")).add(rt_AST)))
 										.add(tmp112_AST).add(param_AST).add(tc_AST).add(s2_AST));
 								currentAST.root = enumConstantField_AST;
-								currentAST.child = enumConstantField_AST != null && enumConstantField_AST.getFirstChild() != null ? enumConstantField_AST
+								currentAST.child = enumConstantField_AST != null
+										&& enumConstantField_AST.getFirstChild() != null ? enumConstantField_AST
 										.getFirstChild() : enumConstantField_AST;
 								currentAST.advanceChildToEnd();
 							}
@@ -3467,7 +3545,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 								enumConstantField_AST = currentAST.root;
 								enumConstantField_AST = v_AST;
 								currentAST.root = enumConstantField_AST;
-								currentAST.child = enumConstantField_AST != null && enumConstantField_AST.getFirstChild() != null ? enumConstantField_AST
+								currentAST.child = enumConstantField_AST != null
+										&& enumConstantField_AST.getFirstChild() != null ? enumConstantField_AST
 										.getFirstChild() : enumConstantField_AST;
 								currentAST.advanceChildToEnd();
 							}
@@ -3490,10 +3569,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 			s4_AST = returnAST;
 			if (inputState.guessing == 0) {
 				enumConstantField_AST = currentAST.root;
-				enumConstantField_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(INSTANCE_INIT, "INSTANCE_INIT")).add(
-						s4_AST));
+				enumConstantField_AST = astFactory.make((new ASTArray(2)).add(
+						astFactory.create(INSTANCE_INIT, "INSTANCE_INIT")).add(s4_AST));
 				currentAST.root = enumConstantField_AST;
-				currentAST.child = enumConstantField_AST != null && enumConstantField_AST.getFirstChild() != null ? enumConstantField_AST
+				currentAST.child = enumConstantField_AST != null
+						&& enumConstantField_AST.getFirstChild() != null ? enumConstantField_AST
 						.getFirstChild() : enumConstantField_AST;
 				currentAST.advanceChildToEnd();
 			}
@@ -3586,10 +3666,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			parameterDeclarationList_AST = currentAST.root;
-			parameterDeclarationList_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(PARAMETERS, "PARAMETERS")).add(
-					parameterDeclarationList_AST));
+			parameterDeclarationList_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(PARAMETERS, "PARAMETERS")).add(parameterDeclarationList_AST));
 			currentAST.root = parameterDeclarationList_AST;
-			currentAST.child = parameterDeclarationList_AST != null && parameterDeclarationList_AST.getFirstChild() != null ? parameterDeclarationList_AST
+			currentAST.child = parameterDeclarationList_AST != null
+					&& parameterDeclarationList_AST.getFirstChild() != null ? parameterDeclarationList_AST
 					.getFirstChild() : parameterDeclarationList_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -3731,7 +3812,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 	}
 
 	/** Catch obvious constructor calls, but not the expr.super(...) calls */
-	public final void explicitConstructorInvocation() throws RecognitionException, TokenStreamException {
+	public final void explicitConstructorInvocation() throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -4132,7 +4214,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 	 * Declaration of a variable. This can be a class/instance variable, or a local variable in a method It can also include possible
 	 * initialization.
 	 */
-	public final void variableDeclarator(AST mods, AST t) throws RecognitionException, TokenStreamException {
+	public final void variableDeclarator(AST mods, AST t) throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -4151,10 +4234,14 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		v_AST = returnAST;
 		if (inputState.guessing == 0) {
 			variableDeclarator_AST = currentAST.root;
-			variableDeclarator_AST = astFactory.make((new ASTArray(5)).add(astFactory.create(VARIABLE_DEF, "VARIABLE_DEF")).add(mods)
-					.add(astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE")).add(d_AST))).add(id_AST).add(v_AST));
+			variableDeclarator_AST = astFactory.make((new ASTArray(5))
+					.add(astFactory.create(VARIABLE_DEF, "VARIABLE_DEF"))
+					.add(mods)
+					.add(astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE"))
+							.add(d_AST))).add(id_AST).add(v_AST));
 			currentAST.root = variableDeclarator_AST;
-			currentAST.child = variableDeclarator_AST != null && variableDeclarator_AST.getFirstChild() != null ? variableDeclarator_AST
+			currentAST.child = variableDeclarator_AST != null
+					&& variableDeclarator_AST.getFirstChild() != null ? variableDeclarator_AST
 					.getFirstChild() : variableDeclarator_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -4347,10 +4434,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		astFactory.addASTChild(currentAST, returnAST);
 		if (inputState.guessing == 0) {
 			expression_AST = currentAST.root;
-			expression_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(EXPR, "EXPR")).add(expression_AST));
+			expression_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(EXPR, "EXPR"))
+					.add(expression_AST));
 			currentAST.root = expression_AST;
-			currentAST.child = expression_AST != null && expression_AST.getFirstChild() != null ? expression_AST.getFirstChild()
-					: expression_AST;
+			currentAST.child = expression_AST != null && expression_AST.getFirstChild() != null ? expression_AST
+					.getFirstChild() : expression_AST;
 			currentAST.advanceChildToEnd();
 		}
 		expression_AST = currentAST.root;
@@ -4379,18 +4467,22 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		pd_AST = returnAST;
 		if (inputState.guessing == 0) {
 			parameterDeclaration_AST = currentAST.root;
-			parameterDeclaration_AST = astFactory
-					.make((new ASTArray(4)).add(astFactory.create(PARAMETER_DEF, "PARAMETER_DEF")).add(pm_AST)
-							.add(astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE")).add(pd_AST))).add(id_AST));
+			parameterDeclaration_AST = astFactory.make((new ASTArray(4))
+					.add(astFactory.create(PARAMETER_DEF, "PARAMETER_DEF"))
+					.add(pm_AST)
+					.add(astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE"))
+							.add(pd_AST))).add(id_AST));
 			currentAST.root = parameterDeclaration_AST;
-			currentAST.child = parameterDeclaration_AST != null && parameterDeclaration_AST.getFirstChild() != null ? parameterDeclaration_AST
+			currentAST.child = parameterDeclaration_AST != null
+					&& parameterDeclaration_AST.getFirstChild() != null ? parameterDeclaration_AST
 					.getFirstChild() : parameterDeclaration_AST;
 			currentAST.advanceChildToEnd();
 		}
 		returnAST = parameterDeclaration_AST;
 	}
 
-	public final void variableLengthParameterDeclaration() throws RecognitionException, TokenStreamException {
+	public final void variableLengthParameterDeclaration() throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -4414,8 +4506,10 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		if (inputState.guessing == 0) {
 			variableLengthParameterDeclaration_AST = currentAST.root;
 			variableLengthParameterDeclaration_AST = astFactory.make((new ASTArray(4))
-					.add(astFactory.create(VARIABLE_PARAMETER_DEF, "VARIABLE_PARAMETER_DEF")).add(pm_AST)
-					.add(astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE")).add(pd_AST))).add(id_AST));
+					.add(astFactory.create(VARIABLE_PARAMETER_DEF, "VARIABLE_PARAMETER_DEF"))
+					.add(pm_AST)
+					.add(astFactory.make((new ASTArray(2)).add(astFactory.create(TYPE, "TYPE"))
+							.add(pd_AST))).add(id_AST));
 			currentAST.root = variableLengthParameterDeclaration_AST;
 			currentAST.child = variableLengthParameterDeclaration_AST != null
 					&& variableLengthParameterDeclaration_AST.getFirstChild() != null ? variableLengthParameterDeclaration_AST
@@ -4484,10 +4578,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			parameterModifier_AST = currentAST.root;
-			parameterModifier_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(MODIFIERS, "MODIFIERS")).add(
-					parameterModifier_AST));
+			parameterModifier_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(MODIFIERS, "MODIFIERS")).add(parameterModifier_AST));
 			currentAST.root = parameterModifier_AST;
-			currentAST.child = parameterModifier_AST != null && parameterModifier_AST.getFirstChild() != null ? parameterModifier_AST
+			currentAST.child = parameterModifier_AST != null
+					&& parameterModifier_AST.getFirstChild() != null ? parameterModifier_AST
 					.getFirstChild() : parameterModifier_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -4552,7 +4647,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		{
 			int _cnt211 = 0;
 			_loop211: do {
-				if ((LA(1) == LITERAL_default || LA(1) == LITERAL_case) && (_tokenSet_37.member(LA(2)))) {
+				if ((LA(1) == LITERAL_default || LA(1) == LITERAL_case)
+						&& (_tokenSet_37.member(LA(2)))) {
 					aCase();
 					astFactory.addASTChild(currentAST, returnAST);
 				} else {
@@ -4570,10 +4666,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		astFactory.addASTChild(currentAST, returnAST);
 		if (inputState.guessing == 0) {
 			casesGroup_AST = currentAST.root;
-			casesGroup_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(CASE_GROUP, "CASE_GROUP")).add(casesGroup_AST));
+			casesGroup_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(CASE_GROUP, "CASE_GROUP")).add(casesGroup_AST));
 			currentAST.root = casesGroup_AST;
-			currentAST.child = casesGroup_AST != null && casesGroup_AST.getFirstChild() != null ? casesGroup_AST.getFirstChild()
-					: casesGroup_AST;
+			currentAST.child = casesGroup_AST != null && casesGroup_AST.getFirstChild() != null ? casesGroup_AST
+					.getFirstChild() : casesGroup_AST;
 			currentAST.advanceChildToEnd();
 		}
 		casesGroup_AST = currentAST.root;
@@ -4718,9 +4815,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			forInit_AST = currentAST.root;
-			forInit_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(FOR_INIT, "FOR_INIT")).add(forInit_AST));
+			forInit_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(FOR_INIT, "FOR_INIT")).add(forInit_AST));
 			currentAST.root = forInit_AST;
-			currentAST.child = forInit_AST != null && forInit_AST.getFirstChild() != null ? forInit_AST.getFirstChild() : forInit_AST;
+			currentAST.child = forInit_AST != null && forInit_AST.getFirstChild() != null ? forInit_AST
+					.getFirstChild() : forInit_AST;
 			currentAST.advanceChildToEnd();
 		}
 		forInit_AST = currentAST.root;
@@ -4760,11 +4859,12 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		astFactory.addASTChild(currentAST, returnAST);
 		if (inputState.guessing == 0) {
 			forEachClause_AST = currentAST.root;
-			forEachClause_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(FOR_EACH_CLAUSE, "FOR_EACH_CLAUSE")).add(
-					forEachClause_AST));
+			forEachClause_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(FOR_EACH_CLAUSE, "FOR_EACH_CLAUSE")).add(forEachClause_AST));
 			currentAST.root = forEachClause_AST;
-			currentAST.child = forEachClause_AST != null && forEachClause_AST.getFirstChild() != null ? forEachClause_AST.getFirstChild()
-					: forEachClause_AST;
+			currentAST.child = forEachClause_AST != null
+					&& forEachClause_AST.getFirstChild() != null ? forEachClause_AST
+					.getFirstChild() : forEachClause_AST;
 			currentAST.advanceChildToEnd();
 		}
 		forEachClause_AST = currentAST.root;
@@ -4823,9 +4923,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			forCond_AST = currentAST.root;
-			forCond_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(FOR_CONDITION, "FOR_CONDITION")).add(forCond_AST));
+			forCond_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(FOR_CONDITION, "FOR_CONDITION")).add(forCond_AST));
 			currentAST.root = forCond_AST;
-			currentAST.child = forCond_AST != null && forCond_AST.getFirstChild() != null ? forCond_AST.getFirstChild() : forCond_AST;
+			currentAST.child = forCond_AST != null && forCond_AST.getFirstChild() != null ? forCond_AST
+					.getFirstChild() : forCond_AST;
 			currentAST.advanceChildToEnd();
 		}
 		forCond_AST = currentAST.root;
@@ -4884,9 +4986,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			forIter_AST = currentAST.root;
-			forIter_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(FOR_ITERATOR, "FOR_ITERATOR")).add(forIter_AST));
+			forIter_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(FOR_ITERATOR, "FOR_ITERATOR")).add(forIter_AST));
 			currentAST.root = forIter_AST;
-			currentAST.child = forIter_AST != null && forIter_AST.getFirstChild() != null ? forIter_AST.getFirstChild() : forIter_AST;
+			currentAST.child = forIter_AST != null && forIter_AST.getFirstChild() != null ? forIter_AST
+					.getFirstChild() : forIter_AST;
 			currentAST.advanceChildToEnd();
 		}
 		forIter_AST = currentAST.root;
@@ -4946,10 +5050,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			caseSList_AST = currentAST.root;
-			caseSList_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(SLIST, "SLIST")).add(caseSList_AST));
+			caseSList_AST = astFactory.make((new ASTArray(2))
+					.add(astFactory.create(SLIST, "SLIST")).add(caseSList_AST));
 			currentAST.root = caseSList_AST;
-			currentAST.child = caseSList_AST != null && caseSList_AST.getFirstChild() != null ? caseSList_AST.getFirstChild()
-					: caseSList_AST;
+			currentAST.child = caseSList_AST != null && caseSList_AST.getFirstChild() != null ? caseSList_AST
+					.getFirstChild() : caseSList_AST;
 			currentAST.advanceChildToEnd();
 		}
 		caseSList_AST = currentAST.root;
@@ -4978,9 +5083,11 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		}
 		if (inputState.guessing == 0) {
 			expressionList_AST = currentAST.root;
-			expressionList_AST = astFactory.make((new ASTArray(2)).add(astFactory.create(ELIST, "ELIST")).add(expressionList_AST));
+			expressionList_AST = astFactory.make((new ASTArray(2)).add(
+					astFactory.create(ELIST, "ELIST")).add(expressionList_AST));
 			currentAST.root = expressionList_AST;
-			currentAST.child = expressionList_AST != null && expressionList_AST.getFirstChild() != null ? expressionList_AST
+			currentAST.child = expressionList_AST != null
+					&& expressionList_AST.getFirstChild() != null ? expressionList_AST
 					.getFirstChild() : expressionList_AST;
 			currentAST.advanceChildToEnd();
 		}
@@ -5680,7 +5787,8 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		returnAST = unaryExpression_AST;
 	}
 
-	public final void unaryExpressionNotPlusMinus() throws RecognitionException, TokenStreamException {
+	public final void unaryExpressionNotPlusMinus() throws RecognitionException,
+			TokenStreamException {
 
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
@@ -6795,25 +6903,35 @@ public class JavaRecognizer extends antlr.LLkParser implements JavaTokenTypes {
 		returnAST = newArrayDeclarator_AST;
 	}
 
-	public static final String[] _tokenNames = { "<0>", "EOF", "<2>", "NULL_TREE_LOOKAHEAD", "BLOCK", "MODIFIERS", "OBJBLOCK", "SLIST",
-			"CTOR_DEF", "METHOD_DEF", "VARIABLE_DEF", "INSTANCE_INIT", "STATIC_INIT", "TYPE", "CLASS_DEF", "INTERFACE_DEF", "PACKAGE_DEF",
-			"ARRAY_DECLARATOR", "EXTENDS_CLAUSE", "IMPLEMENTS_CLAUSE", "PARAMETERS", "PARAMETER_DEF", "LABELED_STAT", "TYPECAST",
-			"INDEX_OP", "POST_INC", "POST_DEC", "METHOD_CALL", "EXPR", "ARRAY_INIT", "IMPORT", "UNARY_MINUS", "UNARY_PLUS", "CASE_GROUP",
-			"ELIST", "FOR_INIT", "FOR_CONDITION", "FOR_ITERATOR", "EMPTY_STAT", "\"final\"", "\"abstract\"", "\"strictfp\"",
-			"SUPER_CTOR_CALL", "CTOR_CALL", "VARIABLE_PARAMETER_DEF", "STATIC_IMPORT", "ENUM_DEF", "ENUM_CONSTANT_DEF", "FOR_EACH_CLAUSE",
-			"ANNOTATION_DEF", "ANNOTATIONS", "ANNOTATION", "ANNOTATION_MEMBER_VALUE_PAIR", "ANNOTATION_FIELD_DEF", "ANNOTATION_ARRAY_INIT",
-			"TYPE_ARGUMENTS", "TYPE_ARGUMENT", "TYPE_PARAMETERS", "TYPE_PARAMETER", "WILDCARD_TYPE", "TYPE_UPPER_BOUNDS",
-			"TYPE_LOWER_BOUNDS", "\"package\"", "SEMI", "\"import\"", "\"static\"", "LBRACK", "RBRACK", "IDENT", "DOT", "QUESTION",
-			"\"extends\"", "\"super\"", "LT", "COMMA", "GT", "SR", "BSR", "\"void\"", "\"boolean\"", "\"byte\"", "\"char\"", "\"short\"",
-			"\"int\"", "\"float\"", "\"long\"", "\"double\"", "STAR", "\"private\"", "\"public\"", "\"protected\"", "\"transient\"",
-			"\"native\"", "\"threadsafe\"", "\"synchronized\"", "\"volatile\"", "AT", "LPAREN", "RPAREN", "ASSIGN", "LCURLY", "RCURLY",
-			"\"class\"", "\"interface\"", "\"enum\"", "BAND", "\"default\"", "\"implements\"", "\"this\"", "\"throws\"", "TRIPLE_DOT",
-			"COLON", "\"if\"", "\"else\"", "\"while\"", "\"do\"", "\"break\"", "\"continue\"", "\"return\"", "\"switch\"", "\"throw\"",
-			"\"assert\"", "\"for\"", "\"case\"", "\"try\"", "\"finally\"", "\"catch\"", "PLUS_ASSIGN", "MINUS_ASSIGN", "STAR_ASSIGN",
-			"DIV_ASSIGN", "MOD_ASSIGN", "SR_ASSIGN", "BSR_ASSIGN", "SL_ASSIGN", "BAND_ASSIGN", "BXOR_ASSIGN", "BOR_ASSIGN", "LOR", "LAND",
-			"BOR", "BXOR", "NOT_EQUAL", "EQUAL", "LE", "GE", "\"instanceof\"", "SL", "PLUS", "MINUS", "DIV", "MOD", "INC", "DEC", "BNOT",
-			"LNOT", "\"true\"", "\"false\"", "\"null\"", "\"new\"", "NUM_INT", "CHAR_LITERAL", "STRING_LITERAL", "NUM_FLOAT", "NUM_LONG",
-			"NUM_DOUBLE", "WS", "SL_COMMENT", "ML_COMMENT", "ESC", "HEX_DIGIT", "VOCAB", "EXPONENT", "FLOAT_SUFFIX" };
+	public static final String[] _tokenNames = { "<0>", "EOF", "<2>", "NULL_TREE_LOOKAHEAD",
+			"BLOCK", "MODIFIERS", "OBJBLOCK", "SLIST", "CTOR_DEF", "METHOD_DEF", "VARIABLE_DEF",
+			"INSTANCE_INIT", "STATIC_INIT", "TYPE", "CLASS_DEF", "INTERFACE_DEF", "PACKAGE_DEF",
+			"ARRAY_DECLARATOR", "EXTENDS_CLAUSE", "IMPLEMENTS_CLAUSE", "PARAMETERS",
+			"PARAMETER_DEF", "LABELED_STAT", "TYPECAST", "INDEX_OP", "POST_INC", "POST_DEC",
+			"METHOD_CALL", "EXPR", "ARRAY_INIT", "IMPORT", "UNARY_MINUS", "UNARY_PLUS",
+			"CASE_GROUP", "ELIST", "FOR_INIT", "FOR_CONDITION", "FOR_ITERATOR", "EMPTY_STAT",
+			"\"final\"", "\"abstract\"", "\"strictfp\"", "SUPER_CTOR_CALL", "CTOR_CALL",
+			"VARIABLE_PARAMETER_DEF", "STATIC_IMPORT", "ENUM_DEF", "ENUM_CONSTANT_DEF",
+			"FOR_EACH_CLAUSE", "ANNOTATION_DEF", "ANNOTATIONS", "ANNOTATION",
+			"ANNOTATION_MEMBER_VALUE_PAIR", "ANNOTATION_FIELD_DEF", "ANNOTATION_ARRAY_INIT",
+			"TYPE_ARGUMENTS", "TYPE_ARGUMENT", "TYPE_PARAMETERS", "TYPE_PARAMETER",
+			"WILDCARD_TYPE", "TYPE_UPPER_BOUNDS", "TYPE_LOWER_BOUNDS", "\"package\"", "SEMI",
+			"\"import\"", "\"static\"", "LBRACK", "RBRACK", "IDENT", "DOT", "QUESTION",
+			"\"extends\"", "\"super\"", "LT", "COMMA", "GT", "SR", "BSR", "\"void\"",
+			"\"boolean\"", "\"byte\"", "\"char\"", "\"short\"", "\"int\"", "\"float\"", "\"long\"",
+			"\"double\"", "STAR", "\"private\"", "\"public\"", "\"protected\"", "\"transient\"",
+			"\"native\"", "\"threadsafe\"", "\"synchronized\"", "\"volatile\"", "AT", "LPAREN",
+			"RPAREN", "ASSIGN", "LCURLY", "RCURLY", "\"class\"", "\"interface\"", "\"enum\"",
+			"BAND", "\"default\"", "\"implements\"", "\"this\"", "\"throws\"", "TRIPLE_DOT",
+			"COLON", "\"if\"", "\"else\"", "\"while\"", "\"do\"", "\"break\"", "\"continue\"",
+			"\"return\"", "\"switch\"", "\"throw\"", "\"assert\"", "\"for\"", "\"case\"",
+			"\"try\"", "\"finally\"", "\"catch\"", "PLUS_ASSIGN", "MINUS_ASSIGN", "STAR_ASSIGN",
+			"DIV_ASSIGN", "MOD_ASSIGN", "SR_ASSIGN", "BSR_ASSIGN", "SL_ASSIGN", "BAND_ASSIGN",
+			"BXOR_ASSIGN", "BOR_ASSIGN", "LOR", "LAND", "BOR", "BXOR", "NOT_EQUAL", "EQUAL", "LE",
+			"GE", "\"instanceof\"", "SL", "PLUS", "MINUS", "DIV", "MOD", "INC", "DEC", "BNOT",
+			"LNOT", "\"true\"", "\"false\"", "\"null\"", "\"new\"", "NUM_INT", "CHAR_LITERAL",
+			"STRING_LITERAL", "NUM_FLOAT", "NUM_LONG", "NUM_DOUBLE", "WS", "SL_COMMENT",
+			"ML_COMMENT", "ESC", "HEX_DIGIT", "VOCAB", "EXPONENT", "FLOAT_SUFFIX" };
 
 	protected void buildTokenTypeASTClassMap() {
 		tokenTypeToASTClassMap = null;

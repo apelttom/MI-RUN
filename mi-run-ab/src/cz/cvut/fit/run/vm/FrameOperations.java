@@ -44,23 +44,21 @@ public class FrameOperations {
 		}
 	}
 
-	public static void istoreVar(Frame frame, int varIndex)
-			throws InvalidObjectException {
+	public static void istoreVar(Frame frame, int varIndex) throws InvalidObjectException {
 		Object a = frame.popFromStack();
 		if (a instanceof Integer) {
-			frame.storeVar(varIndex, (Integer) a);
+			frame.storeVar(varIndex, a);
 		} else {
 			throw new InvalidObjectException(invTypeiStore + " " + a);
 		}
 	}
-	
+
 	public static void astoreVar(Frame frame, int varIndex) {
 		Object a = frame.popFromStack();
 		frame.storeVar(varIndex, a);
 	}
 
-	public static void iloadVar(Frame frame, int varIndex)
-			throws InvalidObjectException {
+	public static void iloadVar(Frame frame, int varIndex) throws InvalidObjectException {
 		Object a = frame.loadVar(varIndex);
 		if (a instanceof Integer) {
 			frame.pushToStack(a);
@@ -68,7 +66,7 @@ public class FrameOperations {
 			throw new InvalidObjectException(invTypeiLoad + " " + a);
 		}
 	}
-	
+
 	public static void aloadVar(Frame frame, int varIndex) {
 		Object a = frame.loadVar(varIndex);
 		frame.pushToStack(a);
@@ -101,8 +99,7 @@ public class FrameOperations {
 		throw new InvalidObjectException(invTypesArithm);
 	}
 
-	public static void incVar(Frame frame, int index, int n)
-			throws InvalidObjectException {
+	public static void incVar(Frame frame, int index, int n) throws InvalidObjectException {
 		Object a = frame.loadVar(index);
 		if (a instanceof Integer) {
 			frame.pushToStack((Integer) a + n);
@@ -113,7 +110,7 @@ public class FrameOperations {
 	}
 
 	public static void ireturn(Frame frame) {
-		frame.getParent().pushToStack((Integer) frame.popFromStack());
+		frame.getParent().pushToStack(frame.popFromStack());
 	}
 
 }

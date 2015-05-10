@@ -12,7 +12,7 @@ public interface Constants {
 	public static final String PARAMETER_DEF = "PARAMETER_DEF";
 	public static final String PARAMETERS = "PARAMETERS";
 	public static final String EXPR = "EXPR";
-	
+
 	public static final String LOGIC_GT = ">";
 	public static final String LOGIC_LT = "<";
 	public static final String LOGIC_EQ = "==";
@@ -27,16 +27,17 @@ public interface Constants {
 	public static final String INT_TYPE = "int";
 	public static final String DOUBLE_TYPE = "double";
 	public static final String STRING_TYPE = "String";
-	
+
 	public static final String LEFT_SQ_BR = "[";
 	public static final String RIGHT_SQ_BR = "]";
 
 	public static final String LEFT_CR_BR = "{";
 	public static final String RIGHT_CR_BR = "}";
-	
+
 	public static final String LEFT_PARENT = "(";
 	public static final String RIGHT_PARENT = ")";
-	
+
 	public static final String EMPTY_EXPR = ";";
 	public static final String NEW_CLASS = "new";
+	public static final String METHOD_INVOCATION = ".";
 }

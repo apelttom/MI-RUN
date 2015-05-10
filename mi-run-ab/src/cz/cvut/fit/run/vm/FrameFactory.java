@@ -17,7 +17,7 @@ public class FrameFactory {
 		frames.add(result);
 		return result;
 	}
-	
+
 	public Frame makeFrame(Frame parent, ABObject wrappingObj) {
 		Frame result = new Frame(this.frameCounter, parent, wrappingObj);
 		this.frameCounter++;

@@ -1,25 +1,34 @@
 package cz.cvut.fit.run;
 
 public class ABCode {
+	int a;
 
-	int b;
+	public void main() {
+		ABCode o = new ABCode();
+		o.foo(a);
+	}
 
-	public int main() {
-		int c = 2;
-		b = c * 2;
+	public int foo(int i) {
 		Factorial f = new Factorial();
-		int result = f.factorial(b);
-		return result;
+		return f.count();
 	}
 }
 
-public class Factorial {
+class Factorial {
+	int n;
 
-	public int factorial(int n) {
+	public Factorial() {
+		n = 5;
+	}
+
+	public int count() {
+		return count2(n);
+	}
+
+	public int count2(int n) {
 		if (n == 0) {
 			return 1;
 		}
-		int result = n * factorial(n - 1);
-		return result;
+		return n * count2(n - 1);
 	}
 }

@@ -10,8 +10,7 @@ public class ABClassVar {
 	// String, Integer, custom, etc.
 	private String variableType;
 
-	public ABClassVar(String name, String prot, boolean isStatic, Object val,
-			String type) {
+	public ABClassVar(String name, String prot, boolean isStatic, Object val, String type) {
 		this.name = name;
 		this.variableProtection = prot;
 		this.isStatic = isStatic;

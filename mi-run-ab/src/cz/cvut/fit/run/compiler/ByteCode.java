@@ -44,8 +44,8 @@ public class ByteCode implements Iterable<Instruction> {
 		return instructions.subList(arg0, arg1);
 	}
 
-	public Object[] toArray() {
-		return instructions.toArray();
+	public Instruction[] toArray() {
+		return instructions.toArray(new Instruction[size()]);
 	}
 
 	public void changeOperand(int indexOfInstruction, int indexOfOperand, String operand) {

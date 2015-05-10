@@ -13,7 +13,7 @@ public class ClassFile {
 	private List<String> interfaces;
 	private List<MethodInfo> methods;
 	private List<FieldInfo> fields;
-	
+
 	public ClassFile(String name) {
 		this.thisClass = name;
 		this.flags = new ArrayList<String>();
@@ -21,8 +21,8 @@ public class ClassFile {
 		this.fields = new ArrayList<FieldInfo>();
 		this.methods = new ArrayList<MethodInfo>();
 	}
-	
-	public Object addField(FieldInfo field){
+
+	public Object addField(FieldInfo field) {
 		return this.fields.add(field);
 	}
 
@@ -52,7 +52,7 @@ public class ClassFile {
 				return m;
 			}
 		}
-		throw new NoSuchElementException("No method "+name+" in "+methods);
+		throw new NoSuchElementException("No method " + name + " in " + methods);
 	}
 
 	public List<MethodInfo> getMethods() {
@@ -66,11 +66,11 @@ public class ClassFile {
 	public String getThis() {
 		return thisClass;
 	}
-	
+
 	public void addFlag(String flag) {
 		this.flags.add(flag);
 	}
-	
+
 	public void addInterface(String iface) {
 		this.interfaces.add(iface);
 	}

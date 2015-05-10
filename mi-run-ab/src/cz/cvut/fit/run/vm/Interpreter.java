@@ -38,8 +38,7 @@ public class Interpreter {
 		frameFactory.print();
 	}
 
-	private void executeInternal(ByteCode bytecode, Frame frame)
-			throws Exception {
+	private void executeInternal(ByteCode bytecode, Frame frame) throws Exception {
 		for (int PC = 0; PC <= bytecode.size() - 1; PC++) {
 			try {
 				System.out.println(bytecode.get(PC));
@@ -57,8 +56,7 @@ public class Interpreter {
 		}
 	}
 
-	private void handleInstruction(Instruction inst, Frame frame)
-			throws Exception {
+	private void handleInstruction(Instruction inst, Frame frame) throws Exception {
 		InsSet instr = inst.getInstructionCode();
 		List<String> instrArgs = inst.getOperands();
 
@@ -73,16 +71,14 @@ public class Interpreter {
 			oneArgumentInstruction(frame, instr, instrArgs.get(0));
 			break;
 		case 2:
-			twoArgumentsInstruction(frame, instr, instrArgs.get(0),
-					instrArgs.get(1));
+			twoArgumentsInstruction(frame, instr, instrArgs.get(0), instrArgs.get(1));
 			break;
 		default:
 			System.err.println("More than 2 arguments instruction " + inst);
 		}
 	}
 
-	private void noArgumentsInstruction(Frame frame, InsSet instr)
-			throws Exception {
+	private void noArgumentsInstruction(Frame frame, InsSet instr) throws Exception {
 		if (instr.equals(InsSet.iadd)) {
 			FrameOperations.iaddition(frame);
 		} else if (instr.equals(InsSet.isub)) {
@@ -99,8 +95,7 @@ public class Interpreter {
 		}
 	}
 
-	private void oneArgumentInstruction(Frame frame, InsSet instr, String op1)
-			throws Exception {
+	private void oneArgumentInstruction(Frame frame, InsSet instr, String op1) throws Exception {
 		if (isLogicalCondition(instr)) {
 			handleLogicalCondition(frame, instr, Integer.parseInt(op1));
 		}
@@ -129,11 +124,10 @@ public class Interpreter {
 		}
 	}
 
-	private void twoArgumentsInstruction(Frame frame, InsSet instr, String op1,
-			String op2) throws Exception {
+	private void twoArgumentsInstruction(Frame frame, InsSet instr, String op1, String op2)
+			throws Exception {
 		if (instr.equals(InsSet.iinc)) {
-			FrameOperations.incVar(frame, Integer.parseInt(op1),
-					Integer.parseInt(op2));
+			FrameOperations.incVar(frame, Integer.parseInt(op1), Integer.parseInt(op2));
 		} else if (instr.equals(InsSet.new_class)) {
 			// Create dynamically new object on Heap. It will be generic object
 			// ABObject
@@ -160,20 +154,17 @@ public class Interpreter {
 		}
 	}
 
-	private ABObject createObject(Frame frame, String classFileName)
-			throws Exception {
+	private ABObject createObject(Frame frame, String classFileName) throws Exception {
 		ClassFile result = null;
 		// here I find ClassFile of class I am creating
-		ClassFile[] classFilesArray = classFiles
-				.toArray(new ClassFile[classFiles.size()]);
+		ClassFile[] classFilesArray = classFiles.toArray(new ClassFile[classFiles.size()]);
 		for (ClassFile cf : classFilesArray) {
 			if (cf.getThis().equals(classFileName)) {
 				result = cf;
 			}
 		}
 		// dynamic creation of object
-		ABObject dynamicObj = new ABObject(result,
-				createGlobalVariables(result));
+		ABObject dynamicObj = new ABObject(result, createGlobalVariables(result));
 		// start constructor for newly created dynamic object
 		runConstructor(dynamicObj, result);
 		// add object to the heap
@@ -183,8 +174,7 @@ public class Interpreter {
 	}
 
 	private ABObject createObject(ClassFile classFile) throws Exception {
-		ABObject object = new ABObject(classFile,
-				createGlobalVariables(classFile));
+		ABObject object = new ABObject(classFile, createGlobalVariables(classFile));
 		// start constructor for new object
 		runConstructor(object, classFile);
 		// add object to the heap
@@ -196,8 +186,7 @@ public class Interpreter {
 		// creation of global variables for new dynamic class
 		List<ABClassVar> globals = new ArrayList<ABClassVar>();
 		for (FieldInfo fieldInfo : classFile.getFields()) {
-			ABClassVar globalVar = new ABClassVar(fieldInfo.name, null,
-					fieldInfo.type);
+			ABClassVar globalVar = new ABClassVar(fieldInfo.name, null, fieldInfo.type);
 			// flags setup
 			for (String flag : fieldInfo.flags) {
 				if (flag.equals("private") || flag.equals("public")) {
@@ -212,22 +201,17 @@ public class Interpreter {
 		return globals;
 	}
 
-	private void runConstructor(ABObject object, ClassFile classFile)
-			throws Exception {
+	private void runConstructor(ABObject object, ClassFile classFile) throws Exception {
 		Frame constructorFrame = this.frameFactory.makeFrame(null, object);
-		ByteCode constructorBC = classFile.getMethod(CONSTRUCTOR_INDEX)
-				.getBytecode();
+		ByteCode constructorBC = classFile.getMethod(CONSTRUCTOR_INDEX).getBytecode();
 		// we have frame and bytecode prepared -> run the constructor
 		executeInternal(constructorBC, constructorFrame);
 	}
 
 	private static boolean isLogicalCondition(InsSet instr) {
-		return (instr.equals(InsSet.if_icmpgt)
-				|| instr.equals(InsSet.if_icmpeq)
-				|| instr.equals(InsSet.if_icmplt)
-				|| instr.equals(InsSet.if_icmpne)
-				|| instr.equals(InsSet.if_icmpge) || instr
-					.equals(InsSet.if_icmple));
+		return (instr.equals(InsSet.if_icmpgt) || instr.equals(InsSet.if_icmpeq)
+				|| instr.equals(InsSet.if_icmplt) || instr.equals(InsSet.if_icmpne)
+				|| instr.equals(InsSet.if_icmpge) || instr.equals(InsSet.if_icmple));
 	}
 
 	private void handleLogicalCondition(Frame frame, InsSet instr, int jumpToPC)
@@ -260,7 +244,7 @@ public class Interpreter {
 		}
 	}
 
-	/*
+	/**
 	 * Search for a ClassFile by given name. Returns null if not found.
 	 */
 	private ClassFile findClassFile(String name) {

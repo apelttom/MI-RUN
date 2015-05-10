@@ -396,7 +396,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 								uponEOF();
 								_returnToken = makeToken(Token.EOF_TYPE);
 							} else {
-								throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+								throw new NoViableAltForCharException(LA(1), getFilename(),
+										getLine(), getColumn());
 							}
 						}
 					}
@@ -418,7 +419,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		}
 	}
 
-	public final void mQUESTION(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mQUESTION(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -433,7 +435,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mLPAREN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mLPAREN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -448,7 +451,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mRPAREN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mRPAREN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -463,7 +467,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mLBRACK(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mLBRACK(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -478,7 +483,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mRBRACK(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mRBRACK(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -493,7 +499,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mLCURLY(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mLCURLY(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -508,7 +515,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mRCURLY(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mRCURLY(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -523,7 +531,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mCOLON(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mCOLON(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -538,7 +547,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mCOMMA(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mCOMMA(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -553,7 +563,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mASSIGN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -568,7 +579,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mEQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mEQUAL(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -583,7 +595,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mLNOT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mLNOT(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -598,7 +611,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mBNOT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mBNOT(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -613,7 +627,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mNOT_EQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mNOT_EQUAL(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -628,7 +643,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mDIV(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mDIV(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -643,7 +659,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mDIV_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mDIV_ASSIGN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -658,7 +675,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mPLUS(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mPLUS(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -673,7 +691,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mPLUS_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mPLUS_ASSIGN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -688,7 +707,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mINC(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mINC(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -703,7 +723,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mMINUS(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mMINUS(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -718,7 +739,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mMINUS_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mMINUS_ASSIGN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -733,7 +755,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mDEC(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mDEC(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -748,7 +771,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mSTAR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mSTAR(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -763,7 +787,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mSTAR_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mSTAR_ASSIGN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -778,7 +803,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mMOD(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mMOD(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -793,7 +819,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mMOD_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mMOD_ASSIGN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -808,7 +835,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mSR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mSR(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -823,7 +851,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mSR_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mSR_ASSIGN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -838,7 +867,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mBSR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mBSR(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -853,7 +883,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mBSR_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mBSR_ASSIGN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -868,7 +899,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mGE(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mGE(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -883,7 +915,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mGT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mGT(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -898,7 +931,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mSL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mSL(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -913,7 +947,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mSL_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mSL_ASSIGN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -928,7 +963,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mLE(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mLE(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -943,7 +979,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mLT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mLT(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -958,7 +995,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mBXOR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mBXOR(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -973,7 +1011,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mBXOR_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mBXOR_ASSIGN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -988,7 +1027,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mBOR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mBOR(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1003,7 +1043,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mBOR_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mBOR_ASSIGN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1018,7 +1059,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mLOR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mLOR(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1033,7 +1075,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mBAND(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mBAND(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1048,7 +1091,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mBAND_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mBAND_ASSIGN(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1063,7 +1107,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mLAND(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mLAND(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1078,7 +1123,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mSEMI(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mSEMI(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1093,7 +1139,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mWS(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mWS(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1126,7 +1173,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 						} else if ((LA(1) == '\n')) {
 							match('\n');
 						} else {
-							throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+							throw new NoViableAltForCharException(LA(1), getFilename(), getLine(),
+									getColumn());
 						}
 
 					}
@@ -1139,7 +1187,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 					if (_cnt369 >= 1) {
 						break _loop369;
 					} else {
-						throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+						throw new NoViableAltForCharException(LA(1), getFilename(), getLine(),
+								getColumn());
 					}
 				}
 				}
@@ -1156,7 +1205,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mSL_COMMENT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mSL_COMMENT(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1209,7 +1259,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mML_COMMENT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mML_COMMENT(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1219,7 +1270,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		match("/*");
 		{
 			_loop379: do {
-				if ((LA(1) == '\r') && (LA(2) == '\n') && ((LA(3) >= '\u0003' && LA(3) <= '\uffff'))
+				if ((LA(1) == '\r') && (LA(2) == '\n')
+						&& ((LA(3) >= '\u0003' && LA(3) <= '\uffff'))
 						&& ((LA(4) >= '\u0003' && LA(4) <= '\uffff'))) {
 					match('\r');
 					match('\n');
@@ -1229,8 +1281,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 				} else if (((LA(1) == '*') && ((LA(2) >= '\u0003' && LA(2) <= '\uffff')) && ((LA(3) >= '\u0003' && LA(3) <= '\uffff')))
 						&& (LA(2) != '/')) {
 					match('*');
-				} else if ((LA(1) == '\r') && ((LA(2) >= '\u0003' && LA(2) <= '\uffff')) && ((LA(3) >= '\u0003' && LA(3) <= '\uffff'))
-						&& (true)) {
+				} else if ((LA(1) == '\r') && ((LA(2) >= '\u0003' && LA(2) <= '\uffff'))
+						&& ((LA(3) >= '\u0003' && LA(3) <= '\uffff')) && (true)) {
 					match('\r');
 					if (inputState.guessing == 0) {
 						newline();
@@ -1261,7 +1313,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mCHAR_LITERAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mCHAR_LITERAL(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1289,7 +1342,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	protected final void mESC(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	protected final void mESC(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1341,7 +1395,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 							if (_cnt390 >= 1) {
 								break _loop390;
 							} else {
-								throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+								throw new NoViableAltForCharException(LA(1), getFilename(),
+										getLine(), getColumn());
 							}
 						}
 
@@ -1360,20 +1415,24 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 			case '3': {
 				matchRange('0', '3');
 				{
-					if (((LA(1) >= '0' && LA(1) <= '7')) && (_tokenSet_0.member(LA(2))) && (true) && (true)) {
+					if (((LA(1) >= '0' && LA(1) <= '7')) && (_tokenSet_0.member(LA(2))) && (true)
+							&& (true)) {
 						matchRange('0', '7');
 						{
-							if (((LA(1) >= '0' && LA(1) <= '7')) && (_tokenSet_0.member(LA(2))) && (true) && (true)) {
+							if (((LA(1) >= '0' && LA(1) <= '7')) && (_tokenSet_0.member(LA(2)))
+									&& (true) && (true)) {
 								matchRange('0', '7');
 							} else if ((_tokenSet_0.member(LA(1))) && (true) && (true) && (true)) {
 							} else {
-								throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+								throw new NoViableAltForCharException(LA(1), getFilename(),
+										getLine(), getColumn());
 							}
 
 						}
 					} else if ((_tokenSet_0.member(LA(1))) && (true) && (true) && (true)) {
 					} else {
-						throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+						throw new NoViableAltForCharException(LA(1), getFilename(), getLine(),
+								getColumn());
 					}
 
 				}
@@ -1385,11 +1444,13 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 			case '7': {
 				matchRange('4', '7');
 				{
-					if (((LA(1) >= '0' && LA(1) <= '7')) && (_tokenSet_0.member(LA(2))) && (true) && (true)) {
+					if (((LA(1) >= '0' && LA(1) <= '7')) && (_tokenSet_0.member(LA(2))) && (true)
+							&& (true)) {
 						matchRange('0', '7');
 					} else if ((_tokenSet_0.member(LA(1))) && (true) && (true) && (true)) {
 					} else {
-						throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+						throw new NoViableAltForCharException(LA(1), getFilename(), getLine(),
+								getColumn());
 					}
 
 				}
@@ -1407,7 +1468,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mSTRING_LITERAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mSTRING_LITERAL(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1437,7 +1499,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	protected final void mHEX_DIGIT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	protected final void mHEX_DIGIT(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1489,7 +1552,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	protected final void mVOCAB(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	protected final void mVOCAB(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1504,7 +1568,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mIDENT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mIDENT(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1675,11 +1740,14 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		if (inputState.guessing == 0) {
 
 			// check if "assert" keyword is enabled
-			if (assertEnabled && "assert".equals(new String(text.getBuffer(), _begin, text.length() - _begin))) {
+			if (assertEnabled
+					&& "assert"
+							.equals(new String(text.getBuffer(), _begin, text.length() - _begin))) {
 				_ttype = LITERAL_assert; // set token type for the rule in the parser
 			}
 			// check if "enum" keyword is enabled
-			if (enumEnabled && "enum".equals(new String(text.getBuffer(), _begin, text.length() - _begin))) {
+			if (enumEnabled
+					&& "enum".equals(new String(text.getBuffer(), _begin, text.length() - _begin))) {
 				_ttype = LITERAL_enum; // set token type for the rule in the parser
 			}
 
@@ -1692,7 +1760,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mNUM_INT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mNUM_INT(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -1733,7 +1802,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 									if (_cnt405 >= 1) {
 										break _loop405;
 									} else {
-										throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+										throw new NoViableAltForCharException(LA(1), getFilename(),
+												getLine(), getColumn());
 									}
 								}
 
@@ -1815,7 +1885,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 									break;
 								}
 								default: {
-									throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+									throw new NoViableAltForCharException(LA(1), getFilename(),
+											getLine(), getColumn());
 								}
 								}
 							}
@@ -1828,7 +1899,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 										if (_cnt413 >= 1) {
 											break _loop413;
 										} else {
-											throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+											throw new NoViableAltForCharException(LA(1),
+													getFilename(), getLine(), getColumn());
 										}
 									}
 
@@ -1852,7 +1924,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 													if (_cnt416 >= 1) {
 														break _loop416;
 													} else {
-														throw new NoViableAltForCharException(LA(1), getFilename(), getLine(),
+														throw new NoViableAltForCharException(
+																LA(1), getFilename(), getLine(),
 																getColumn());
 													}
 												}
@@ -1879,7 +1952,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 												break;
 											}
 											default: {
-												throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+												throw new NoViableAltForCharException(LA(1),
+														getFilename(), getLine(), getColumn());
 											}
 											}
 										}
@@ -1900,7 +1974,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 											if (_cnt420 >= 1) {
 												break _loop420;
 											} else {
-												throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+												throw new NoViableAltForCharException(LA(1),
+														getFilename(), getLine(), getColumn());
 											}
 										}
 
@@ -1917,7 +1992,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 											if (_cnt422 >= 1) {
 												break _loop422;
 											} else {
-												throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+												throw new NoViableAltForCharException(LA(1),
+														getFilename(), getLine(), getColumn());
 											}
 										}
 
@@ -1958,7 +2034,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 					break;
 				}
 				default: {
-					throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+					throw new NoViableAltForCharException(LA(1), getFilename(), getLine(),
+							getColumn());
 				}
 				}
 			}
@@ -1975,14 +2052,16 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 							break;
 						}
 						default: {
-							throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+							throw new NoViableAltForCharException(LA(1), getFilename(), getLine(),
+									getColumn());
 						}
 						}
 					}
 					if (inputState.guessing == 0) {
 						_ttype = NUM_LONG;
 					}
-				} else if (((LA(1) == '.' || LA(1) == 'D' || LA(1) == 'E' || LA(1) == 'F' || LA(1) == 'd' || LA(1) == 'e' || LA(1) == 'f'))
+				} else if (((LA(1) == '.' || LA(1) == 'D' || LA(1) == 'E' || LA(1) == 'F'
+						|| LA(1) == 'd' || LA(1) == 'e' || LA(1) == 'f'))
 						&& (isDecimal)) {
 					{
 						switch (LA(1)) {
@@ -2046,7 +2125,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 							break;
 						}
 						default: {
-							throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+							throw new NoViableAltForCharException(LA(1), getFilename(), getLine(),
+									getColumn());
 						}
 						}
 					}
@@ -2076,7 +2156,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	protected final void mEXPONENT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	protected final void mEXPONENT(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -2134,7 +2215,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 					if (_cnt439 >= 1) {
 						break _loop439;
 					} else {
-						throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+						throw new NoViableAltForCharException(LA(1), getFilename(), getLine(),
+								getColumn());
 					}
 				}
 
@@ -2148,7 +2230,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	protected final void mFLOAT_SUFFIX(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	protected final void mFLOAT_SUFFIX(boolean _createToken) throws RecognitionException,
+			CharStreamException, TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();
@@ -2183,7 +2266,8 @@ public class JavaLexer extends antlr.CharScanner implements JavaTokenTypes, Toke
 		_returnToken = _token;
 	}
 
-	public final void mAT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+	public final void mAT(boolean _createToken) throws RecognitionException, CharStreamException,
+			TokenStreamException {
 		int _ttype;
 		Token _token = null;
 		int _begin = text.length();

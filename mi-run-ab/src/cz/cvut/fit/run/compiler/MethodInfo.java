@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MethodInfo {
 
-	private List<String> flags; //(private, static, volatile, ...)
+	private List<String> flags; // (private, static, volatile, ...)
 	private String name = "undefined";
 	// descriptor
 	// attributes (anotation, source code, exceptions, bytecode)
@@ -13,7 +13,7 @@ public class MethodInfo {
 	private String returnType;
 	private ByteCode bytecode = null;
 
-	public MethodInfo(String name){
+	public MethodInfo(String name) {
 		this.name = name;
 		this.bytecode = new ByteCode();
 		this.argTypes = new ArrayList<String>();
@@ -35,10 +35,11 @@ public class MethodInfo {
 	public String getName() {
 		return name;
 	}
+
 	public String getReturnType() {
 		return returnType;
 	}
-	
+
 	public void addArgType(String argType) {
 		this.argTypes.add(argType);
 	}
@@ -58,7 +59,7 @@ public class MethodInfo {
 	public void setReturnType(String returnType) {
 		this.returnType = returnType;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
