@@ -1,22 +1,21 @@
 package cz.cvut.fit.run.vm;
 
-import java.lang.instrument.IllegalClassFormatException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import cz.cvut.fit.run.compiler.ClassFile;
 
 public class ABObject {
 
 	private ClassFile classfile;
-	private Map<String, ABClassVar> globals;
+	private List<ABClassVar> globals;
 
 	public ABObject(ClassFile classfile) {
 		this.classfile = classfile;
-		this.globals = new HashMap<String, ABClassVar>();
+		this.globals = new ArrayList<ABClassVar>();
 	}
 
-	public ABObject(ClassFile classfile, Map<String, ABClassVar> globals) {
+	public ABObject(ClassFile classfile, List<ABClassVar> globals) {
 		this.classfile = classfile;
 		this.globals = globals;
 	}
@@ -25,23 +24,24 @@ public class ABObject {
 		return classfile;
 	}
 
-	public void addGlobal(String name, ABClassVar variable) {
-		globals.put(name, variable);
+	public List<ABClassVar> getGlobals() {
+		return globals;
 	}
 
-	public void changeVariableValue(String name, ABClassVar variable)
-			throws IllegalClassFormatException {
-		ABClassVar prevVar = globals.get(name);
-		// verify that the types are compatible
-		if (variable.getVariableType() != prevVar.getVariableType()) {
-			throw new IllegalClassFormatException("Global variable "
-					+ name + " is of type " + prevVar.getVariableType()
-					+ "! Incompatible with type " + variable.getVariableType());
-		}
-		globals.put(name, variable);
+	public void addGlobal(ABClassVar variable) {
+		globals.add(variable);
 	}
-	
-	public String toString(){
-		return "Dynamic object of "+classfile.getThis();
+
+	public void changeVariableValue(Integer index, Object newValue) {
+		ABClassVar prevVar = globals.get(index);
+		// verify that the types are compatible
+		ABClassVar newVar = new ABClassVar(prevVar.getName(),
+				prevVar.getVariableProtection(), prevVar.isStatic(), newValue,
+				prevVar.getVariableType());
+		globals.set(index, newVar);
+	}
+
+	public String toString() {
+		return "Dynamic object of " + classfile.getThis();
 	}
 }

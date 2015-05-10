@@ -2,22 +2,35 @@ package cz.cvut.fit.run.vm;
 
 public class ABClassVar {
 
+	private String name;
 	// private, public, protected, etc.
 	private String variableProtection;
-	private boolean isStatic;
+	private boolean isStatic = false;
 	private Object variableValue;
 	// String, Integer, custom, etc.
 	private String variableType;
 
-	public ABClassVar(String prot, Object val, String type) {
+	public ABClassVar(String name, String prot, boolean isStatic, Object val,
+			String type) {
+		this.name = name;
 		this.variableProtection = prot;
+		this.isStatic = isStatic;
 		this.variableValue = val;
 		this.variableType = type;
 	}
 
-	public ABClassVar(Object val, String type) {
+	public ABClassVar(String name, Object val, String type) {
+		this.name = name;
 		this.variableValue = val;
 		this.variableType = type;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getVariableProtection() {

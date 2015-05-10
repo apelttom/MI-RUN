@@ -2,21 +2,20 @@ package cz.cvut.fit.run.vm;
 
 import java.io.InvalidObjectException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cz.cvut.fit.run.compiler.ByteCode;
 import cz.cvut.fit.run.compiler.ClassFile;
 import cz.cvut.fit.run.compiler.FieldInfo;
 import cz.cvut.fit.run.compiler.Instruction;
-import cz.cvut.fit.run.compiler.MethodInfo;
 import cz.cvut.fit.run.compiler.Instruction.InsSet;
+import cz.cvut.fit.run.compiler.MethodInfo;
 
 public class Interpreter {
 
 	private static final String MAIN = "main";
-	private List<ABObject> heap = null; // FIXME what is it for?
+	private static final String MAIN_CLASS = "ABCode";
+	private List<ABObject> heap = null; // stores dynamic objects
 	private List<ClassFile> classFiles = null;
 	private FrameFactory frameFactory = null;
 
@@ -27,8 +26,10 @@ public class Interpreter {
 	}
 
 	public void execute() throws Exception {
-		ByteCode main = classFiles.get(0).getMethod(MAIN).getBytecode();
-		Frame mainFrame = frameFactory.makeFrame(null);
+		ClassFile mainCF = findClassFile(MAIN_CLASS);
+		ABObject mainObject = createObject(mainCF);
+		ByteCode main = mainCF.getMethod(MAIN).getBytecode();
+		Frame mainFrame = frameFactory.makeFrame(null, mainObject);
 
 		executeInternal(main, mainFrame);
 
@@ -39,7 +40,7 @@ public class Interpreter {
 			throws Exception {
 		for (int PC = 0; PC <= bytecode.size() - 1; PC++) {
 			try {
-				// System.out.println(bytecode.get(PC));
+				 System.out.println(bytecode.get(PC));
 
 				handleInstruction(bytecode.get(PC), frame);
 			} catch (GotoException e) {
@@ -116,10 +117,11 @@ public class Interpreter {
 		} else if (instr.equals(InsSet.go_to)) {
 			throw new GotoException(Integer.parseInt(op1));
 		} else if (instr.equals(InsSet.invoke)) {
-			Frame newFrame = frameFactory.makeFrame(frame);
-			MethodInfo method = classFiles.get(0).getMethod(op1);
+			ABObject wrappingObj = frame.getThis();
+			Frame newFrame = frameFactory.makeFrame(frame, wrappingObj);
+			MethodInfo method = frame.getThis().getClassfile().getMethod(op1);
 			for (int i = 0; i < method.getArgTypes().size(); i++) {
-				newFrame.storeVar(i, (Integer) frame.popFromStack());
+				newFrame.storeArgument(frame.popFromStack());
 				// inverse declaration?
 			}
 			executeInternal(method.getBytecode(), newFrame);
@@ -137,25 +139,47 @@ public class Interpreter {
 			// Create dynamically new object on Heap. It will be generic object
 			// ABObject
 			createObject(frame, op1);
+		}
+		// invoking method on a dynamic object
+		else if (instr.equals(InsSet.invoke)) {
+			// TODO implement invoke on dynamic object
+			
 		} else {
 			throw new UnsupportedOperationException(instr.name());
 		}
 	}
 
-	private void createObject(Frame frame, String name) {
+	private ABObject createObject(Frame frame, String classFileName) {
 		ClassFile result = null;
 		// here I find ClassFile of class I am creating
 		ClassFile[] classFilesArray = classFiles
 				.toArray(new ClassFile[classFiles.size()]);
 		for (ClassFile cf : classFilesArray) {
-			if (cf.getThis().equals(name)) {
+			if (cf.getThis().equals(classFileName)) {
 				result = cf;
 			}
 		}
+		// dynamic creation of object
+		ABObject dynamicObj = new ABObject(result,
+				createGlobalVariables(result));
+		heap.add(dynamicObj);
+		frame.pushToStack(dynamicObj);
+		return dynamicObj;
+	}
+
+	private ABObject createObject(ClassFile classFile) {
+		ABObject object = new ABObject(classFile,
+				createGlobalVariables(classFile));
+		heap.add(object);
+		return object;
+	}
+
+	private List<ABClassVar> createGlobalVariables(ClassFile classFile) {
 		// creation of global variables for new dynamic class
-		Map<String, ABClassVar> globals = new HashMap<String, ABClassVar>();
-		for (FieldInfo fieldInfo : result.getFields()) {
-			ABClassVar globalVar = new ABClassVar(null, fieldInfo.type);
+		List<ABClassVar> globals = new ArrayList<ABClassVar>();
+		for (FieldInfo fieldInfo : classFile.getFields()) {
+			ABClassVar globalVar = new ABClassVar(fieldInfo.name, null,
+					fieldInfo.type);
 			// flags setup
 			for (String flag : fieldInfo.flags) {
 				if (flag.equals("private") || flag.equals("public")) {
@@ -165,12 +189,9 @@ public class Interpreter {
 					globalVar.setStatic(true);
 				}
 			}
-			globals.put(fieldInfo.name, globalVar);
+			globals.add(globalVar);
 		}
-		// dynamic creation of object
-		ABObject dynamicObj = new ABObject(result, globals);
-		heap.add(dynamicObj);
-		frame.pushToStack(dynamicObj);
+		return globals;
 	}
 
 	private static boolean isLogicalCondition(InsSet instr) {
@@ -210,5 +231,17 @@ public class Interpreter {
 				throw new GotoException(jumpToPC);
 			}
 		}
+	}
+
+	/*
+	 * Search for a ClassFile by given name. Returns null if not found.
+	 */
+	private ClassFile findClassFile(String name) {
+		for (ClassFile classFile : classFiles) {
+			if (classFile.getThis().equals(name)) {
+				return classFile;
+			}
+		}
+		return null;
 	}
 }
