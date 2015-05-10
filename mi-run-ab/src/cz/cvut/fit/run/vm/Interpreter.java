@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.cvut.fit.run.compiler.ByteCode;
+import cz.cvut.fit.run.compiler.ClassFile;
 import cz.cvut.fit.run.compiler.Instruction;
+import cz.cvut.fit.run.compiler.MethodInfo;
 import cz.cvut.fit.run.compiler.Instruction.InsSet;
 
 public class Interpreter {

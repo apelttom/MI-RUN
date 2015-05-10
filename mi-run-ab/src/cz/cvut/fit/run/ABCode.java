@@ -5,8 +5,13 @@ public class ABCode {
 	int a = 7;
 
 	public void main() {
-		int b = 1;
-		ABCode o = new ABCode();
+		int c = new ABCode().foo(a);
 	}
+	
+	public int foo(int i) {
+		return i;
+	}
+}
+class PrivateClass {
 	
 }

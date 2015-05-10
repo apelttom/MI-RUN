@@ -4,6 +4,8 @@ import java.lang.instrument.IllegalClassFormatException;
 import java.util.HashMap;
 import java.util.Map;
 
+import cz.cvut.fit.run.compiler.ClassFile;
+
 public class ABObject {
 
 	private ClassFile classfile;

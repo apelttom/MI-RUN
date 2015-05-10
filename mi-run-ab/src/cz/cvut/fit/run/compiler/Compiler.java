@@ -7,46 +7,54 @@ import java.util.Map;
 
 import antlr.collections.AST;
 import cz.cvut.fit.run.compiler.Instruction.InsSet;
-import cz.cvut.fit.run.vm.ClassFile;
-import cz.cvut.fit.run.vm.MethodInfo;
 
 public class Compiler implements Constants {
 
-	private int BC_VariableCount = 0; // bytecode variable count
+	private int BC_VariableCount; // bytecode variable count
 	private Map<String, Integer> variableMap;
-	private List<MethodInfo> methods = null;
-	private ClassFile classfile = null;
-	private boolean printNodes = false;
+	private ClassFile classfile; // actually processed class
+	private List<ClassFile> classfiles;
+	private boolean printNodes;
 	private String assignedVariableType;
 
 	public Compiler(boolean printNodes) {
-		this();
 		this.printNodes = printNodes;
 	}
 
 	public Compiler() {
-		BC_VariableCount = 0;
-		this.variableMap = new HashMap<String, Integer>();
-		this.classfile = new ClassFile();
 	}
 
-	public ClassFile compile(AST root) {
-		AST token_package = root;
-		AST token_CLASS_DEF = token_package.getNextSibling();
-		
-		classHeader(token_CLASS_DEF);
-		
-		return this.classfile;
+	public List<ClassFile> compile(AST root) {
+		classfiles = new ArrayList<ClassFile>();
+		AST temp = root;
+		while (temp != null) {
+			if ("CLASS_DEF".equals(temp.getText())) {
+				init();
+				classHeader(temp);
+				classfiles.add(classfile);
+			}
+			temp = temp.getNextSibling();
+		}
+		return this.classfiles;
+	}
+
+	private void init() {
+		BC_VariableCount = 0;
+		this.variableMap = new HashMap<String, Integer>();
+		classfile = null;
+		assignedVariableType = null;
 	}
 
 	// expects CLASS_DEF
 	private void classHeader(AST node) {
 		AST token_MODIFIERS = node.getFirstChild();
+		AST token_name = token_MODIFIERS.getNextSibling();
+		
+		this.classfile = new ClassFile(token_name.getText());
+		
 		for (AST flag : getAstChildren(token_MODIFIERS)) {
 			classfile.addFlag(flag.getText());
 		}
-		AST token_name = token_MODIFIERS.getNextSibling();
-		classfile.setThis(token_name.getText());
 		AST token_EXTENDS = token_name.getNextSibling();
 		AST token_EXTENDS_token = token_EXTENDS.getFirstChild();
 		classfile.setSuper(token_EXTENDS_token == null ? null : token_EXTENDS_token.getText());
@@ -54,6 +62,7 @@ public class Compiler implements Constants {
 		for (AST iface : getAstChildren(token_IMPLEMENTS)) {
 			classfile.addFlag(iface.getText());
 		}
+		
 		objectBlock(token_IMPLEMENTS.getNextSibling());
 	}
 
@@ -64,10 +73,30 @@ public class Compiler implements Constants {
 			if ("METHOD_DEF".equals(token.getText())) {
 				functionHeader(token);
 			} else if ("VARIABLE_DEF".equals(token.getText())) {
-				// TODO
+				classField(token);
 			}
 			token = token.getNextSibling();
 		}
+	}
+
+	private void classField(AST node) {
+		List<AST> tokens = getAstChildren(node);
+		AST token_MODIFIERS = tokens.get(0);
+		AST token_TYPE = tokens.get(1);
+		AST token_name = tokens.get(2);
+		if (token_name.getNextSibling() != null) {
+			// assign
+			AST token_EXPR = tokens.get(3).getFirstChild();
+			// TODO zpracovat slozitejsi vyrazy
+			String value = token_EXPR.getFirstChild().getText();
+			// TODO something with value
+		}
+		FieldInfo field = new FieldInfo(token_name.getText(), token_TYPE.
+				getFirstChild().getText());
+		for (AST flag : getAstChildren(token_MODIFIERS)) {
+			field.flags.add(flag.getText());
+		}
+		classfile.addField(field);
 	}
 
 	// expects METHOD_DEF token
@@ -251,8 +280,8 @@ public class Compiler implements Constants {
 	}
 
 	private void assignment_expression(AST node, ByteCode bytecode) {
-		if (node.getFirstChild().getText().equals(LEFT_SQ_BR)) { // array
-																	// assign
+		if (node.getFirstChild().getText().equals(LEFT_SQ_BR)) { 
+			// TODO array assign
 			AST node_token_VARIABLE = node.getFirstChild().getFirstChild();
 			AST node_token_INDEX = node_token_VARIABLE.getNextSibling()
 					.getFirstChild();

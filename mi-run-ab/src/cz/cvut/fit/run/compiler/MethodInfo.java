@@ -1,9 +1,7 @@
-package cz.cvut.fit.run.vm;
+package cz.cvut.fit.run.compiler;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cz.cvut.fit.run.compiler.ByteCode;
 
 public class MethodInfo {
 

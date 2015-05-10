@@ -11,12 +11,12 @@ import antlr.CommonAST;
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
 import antlr.collections.AST;
+import cz.cvut.fit.run.compiler.ClassFile;
 import cz.cvut.fit.run.compiler.Compiler;
+import cz.cvut.fit.run.compiler.MethodInfo;
 import cz.cvut.fit.run.parser.JavaLexer;
 import cz.cvut.fit.run.parser.JavaRecognizer;
-import cz.cvut.fit.run.vm.ClassFile;
 import cz.cvut.fit.run.vm.Interpreter;
-import cz.cvut.fit.run.vm.MethodInfo;
 
 public class Main {
 	
@@ -45,18 +45,15 @@ public class Main {
 
 			// generate bytecode, true = print nodes
 			Compiler compiler = new Compiler();
-			ClassFile cf = compiler.compile(myTree);
+			List<ClassFile> classfiles = compiler.compile(myTree);
 
-			// print bytecode of all methods
-			for (MethodInfo method : cf.getMethods()) {
-				System.out.println(method.toString());
+			// print bytecode of all classes
+			for (ClassFile cf : classfiles) {
+				System.out.println(cf);
 			}
 			
-			// interpret bytecode somehow
-			List<ClassFile> cfList = new ArrayList<ClassFile>(1);
-			cfList.add(cf);
-			
-			Interpreter interpreter = new Interpreter(cfList);
+			// interpret bytecode
+			Interpreter interpreter = new Interpreter(classfiles);
 			interpreter.execute();
 
 		} catch (FileNotFoundException | RecognitionException

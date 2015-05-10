@@ -1,9 +1,7 @@
-package cz.cvut.fit.run.vm;
+package cz.cvut.fit.run.compiler;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class ClassFile {
@@ -13,28 +11,27 @@ public class ClassFile {
 	private String thisClass;
 	private String superClass;
 	private List<String> interfaces;
-	// fields
-	private List<MethodInfo> methods = null;
-	// attributes
-	private Map<Integer, Object> attributes = null;
+	private List<MethodInfo> methods;
+	private List<FieldInfo> fields;
 	
-	public ClassFile() {
-		this.methods = new ArrayList<MethodInfo>();
-		this.attributes = new HashMap<Integer, Object>();
+	public ClassFile(String name) {
+		this.thisClass = name;
 		this.flags = new ArrayList<String>();
 		this.interfaces = new ArrayList<String>();
+		this.fields = new ArrayList<FieldInfo>();
+		this.methods = new ArrayList<MethodInfo>();
 	}
 	
-	public Object addAttribute(Integer index, Object attribute){
-		return this.attributes.put(index, attribute);
+	public Object addField(FieldInfo field){
+		return this.fields.add(field);
 	}
 
 	public boolean addMethod(MethodInfo m) {
 		return this.methods.add(m);
 	}
 
-	public Map<Integer, Object> getAttributes() {
-		return attributes;
+	public List<FieldInfo> getFields() {
+		return fields;
 	}
 
 	public List<String> getFlags() {
@@ -82,26 +79,33 @@ public class ClassFile {
 		this.superClass = superClass;
 	}
 
-	public void setThis(String thisClass) {
-		this.thisClass = thisClass;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ClassFile [flags=");
-		builder.append(flags);
-		builder.append(", thisClass=");
+		for (String flag : flags) {
+			builder.append(flag).append(" ");
+		}
+		builder.append("classFile ");
 		builder.append(thisClass);
-		builder.append(", superClass=");
-		builder.append(superClass);
-		builder.append(", interfaces=");
-		builder.append(interfaces);
-		builder.append(", methods=");
-		builder.append(methods);
-		builder.append(", attributes=");
-		builder.append(attributes);
-		builder.append("]");
+		if (superClass != null) {
+			builder.append(", super=");
+			builder.append(superClass);
+		}
+		if (!interfaces.isEmpty()) {
+			builder.append(", interfaces=");
+			builder.append(interfaces);
+		}
+		builder.append("\n");
+		for (FieldInfo field : fields) {
+			builder.append(field);
+		}
+		for (MethodInfo m : methods) {
+			builder.append("\n");
+			builder.append(m);
+		}
+		builder.append("---end class ");
+		builder.append(thisClass);
+		builder.append(" ---");
 		return builder.toString();
 	}
 }
