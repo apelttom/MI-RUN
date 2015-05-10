@@ -15,6 +15,8 @@ public class Interpreter {
 
 	private static final String MAIN = "main";
 	private static final String MAIN_CLASS = "ABCode";
+	private static final int CONSTRUCTOR_INDEX = 0;
+
 	private List<ABObject> heap = null; // stores dynamic objects
 	private List<ClassFile> classFiles = null;
 	private FrameFactory frameFactory = null;
@@ -40,7 +42,7 @@ public class Interpreter {
 			throws Exception {
 		for (int PC = 0; PC <= bytecode.size() - 1; PC++) {
 			try {
-//				 System.out.println(bytecode.get(PC));
+				System.out.println(bytecode.get(PC));
 
 				handleInstruction(bytecode.get(PC), frame);
 			} catch (GotoException e) {
@@ -143,13 +145,14 @@ public class Interpreter {
 		// invoking method on a dynamic object
 		else if (instr.equals(InsSet.invoke)) {
 			// TODO implement invoke on dynamic object
-			
+
 		} else {
 			throw new UnsupportedOperationException(instr.name());
 		}
 	}
 
-	private ABObject createObject(Frame frame, String classFileName) {
+	private ABObject createObject(Frame frame, String classFileName)
+			throws Exception {
 		ClassFile result = null;
 		// here I find ClassFile of class I am creating
 		ClassFile[] classFilesArray = classFiles
@@ -162,14 +165,20 @@ public class Interpreter {
 		// dynamic creation of object
 		ABObject dynamicObj = new ABObject(result,
 				createGlobalVariables(result));
+		// start constructor for newly created dynamic object
+		runConstructor(dynamicObj, result);
+		// add object to the heap
 		heap.add(dynamicObj);
 		frame.pushToStack(dynamicObj);
 		return dynamicObj;
 	}
 
-	private ABObject createObject(ClassFile classFile) {
+	private ABObject createObject(ClassFile classFile) throws Exception {
 		ABObject object = new ABObject(classFile,
 				createGlobalVariables(classFile));
+		// start constructor for new object
+		runConstructor(object, classFile);
+		// add object to the heap
 		heap.add(object);
 		return object;
 	}
@@ -192,6 +201,15 @@ public class Interpreter {
 			globals.add(globalVar);
 		}
 		return globals;
+	}
+
+	private void runConstructor(ABObject object, ClassFile classFile)
+			throws Exception {
+		Frame constructorFrame = this.frameFactory.makeFrame(null, object);
+		ByteCode constructorBC = classFile.getMethod(CONSTRUCTOR_INDEX)
+				.getBytecode();
+		// we have frame and bytecode prepared -> run the constructor
+		executeInternal(constructorBC, constructorFrame);
 	}
 
 	private static boolean isLogicalCondition(InsSet instr) {
