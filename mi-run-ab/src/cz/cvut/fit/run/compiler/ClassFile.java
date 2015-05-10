@@ -46,7 +46,7 @@ public class ClassFile {
 		return this.methods.get(index);
 	}
 
-	public MethodInfo getMethod(String name) throws Exception {
+	public MethodInfo getMethod(String name) throws NoSuchElementException {
 		for (MethodInfo m : methods) {
 			if (m.getName().equals(name)) {
 				return m;
@@ -103,9 +103,9 @@ public class ClassFile {
 			builder.append("\n");
 			builder.append(m);
 		}
-		builder.append("---end class ");
+		builder.append("--- end class ");
 		builder.append(thisClass);
-		builder.append(" ---");
+		builder.append(" ---\n");
 		return builder.toString();
 	}
 }
