@@ -122,10 +122,7 @@ public class Interpreter {
 			ABObject wrappingObj = frame.getThis();
 			Frame newFrame = frameFactory.makeFrame(frame, wrappingObj);
 			MethodInfo method = frame.getThis().getClassfile().getMethod(op1);
-			for (int i = 0; i < method.getArgTypes().size(); i++) {
-				newFrame.storeArgument(frame.popFromStack());
-				// inverse declaration?
-			}
+			addArgumentsToMethod(newFrame, method);
 			executeInternal(method.getBytecode(), newFrame);
 		} else {
 			throw new UnsupportedOperationException(instr.name());
@@ -141,13 +138,25 @@ public class Interpreter {
 			// Create dynamically new object on Heap. It will be generic object
 			// ABObject
 			createObject(frame, op1);
-		}
-		// invoking method on a dynamic object
-		else if (instr.equals(InsSet.invoke)) {
-			// TODO implement invoke on dynamic object
-
+		} else if (instr.equals(InsSet.invoke)) {
+			// invoking method on a dynamic object
+			int index = Integer.parseInt(op2);
+			ABObject variable = (ABObject) frame.loadVar(index);
+			ClassFile classfile = variable.getClassfile();
+			Frame newFrame = frameFactory.makeFrame(frame, variable);
+			MethodInfo method = classfile.getMethod(op1);
+			addArgumentsToMethod(newFrame, method);
+			ByteCode bytecode = method.getBytecode();
+			executeInternal(bytecode, newFrame);
 		} else {
 			throw new UnsupportedOperationException(instr.name());
+		}
+	}
+
+	private void addArgumentsToMethod(Frame frame, MethodInfo method) {
+		Frame parent = frame.getParent();
+		for (int i = 0; i < method.getArgTypes().size(); i++) {
+			frame.storeArgument(parent.popFromStack());
 		}
 	}
 

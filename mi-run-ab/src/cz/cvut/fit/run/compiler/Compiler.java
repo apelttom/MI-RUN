@@ -172,11 +172,7 @@ public class Compiler implements Constants {
 
 	// expects PARAMETERS token
 	private void functionParams(MethodInfo method, AST node) {
-		/*
-		 * TODO: Based on the parameters there is need to distinc between
-		 * invokestatic and invokevirtual. Now this method do practically
-		 * nothing
-		 */
+		BC_VariableCount = classfile.getFields().size();
 		List<AST> tokens_PARAMETER_DEF = getAstChildren(node);
 
 		if (tokens_PARAMETER_DEF.isEmpty()) {
@@ -184,7 +180,7 @@ public class Compiler implements Constants {
 			return;
 		}
 
-		int i = 0;
+		int i = 0; // TODO why i?
 
 		do {
 			List<AST> tokens_SINGLE_PARAM = getAstChildren(tokens_PARAMETER_DEF.get(i));
