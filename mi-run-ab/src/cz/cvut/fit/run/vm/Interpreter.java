@@ -16,6 +16,7 @@ public class Interpreter {
 
 	private static final String MAIN = "main";
 	private static final String MAIN_CLASS = "ABCode";
+	private static final int MAIN_CLASS_INDEX = 0;
 	private static final int CONSTRUCTOR_INDEX = 0;
 
 	private List<ABObject> heap = null; // stores dynamic objects
@@ -31,7 +32,8 @@ public class Interpreter {
 	}
 
 	public void execute() throws Exception {
-		ClassFile mainCF = findClassFile(MAIN_CLASS);
+//		ClassFile mainCF = findClassFile(MAIN_CLASS);
+		ClassFile mainCF = classFiles.get(MAIN_CLASS_INDEX);
 		ABObject mainObject = createObject(mainCF);
 		ByteCode main = mainCF.getMethod(MAIN).getBytecode();
 		Frame mainFrame = frameFactory.makeFrame(null, mainObject);
@@ -104,7 +106,11 @@ public class Interpreter {
 		// for cycle
 		// else if (isForCycle) {}
 		else if (instr.equals(InsSet.bipush)) {
-			frame.pushToStack(Integer.parseInt(op1));
+			if(op1.equals("null")){
+				frame.pushToStack(null);
+			} else{
+				frame.pushToStack(Integer.parseInt(op1));
+			}
 		} else if (instr.equals(InsSet.istore)) {
 			FrameOperations.istoreVar(frame, Integer.parseInt(op1));
 		} else if (instr.equals(InsSet.astore)) {
