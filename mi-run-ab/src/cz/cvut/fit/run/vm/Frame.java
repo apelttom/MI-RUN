@@ -73,6 +73,10 @@ public class Frame {
 		locals.add(a);
 	}
 
+	// FIXME tady to delame blbe, ze kopirujeme instancni promenny (fields) na zacatek lokalnich. Je
+	// to neefektivni, kdyby mela trida milion promennych, kpirovali bychom jich milion do kazdy
+	// metody - blbost. Frame vubec instancni promenny nezna. Resi se to tak, ze se udela nova
+	// instrukce "putfield #4" misto loadu a "getfield #4" viz google
 	private void loadGlobalVariables(ABObject wrappingObj) {
 		for (ABClassVar global : wrappingObj.getGlobals()) {
 			locals.add(global.getVariableValue());

@@ -13,7 +13,12 @@ import cz.cvut.fit.run.parser.JavaRecognizer;
 import cz.cvut.fit.run.vm.Interpreter;
 
 public class Main {
-
+	// FIXME chybi tu
+	// - prace s poly (na arrays je to ale v compileru dobre pripraveny, jen to chce revizi)
+	// - vice datovych typu, retezce (String)
+	// - exception handling, exception table
+	// - dedicnost, interfaces (v bytecodu je to ale pripraveny a funguje to)
+	// - dalsi vychytavky jako garbage collector
 	public static void main(String[] args) throws Exception {
 		// "src/cz/cvut/fit/run/ABCode.java"
 		if (args != null && args.length == 1) {
