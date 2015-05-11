@@ -46,7 +46,7 @@ public class Interpreter {
 	private void executeInternal(ByteCode bytecode, Frame frame) throws Exception {
 		for (int PC = 0; PC <= bytecode.size() - 1; PC++) {
 			try {
-//				System.out.println(bytecode.get(PC));
+				// System.out.println(bytecode.get(PC));
 				handleInstruction(bytecode.get(PC), frame);
 			} catch (GotoException e) {
 				// System.out.println(e.toString());
@@ -123,6 +123,14 @@ public class Interpreter {
 			throw new GotoException(Integer.parseInt(op1));
 		} else if (instr.equals(InsSet.invoke)) {
 			if (natives.contains(op1)) {
+				// FIXME toto resime spatne, tady by neslo nativni metody pretezovat, tedy by se
+				// nikde v kodu nemohla objevit nase metoda fileWrite, zde by to stejne vzdycky
+				// skocilo na nativni implementaci. Jednodussi reseni je hledat v nativkach az
+				// tehdy, kdyz jsme ji nenasli v seznamu instancnich metod. Pak je ale stejne
+				// problem v dedeni, ta metoda muze byt v predcich. Resi se to tak, ze se vsechny
+				// nativni metody pridaji do dane instance a az kdyz je zavolana, rozlisuje se
+				// jestli je to nativka (a volame kod mimo VM) nebo nase vlastni, tedy i pretizena,
+				// metoda, a volame Frame a bytecode.
 				nativeMethodInvoke(frame, op1);
 				return;
 			}
